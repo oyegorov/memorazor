@@ -12,9 +12,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".WordGroupsActivity"
+                  android:label="@string/wordGroups_wordGroups"
+                  android:parentActivityName="com.ell.MemoRazor.MainActivity">
+        </activity>
         <activity android:name=".WordListActivity"
                   android:label="@string/words_list"
-                  android:parentActivityName="MainActivity">
+                  android:parentActivityName="com.ell.MemoRazor.WordGroupsActivity">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

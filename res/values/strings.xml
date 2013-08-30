@@ -6,15 +6,15 @@
     <string name="common_cancel">Отмена</string>
     <string name="app_name">MemoRazor</string>
     <string name="words_list">Слова</string>
-    <string name="main_open">Открыть</string>
-    <string name="main_rename">Переименовать</string>
-    <string name="main_delete">Удалить</string>
-    <string name="main_performAction">Выберите действие:</string>
-    <string name="main_addWordGroup">Добавление группы</string>
-    <string name="main_addWordGroupInputName">Имя:</string>
-    <string name="main_confirmDelete">Удалить группу %s со всеми словами?</string>
-    <string name="main_newName">Новое имя:</string>
-    <string name="main_wordGroups">Группы слов</string>
+    <string name="wordGroups_open">Открыть</string>
+    <string name="wordGroups_rename">Переименовать</string>
+    <string name="wordGroups_delete">Удалить</string>
+    <string name="wordGroups_performAction">Выберите действие:</string>
+    <string name="wordGroups_addWordGroup">Добавление группы</string>
+    <string name="wordGroups_addWordGroupInputName">Имя:</string>
+    <string name="wordGroups_confirmDelete">Удалить группу %s со всеми словами?</string>
+    <string name="wordGroups_newName">Новое имя:</string>
+    <string name="wordGroups_wordGroups">Группы слов</string>
     <string name="words_performAction">Выберите действие:</string>
     <string name="words_translate">Перевести</string>
     <string name="words_delete">Удалить</string>
@@ -27,4 +27,8 @@
     <string name="words_openDictionary">Смотреть в Dict.Reference</string>
     <string name="words_noTranslation">(перевод отсутствует)</string>
     <string name="words_editTranslation">Редактировать перевод</string>
+    <string name="main_actionWords">Слова и группы</string>
+    <string name="main_actionQuiz">Викторина</string>
+    <string name="main_actionStatistics">Статистика</string>
+    <string name="main_actionAbout">О программе</string>
 </resources>

@@ -35,7 +35,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.words);
 
-        int selectedGroupId = getIntent().getIntExtra(MainActivity.EXTRA_GROUP_ID, 0);
+        int selectedGroupId = getIntent().getIntExtra(WordGroupsActivity.EXTRA_GROUP_ID, 0);
         wordsListView = (ListView) findViewById(R.id.words_list);
 
         try {
