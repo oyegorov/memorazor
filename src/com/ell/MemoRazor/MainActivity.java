@@ -26,8 +26,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         actions = new ArrayList<String>();
         actions.add(getResources().getString(R.string.main_actionWords));
-        actions.add(getResources().getString(R.string.main_actionStatistics));
         actions.add(getResources().getString(R.string.main_actionQuiz));
+        actions.add(getResources().getString(R.string.main_actionExportImport));
         actions.add(getResources().getString(R.string.main_actionAbout));
 
         actionsListView = (ListView) findViewById(R.id.main_actions_list);
@@ -38,9 +38,14 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         actionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent;
                 switch (i) {
                     case 0:
-                        Intent intent = new Intent(context, WordGroupsActivity.class);
+                        intent = new Intent(context, WordGroupsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(context, WordGroupsSelectionActivity.class);
                         startActivity(intent);
                         break;
                 }

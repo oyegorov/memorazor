@@ -15,6 +15,7 @@
     <string name="wordGroups_confirmDelete">Удалить группу %s со всеми словами?</string>
     <string name="wordGroups_newName">Новое имя:</string>
     <string name="wordGroups_wordGroups">Группы слов</string>
+    <string name="wordGroups_selectWordGroups">Выберите группы</string>
     <string name="words_performAction">Выберите действие:</string>
     <string name="words_translate">Перевести</string>
     <string name="words_delete">Удалить</string>
@@ -31,4 +32,5 @@
     <string name="main_actionQuiz">Викторина</string>
     <string name="main_actionStatistics">Статистика</string>
     <string name="main_actionAbout">О программе</string>
+    <string name="main_actionExportImport">Экспорт / импорт слов</string>
 </resources>
