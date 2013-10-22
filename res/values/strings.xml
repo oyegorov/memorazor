@@ -33,4 +33,8 @@
     <string name="main_actionStatistics">Статистика</string>
     <string name="main_actionAbout">О программе</string>
     <string name="main_actionExportImport">Экспорт / импорт слов</string>
+    <string name="quiz_header">Викторина</string>
+    <string name="quiz_skip">Пропустить</string>
+    <string name="quiz_next">Далее</string>
+    <string name="quiz_word_number" formatted="false">Слово %s из %s</string>
 </resources>

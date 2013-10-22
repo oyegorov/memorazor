@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_word_number"
+            android:id="@+id/quizWordNumber" android:layout_gravity="center|right" android:textColor="#777777"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Значение раз; значение два; значение три"
+            android:id="@+id/quizTranslation" android:layout_gravity="center" android:textIsSelectable="false"
+            android:textSize="20sp"
+            android:background="#141414" android:singleLine="false" android:minHeight="100dp"
+            android:textAlignment="center" android:gravity="center_vertical|center_horizontal"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/quizAnswer" android:layout_gravity="center"
+            android:layout_marginTop="20dp" android:focusable="true"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quiz_next"
+                android:id="@+id/quizNext" android:minWidth="110dp" android:enabled="false"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quiz_skip"
+                android:id="@+id/quizSkip" android:minWidth="110dp"/>
+    </LinearLayout>
+</LinearLayout>

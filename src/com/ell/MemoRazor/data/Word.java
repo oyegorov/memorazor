@@ -4,8 +4,10 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 @DatabaseTable(tableName = "Words")
-public class Word extends HistoryObject {
+public class Word extends HistoryObject implements Serializable{
     public static final String WORDGROUP_ID_FIELD_NAME = "WordGroupId";
 
     public Word() {

@@ -58,7 +58,9 @@ public final class YandexOpenJSONTranslator implements Translator {
                 JSONObject translationJson = translationsJson.getJSONObject(i);
 
                 translation.append(translationJson.get("text"));
-                translation.append("; ");
+
+                if (i != translationsJson.length() - 1)
+                    translation.append("; ");
             }
             word.setMeaning(translation.toString());
         } catch (JSONException e) {

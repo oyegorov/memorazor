@@ -7,6 +7,7 @@ import android.widget.*;
 import com.ell.MemoRazor.adapters.WordGroupAdapter;
 import com.ell.MemoRazor.adapters.WordGroupSelectionAdapter;
 import com.ell.MemoRazor.data.DatabaseHelper;
+import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -14,8 +15,10 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+    public static final String EXTRA_SELECTED_WORDS = "com.ell.SELECTED_WORDS";
     private ArrayList<WordGroup> wordGroups;
     private Dao<WordGroup, Integer> wordGroupsDao;
     private ListView groupsListView;
@@ -54,12 +57,35 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_start:
+                startQuiz();
                 break;
             case R.id.action_back_to_main:
                 finish();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void startQuiz() {
+        ArrayList<WordGroup> selectedWordGroups = wordGroupSelectionAdapter.getSelectedWordGroups();
+        if (selectedWordGroups.size() == 0) {
+            DialogHelper.MessageBox(this, "Выберите хотя бы одну группу");
+        } else {
+            ArrayList<Word> allWords = new ArrayList<Word>();
+            for (WordGroup wg : selectedWordGroups) {
+                for (Word w : wg.getWords()) {
+                   allWords.add(w);
+                }
+            }
+            if (allWords.size() == 0) {
+                DialogHelper.MessageBox(this, "В выбранных группах нет слов");
+            } else {
+                Intent quizIntent = new Intent(this, QuizActivity.class);
+                quizIntent.putExtra(EXTRA_SELECTED_WORDS, allWords);
+                startActivity(quizIntent);
+            }
+        }
     }
 }

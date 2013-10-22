@@ -133,11 +133,12 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         switch (item.getItemId()) {
             case R.id.action_add:
                 addWordGroup();
+                break;
             case R.id.action_back_to_main:
                 finish();
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void addWordGroup() {

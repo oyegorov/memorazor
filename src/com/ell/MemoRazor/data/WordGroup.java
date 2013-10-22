@@ -5,8 +5,10 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 @DatabaseTable(tableName = "WordGroups")
-public class WordGroup extends HistoryObject {
+public class WordGroup extends HistoryObject implements Serializable {
     public WordGroup(String name) {
         this.name = name;
     }
