@@ -87,7 +87,9 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
             ArrayList<Word> allWords = new ArrayList<Word>();
             for (WordGroup wg : selectedWordGroups) {
                 for (Word w : wg.getWords()) {
-                    if (!(w.getMeaning() == null || w.getMeaning().isEmpty() || w.getMeaning().equals(YandexOpenJSONTranslator.YANDEX_TRANSLATION_NOT_AVAILABLE))) {
+                    if (!(w.getMeaning() == null || w.getMeaning().isEmpty() ||
+                            w.getMeaning().equals(YandexOpenJSONTranslator.YANDEX_TRANSLATION_NOT_AVAILABLE) ||
+                            w.getMeaning().equals(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS))) {
                         allWords.add(w);
                     }
                 }

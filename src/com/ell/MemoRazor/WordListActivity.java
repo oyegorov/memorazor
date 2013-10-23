@@ -199,6 +199,8 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         new AsyncTask<Word, Void, Word>() {
             @Override
             protected Word doInBackground(Word... words) {
+                words[0].setMeaning(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS);
+                wordsAdapter.notifyDataSetChanged();
                 YandexOpenJSONTranslator translator = new YandexOpenJSONTranslator();
                 return translator.translateWord(words[0]);
             }
