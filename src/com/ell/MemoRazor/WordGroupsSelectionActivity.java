@@ -43,6 +43,13 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
         groupsListView = (ListView) findViewById(R.id.groups_selection);
         wordGroupSelectionAdapter = new WordGroupSelectionAdapter(this, R.layout.word_group_selection_layout, wordGroups);
         groupsListView.setAdapter(wordGroupSelectionAdapter);
+        groupsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CheckBox checkBox = (CheckBox)view.findViewById(R.id.selection_group_name_text);
+                checkBox.setChecked(!checkBox.isChecked());
+            }
+        });
     }
 
     @Override

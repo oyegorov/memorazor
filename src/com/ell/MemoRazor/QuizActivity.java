@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.ell.MemoRazor.data.DatabaseHelper;
 
+import com.ell.MemoRazor.data.QuizAnswer;
 import com.ell.MemoRazor.data.Word;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -25,7 +26,10 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private int currentStep = 1;
     private int totalSteps;
 
+    private long currentQuestionStartTime;
+
     private Word currentWord;
+    private ArrayList<QuizAnswer> answers;
     private ArrayList<Integer> availableIndices;
     private ArrayList<Word> allWords;
     private TextView quizWordNumber;
@@ -46,6 +50,7 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         quizNext = (Button)findViewById(R.id.quizNext);
         quizSkip = (Button)findViewById(R.id.quizSkip);
 
+        answers = new ArrayList<QuizAnswer>();
         allWords = (ArrayList<Word>)getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
         availableIndices = new ArrayList<Integer>();
         for (int i=0; i < allWords.size(); i++) {
@@ -58,6 +63,8 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         addQuizNextHandler();
         addQuizSkipHandler();
         addQuizAnswerChanged();
+
+        currentQuestionStartTime = System.currentTimeMillis();
     }
 
     private void addQuizAnswerChanged() {
@@ -81,7 +88,7 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_NULL
                         && keyEvent.getAction() == KeyEvent.ACTION_DOWN && quizAnswer.getText().length() > 0) {
-                    Next();
+                    NextWord(false);
                 }
                 return true;
             }
@@ -92,38 +99,44 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         quizSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Skip();
+                NextWord(true);
             }
         });
-    }
-
-    private void Skip() {
-        if (currentStep >= totalSteps) {
-
-        } else {
-            PickNewWord();
-            RefreshSteps();
-        }
     }
 
     private void addQuizNextHandler() {
         quizNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Next();
+                NextWord(false);
             }
         });
     }
 
-    private void Next() {
+    private void NextWord(Boolean skip) {
         if (currentStep >= totalSteps) {
 
         } else {
+            QuizAnswer answer = new QuizAnswer();
+            answer.setElapsedMilliseconds(System.currentTimeMillis() - currentQuestionStartTime);
+            answer.setWord(currentWord);
+            answer.setQuestionNumber(currentStep);
+            if (skip) {
+                answer.setCorrect(false);
+                answer.setSkipped(true);
+            } else {
+                answer.setSkipped(false);
+                answer.setProposedAnswer(quizAnswer.getText().toString().trim());
+                answer.setCorrect(answer.getProposedAnswer().equalsIgnoreCase(currentWord.getName()));
+            }
+            answers.add(answer);
+
             currentStep++;
             PickNewWord();
             RefreshSteps();
 
             quizAnswer.setText("");
+            currentQuestionStartTime = System.currentTimeMillis();
         }
     }
 
