@@ -1,5 +1,6 @@
 package com.ell.MemoRazor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,8 @@ import java.util.Date;
 import java.util.Random;
 
 public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+    public static final String EXTRA_QUIZ_ANSWERS = "com.ell.QUIZ_ANSWERS";
+
     private Random random = new Random(System.currentTimeMillis());
     private int currentStep = 1;
     private int totalSteps;
@@ -44,16 +47,16 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         setContentView(R.layout.quiz);
         //getActionBar().setIcon(R.drawable.group);
         //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
-        quizWordNumber = (TextView)findViewById(R.id.quizWordNumber);
-        quizTranslation = (TextView)findViewById(R.id.quizTranslation);
-        quizAnswer = (EditText)findViewById(R.id.quizAnswer);
-        quizNext = (Button)findViewById(R.id.quizNext);
-        quizSkip = (Button)findViewById(R.id.quizSkip);
+        quizWordNumber = (TextView) findViewById(R.id.quizWordNumber);
+        quizTranslation = (TextView) findViewById(R.id.quizTranslation);
+        quizAnswer = (EditText) findViewById(R.id.quizAnswer);
+        quizNext = (Button) findViewById(R.id.quizNext);
+        quizSkip = (Button) findViewById(R.id.quizSkip);
 
         answers = new ArrayList<QuizAnswer>();
-        allWords = (ArrayList<Word>)getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
+        allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
         availableIndices = new ArrayList<Integer>();
-        for (int i=0; i < allWords.size(); i++) {
+        for (int i = 0; i < allWords.size(); i++) {
             availableIndices.add(i);
         }
 
@@ -114,9 +117,7 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     }
 
     private void NextWord(Boolean skip) {
-        if (currentStep >= totalSteps) {
-
-        } else {
+        if (currentStep <= totalSteps) {
             QuizAnswer answer = new QuizAnswer();
             answer.setElapsedMilliseconds(System.currentTimeMillis() - currentQuestionStartTime);
             answer.setWord(currentWord);
@@ -131,12 +132,18 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             }
             answers.add(answer);
 
-            currentStep++;
-            PickNewWord();
-            RefreshSteps();
+            if (currentStep == totalSteps) {
+                Intent quizResultsIntent = new Intent(this, QuizResultsActivity.class);
+                quizResultsIntent.putExtra(EXTRA_QUIZ_ANSWERS, answers);
+                startActivity(quizResultsIntent);
+            } else {
+                currentStep++;
+                PickNewWord();
+                RefreshSteps();
 
-            quizAnswer.setText("");
-            currentQuestionStartTime = System.currentTimeMillis();
+                quizAnswer.setText("");
+                currentQuestionStartTime = System.currentTimeMillis();
+            }
         }
     }
 

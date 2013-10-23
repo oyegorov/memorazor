@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_result_yourresult_text"
+            android:id="@+id/quiz_result_yourresult" android:gravity="center_horizontal" android:textSize="20sp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_result_score_text"
+            android:id="@+id/quiz_result_score" android:layout_gravity="center" android:textSize="45sp"
+            android:layout_marginBottom="10dp"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_result_skipped_text"
+            android:id="@+id/quiz_result_skipped" android:textSize="20sp" android:gravity="center"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_result_elapsed_text"
+            android:id="@+id/quiz_result_elapsed" android:textSize="20sp" android:gravity="center"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_results_finish_text"
+            android:id="@+id/quiz_results_finish" android:layout_marginTop="10dp" android:layout_gravity="center_horizontal"
+            android:minWidth="160dp"/>
+</LinearLayout>

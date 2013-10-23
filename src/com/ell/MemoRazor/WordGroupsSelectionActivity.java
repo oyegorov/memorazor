@@ -90,6 +90,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
                 DialogHelper.MessageBox(this, "В выбранных группах нет слов");
             } else {
                 Intent quizIntent = new Intent(this, QuizActivity.class);
+                quizIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 quizIntent.putExtra(EXTRA_SELECTED_WORDS, allWords);
                 startActivity(quizIntent);
             }
