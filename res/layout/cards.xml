@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="10dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cards_cardNumber"
+            android:id="@+id/cards_cardnumber" android:layout_gravity="center" android:textColor="#777777"
+            android:textSize="20sp"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Значение раз; значение два; значение три"
+            android:id="@+id/cards_card" android:layout_gravity="center" android:textIsSelectable="false"
+            android:textSize="20sp"
+            android:background="#141414" android:singleLine="false" android:minHeight="100dp"
+            android:textAlignment="center" android:gravity="center_vertical|center_horizontal"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cards_hint_text"
+            android:id="@+id/cards_hint"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cards_prev_text"
+                android:id="@+id/cards_prev" android:minWidth="110dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cards_next_text"
+                android:id="@+id/cards_next" android:minWidth="110dp"/>
+    </LinearLayout>
+</LinearLayout>

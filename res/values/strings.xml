@@ -42,4 +42,11 @@
     <string name="quiz_result_skipped_text" formatted="false">Пропущено: %s</string>
     <string name="quiz_result_elapsed_text" formatted="false">Потрачено: %.2f сек.</string>
     <string name="quiz_results_finish_text">Завершить</string>
+    <string name="cards_hint_text">* щелкните по карточке, чтобы посмотреть перевод</string>
+    <string name="cards_prev_text">Предыдущая</string>
+    <string name="cards_next_text">Следующая</string>
+    <string name="cards_cardNumber" formatted="false">%s из %s</string>
+    <string name="cards_header">Карточки</string>
+    <string name="main_actionCards">Карточки</string>
+    <string name="quiz_hint">* введите слово на языке оригинала</string>
 </resources>

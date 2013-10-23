@@ -23,6 +23,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     private Dao<WordGroup, Integer> wordGroupsDao;
     private ListView groupsListView;
     private WordGroupSelectionAdapter wordGroupSelectionAdapter;
+    private String action;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
                 checkBox.setChecked(!checkBox.isChecked());
             }
         });
+
+        action = getIntent().getStringExtra(MainActivity.EXTRA_SELECTEDWORDS_ACTION);
     }
 
     @Override
@@ -89,7 +92,15 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
             if (allWords.size() == 0) {
                 DialogHelper.MessageBox(this, "В выбранных группах нет слов");
             } else {
-                Intent quizIntent = new Intent(this, QuizActivity.class);
+                Intent quizIntent;
+                if (action.equals("quiz")) {
+                    quizIntent = new Intent(this, QuizActivity.class);
+                } else if (action.equals("cards")) {
+                    quizIntent = new Intent(this, CardsActivity.class);
+                } else {
+                    return;
+                }
+
                 quizIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 quizIntent.putExtra(EXTRA_SELECTED_WORDS, allWords);
                 startActivity(quizIntent);

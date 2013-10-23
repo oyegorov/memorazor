@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+    public static final String EXTRA_SELECTEDWORDS_ACTION = "com.ell.EXTRA_SELECTEDWORDS_ACTION";
     private MainActionsAdapter mainActionsAdapter;
     private ListView actionsListView;
     private ArrayList<String> actions;
@@ -27,6 +28,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         actions = new ArrayList<String>();
         actions.add(getResources().getString(R.string.main_actionWords));
         actions.add(getResources().getString(R.string.main_actionQuiz));
+        actions.add(getResources().getString(R.string.main_actionCards));
         actions.add(getResources().getString(R.string.main_actionExportImport));
         actions.add(getResources().getString(R.string.main_actionAbout));
 
@@ -46,6 +48,12 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         break;
                     case 1:
                         intent = new Intent(context, WordGroupsSelectionActivity.class);
+                        intent.putExtra(EXTRA_SELECTEDWORDS_ACTION, "quiz");
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(context, WordGroupsSelectionActivity.class);
+                        intent.putExtra(EXTRA_SELECTEDWORDS_ACTION, "cards");
                         startActivity(intent);
                         break;
                 }
