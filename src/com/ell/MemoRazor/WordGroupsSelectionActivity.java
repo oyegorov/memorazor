@@ -10,6 +10,7 @@ import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
+import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
@@ -86,7 +87,9 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
             ArrayList<Word> allWords = new ArrayList<Word>();
             for (WordGroup wg : selectedWordGroups) {
                 for (Word w : wg.getWords()) {
-                   allWords.add(w);
+                    if (!(w.getMeaning() == null || w.getMeaning().isEmpty() || w.getMeaning().equals(YandexOpenJSONTranslator.YANDEX_TRANSLATION_NOT_AVAILABLE))) {
+                        allWords.add(w);
+                    }
                 }
             }
             if (allWords.size() == 0) {

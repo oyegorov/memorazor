@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public final class YandexOpenJSONTranslator implements Translator {
     private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=en-ru&text=%s&flags=3";
-    private static final String YANDEX_TRANSLATION_NOT_AVAILABLE = "(нет перевода)";
+    public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = "(нет перевода)";
     private static final Pattern pattern = Pattern.compile("[a-zA-Z]+");
 
     public static boolean isTranslatable(Word word, boolean force) {
