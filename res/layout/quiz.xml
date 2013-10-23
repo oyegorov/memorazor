@@ -9,7 +9,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quiz_word_number"
-            android:id="@+id/quizWordNumber" android:layout_gravity="center|right" android:textColor="#777777"/>
+            android:id="@+id/quizWordNumber" android:layout_gravity="center" android:textColor="#777777"
+            android:textSize="20sp"/>
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -23,6 +24,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/quizAnswer" android:layout_gravity="center"
             android:layout_marginTop="20dp" android:focusable="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_hint"
+            android:id="@+id/cards_hint"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
