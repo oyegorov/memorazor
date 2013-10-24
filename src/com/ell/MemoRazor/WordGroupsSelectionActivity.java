@@ -86,7 +86,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     private void startQuiz() {
         ArrayList<WordGroup> selectedWordGroups = wordGroupSelectionAdapter.getSelectedWordGroups();
         if (selectedWordGroups.size() == 0) {
-            DialogHelper.MessageBox(this, "Выберите хотя бы одну группу");
+            DialogHelper.MessageBox(this, getResources().getString(R.string.select_atleast_one_group));
         } else {
             ArrayList<Word> allWords = new ArrayList<Word>();
             for (WordGroup wg : selectedWordGroups) {
@@ -99,7 +99,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
                 }
             }
             if (allWords.size() == 0) {
-                DialogHelper.MessageBox(this, "В выбранных группах нет слов");
+                DialogHelper.MessageBox(this, getResources().getString(R.string.no_words_selected));
             } else {
                 Intent quizIntent;
                 if (action.equals("quiz")) {
