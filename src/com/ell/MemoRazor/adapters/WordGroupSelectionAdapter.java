@@ -1,9 +1,7 @@
 package com.ell.MemoRazor.adapters;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -19,6 +17,7 @@ import java.util.List;
 public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
     private ArrayList<WordGroup> selectedObjects;
     private ArrayList<WordGroup> objects;
+    private MenuItem menuItem;
 
     CompoundButton.OnCheckedChangeListener checkListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
@@ -28,11 +27,19 @@ public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
             } else {
                 selectedObjects.remove(compoundButton.getTag());
             }
+
+            if (menuItem != null) {
+                menuItem.setEnabled(selectedObjects.size() != 0);
+            }
         }
     };
 
     public ArrayList<WordGroup> getSelectedWordGroups() {
         return selectedObjects;
+    }
+
+    public void setMenuItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
     }
 
     public WordGroupSelectionAdapter(Context context, int resource, ArrayList<WordGroup> objects) {
@@ -52,7 +59,7 @@ public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
 
         if (wordGroup != null) {
             CheckBox groupNameCheckbox = (CheckBox)convertView.findViewById(R.id.selection_group_name_text);
-            groupNameCheckbox.setText(wordGroup.getName());
+            groupNameCheckbox.setText(wordGroup.toString());
             groupNameCheckbox.setTag(wordGroup);
             groupNameCheckbox.setOnCheckedChangeListener(checkListener);
         }

@@ -1,5 +1,8 @@
 package com.ell.MemoRazor.translators;
 
+import android.content.res.Resources;
+import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.R;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.helpers.JSONFetcher;
 import org.json.JSONArray;
@@ -10,9 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class YandexOpenJSONTranslator implements Translator {
-    public final static String TRANSLATION_IN_PROGRESS = "(ожидается перевод)";
-    private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=en-ru&text=%s&flags=3";
-    public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = "(нет перевода)";
+    public final static String TRANSLATION_IN_PROGRESS = App.getContext().getResources().getString(R.string.translation_expected);
+    private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=%s-%s&text=%s&flags=3";
+    public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = App.getContext().getResources().getString(R.string.no_translation);
     private static final Pattern pattern = Pattern.compile("[a-zA-Z]+");
 
     public static boolean isTranslatable(Word word, boolean force) {
@@ -29,8 +32,15 @@ public final class YandexOpenJSONTranslator implements Translator {
     }
 
     @Override
-    public Word translateWord(Word word) {
-        String url = String.format(TRANSLATE_URL_TEMPLATE, word.getName());
+    public Word translateWord(Word word, String sourceLang, String targetLang) {
+        if (word == null)
+            throw new IllegalArgumentException("word cannot be null");
+        if (sourceLang == null)
+            throw new IllegalArgumentException("sourceLang cannot be null");
+        if (targetLang == null)
+            throw new IllegalArgumentException("targetLang cannot be null");
+
+        String url = String.format(TRANSLATE_URL_TEMPLATE, sourceLang, targetLang, word.getName());
         JSONObject json = (new JSONFetcher()).getJSONFromUrl(url);
         if (json == null) {
             return word;

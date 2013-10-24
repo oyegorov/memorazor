@@ -1,5 +1,6 @@
 package com.ell.MemoRazor.data;
 
+import com.ell.MemoRazor.App;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -10,10 +11,12 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "WordGroups")
 public class WordGroup extends HistoryObject implements Serializable {
     public WordGroup(String name) {
+        this();
         this.name = name;
     }
 
     public WordGroup() {
+        language = App.getDefaultLanguage();
     }
 
     public String getName() {
@@ -26,7 +29,19 @@ public class WordGroup extends HistoryObject implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        if (getLanguage().equalsIgnoreCase(App.getDefaultLanguage())) {
+            return getName();
+        }  else {
+            return String.format("%s [%s]", getName(), getLanguage());
+        }
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public int getId() {
@@ -50,6 +65,9 @@ public class WordGroup extends HistoryObject implements Serializable {
 
     @DatabaseField
     protected String name;
+
+    @DatabaseField
+    protected String language;
 
     @ForeignCollectionField (eager = false)
     protected ForeignCollection<Word> words;

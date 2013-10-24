@@ -25,6 +25,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     private ListView groupsListView;
     private WordGroupSelectionAdapter wordGroupSelectionAdapter;
     private String action;
+    private MenuItem startItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,9 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.wordgroupselectionmenu, menu);
+        startItem = menu.getItem(1);
+        startItem.setEnabled(false);
+        wordGroupSelectionAdapter.setMenuItem(startItem);
 
         return super.onCreateOptionsMenu(menu);
     }

@@ -1,5 +1,6 @@
 package com.ell.MemoRazor.data;
 
+import com.ell.MemoRazor.App;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -11,6 +12,7 @@ public class Word extends HistoryObject implements Serializable{
     public static final String WORDGROUP_ID_FIELD_NAME = "WordGroupId";
 
     public Word() {
+        language = App.getDefaultLanguage();
     }
 
     public Word(String name) {
@@ -49,6 +51,14 @@ public class Word extends HistoryObject implements Serializable{
         this.id = id;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public String getTranscription() {
         return transcription;
     }
@@ -74,4 +84,7 @@ public class Word extends HistoryObject implements Serializable{
 
     @DatabaseField
     protected String transcription;
+
+    @DatabaseField
+    protected String language;
 }

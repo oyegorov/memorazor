@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import com.ell.MemoRazor.App;
 import com.ell.MemoRazor.R;
 import com.ell.MemoRazor.data.WordGroup;
 
@@ -36,7 +37,7 @@ public class WordGroupAdapter extends ArrayAdapter<WordGroup> {
             //TextView groupAddedTextView = (TextView)convertView.findViewById(R.id.group_added_text);
 
             //DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            groupNameTextView.setText(wordGroup.getName());
+            groupNameTextView.setText(wordGroup.toString());
             //groupAddedTextView.setText(dateFormat.format(wordGroup.getCreatedDate()));
         }
 

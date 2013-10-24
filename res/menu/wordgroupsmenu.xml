@@ -3,4 +3,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_back_to_main" android:showAsAction="always" android:icon="@drawable/up" />
     <item android:id="@+id/action_add" android:showAsAction="always" android:icon="@drawable/add" />
+    <item android:id="@+id/action_add_with_language" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_withlang" android:icon="@drawable/language"  />
 </menu>

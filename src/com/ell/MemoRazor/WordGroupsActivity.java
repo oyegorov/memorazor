@@ -1,5 +1,8 @@
 package com.ell.MemoRazor;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
@@ -8,6 +11,7 @@ import com.ell.MemoRazor.adapters.WordGroupAdapter;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
+import com.ell.MemoRazor.helpers.LanguageHelper;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
@@ -134,6 +138,9 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             case R.id.action_add:
                 addWordGroup();
                 break;
+            case R.id.action_add_with_language:
+                addWordGroupWithLanguage();
+                break;
             case R.id.action_back_to_main:
                 finish();
                 break;
@@ -145,9 +152,8 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         DialogHelper.RequestInput(this, getResources().getString(R.string.wordGroups_addWordGroup),
                 getResources().getString(R.string.wordGroups_addWordGroupInputName), new DialogHelper.OnRequestInputListener() {
             @Override
-            public void onRequestInput(String input) {
+            public void onRequestInput(final String input) {
                 WordGroup wordGroup = new WordGroup(input);
-
                 wordGroupsAdapter.insert(wordGroup, 0);
                 try {
                     if (wordGroupsDao != null) {
@@ -155,6 +161,36 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     }
                 } catch (SQLException e) {
                 }
+            }
+        });
+    }
+
+    private void addWordGroupWithLanguage() {
+        final Context context = this;
+        final String languages[] = LanguageHelper.getAlternativeLanguages();
+
+        DialogHelper.RequestInput(this, getResources().getString(R.string.wordGroups_addWordGroup),
+                getResources().getString(R.string.wordGroups_addWordGroupInputName), new DialogHelper.OnRequestInputListener() {
+            @Override
+            public void onRequestInput(final String input) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.word_group_language);
+                builder.setItems(languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        WordGroup wordGroup = new WordGroup(input);
+                        wordGroup.setLanguage(LanguageHelper.getLanguageCode(languages[which]));
+
+                        wordGroupsAdapter.insert(wordGroup, 0);
+                        try {
+                            if (wordGroupsDao != null) {
+                                wordGroupsDao.create(wordGroup);
+                            }
+                        } catch (SQLException e) {
+                        }
+                    }
+                });
+                builder.show();
             }
         });
     }

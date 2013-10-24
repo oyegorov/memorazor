@@ -179,6 +179,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
                 try {
                     if (wordGroupsDao != null) {
+                        word.setLanguage(selectedGroup.getLanguage());
                         selectedGroup.getWords().add(word);
                         wordGroupsDao.update(selectedGroup);
                     }
@@ -202,7 +203,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 words[0].setMeaning(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS);
                 wordsAdapter.notifyDataSetChanged();
                 YandexOpenJSONTranslator translator = new YandexOpenJSONTranslator();
-                return translator.translateWord(words[0]);
+                return translator.translateWord(words[0], words[0].getLanguage(), "ru");
             }
 
             @Override
