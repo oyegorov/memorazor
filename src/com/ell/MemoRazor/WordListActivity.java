@@ -69,7 +69,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        final String GOOGLE_TRANSLATE_URL_TEMPLATE = "http://translate.google.com/m?hl=ru&sl=auto&tl=ru&ie=UTF-8&prev=_m&q=%s";
+        final String GOOGLE_TRANSLATE_URL_TEMPLATE = "http://translate.google.com/m?hl=en&sl=%s&tl=%s&ie=UTF-8&prev=_m&q=%s";
         final String YANDEX_URL_TEMPLATE = "http://m.slovari.yandex.ru/translate.xml?text=%s&lang=en";
         final String MULTITRAN_URL_TEMPLATE = "http://www.multitran.ru/c/M.exe?CL=1&s=%s&l1=1";
         final String DICTIONARY_COM_URL_TEMPLATE = "http://dictionary.reference.com/browse/%s";
@@ -107,7 +107,10 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 });
                 break;
             case 3:
-                OpenUrl(String.format(GOOGLE_TRANSLATE_URL_TEMPLATE, selectedWord.getName()));
+                OpenUrl(String.format(GOOGLE_TRANSLATE_URL_TEMPLATE,
+                        selectedWord.getLanguage(),
+                        App.getNativeLanguage(),
+                        selectedWord.getName()));
                 break;
             case 4:
                 OpenUrl(String.format(YANDEX_URL_TEMPLATE, selectedWord.getName()));
@@ -149,8 +152,11 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             menu.add(Menu.NONE, 1, 1, getResources().getString(R.string.words_delete));
             menu.add(Menu.NONE, 2, 2, getResources().getString(R.string.words_editTranslation));
             menu.add(Menu.NONE, 3, 3, getResources().getString(R.string.words_openGoogleTranslate));
-            menu.add(Menu.NONE, 4, 4, getResources().getString(R.string.words_openYandex));
-            menu.add(Menu.NONE, 5, 5, getResources().getString(R.string.words_openMultitran));
+
+            if (App.getNativeLanguage() == "ru") {
+                menu.add(Menu.NONE, 4, 4, getResources().getString(R.string.words_openYandex));
+                menu.add(Menu.NONE, 5, 5, getResources().getString(R.string.words_openMultitran));
+            }
             menu.add(Menu.NONE, 6, 6, getResources().getString(R.string.words_openDictionary));
         }
     }
@@ -203,7 +209,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 words[0].setMeaning(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS);
                 wordsAdapter.notifyDataSetChanged();
                 YandexOpenJSONTranslator translator = new YandexOpenJSONTranslator();
-                return translator.translateWord(words[0], words[0].getLanguage(), "ru");
+                return translator.translateWord(words[0], words[0].getLanguage(), App.getNativeLanguage());
             }
 
             @Override
