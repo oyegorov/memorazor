@@ -1,5 +1,6 @@
 package com.ell.MemoRazor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
 import com.ell.MemoRazor.helpers.NetworkHelper;
+import com.ell.MemoRazor.helpers.WordPlaybackManager;
 import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
@@ -33,6 +35,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.words);
 
         int selectedGroupId = getIntent().getIntExtra(WordGroupsActivity.EXTRA_GROUP_ID, 0);
@@ -50,13 +53,24 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     .where()
                     .eq(Word.WORDGROUP_ID_FIELD_NAME, selectedGroupId)
                     .query());
-            wordsAdapter = new WordAdapter(this, R.layout.word_layout, words);
-            wordsListView.setAdapter(wordsAdapter);
         } catch (SQLException e) {
             words = new ArrayList<Word>();
         }
+        wordsAdapter = new WordAdapter(this, R.layout.word_layout, words);
+        wordsListView.setAdapter(wordsAdapter);
 
         registerForContextMenu(wordsListView);
+
+        final Activity activity = this;
+        wordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Word selectedWord = words.get(i);
+
+               WordPlaybackManager playbackManager = new WordPlaybackManager(getHelper(), activity);
+               playbackManager.PlayWord(selectedWord);
+            }
+        });
     }
 
     @Override

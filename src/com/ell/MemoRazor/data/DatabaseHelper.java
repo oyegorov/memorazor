@@ -1,17 +1,20 @@
 package com.ell.MemoRazor.data;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.ell.MemoRazor.data.Word;
-import com.ell.MemoRazor.data.WordGroup;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.DatabaseTableConfig;
 import com.j256.ormlite.table.TableUtils;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -20,6 +23,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private Dao<Word, Integer> wordDao = null;
+    private Dao<WordWithCachedPlayback, Integer> wordWithCachedPlaybackDao = null;
     private RuntimeExceptionDao<Word, Integer> wordRuntimeDao = null;
     private Dao<WordGroup, Integer> wordGroupDao = null;
     private RuntimeExceptionDao<WordGroup, Integer> wordGroupRuntimeDao = null;
@@ -32,7 +36,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             Log.i(DatabaseHelper.class.getName(), "onCreate");
-            TableUtils.createTable(connectionSource, Word.class);
+
+            DatabaseTableConfig<WordWithCachedPlayback> databaseTableConfig = DatabaseTableConfig.fromClass(connectionSource, WordWithCachedPlayback.class);
+            List<String> statements = TableUtils.getCreateTableStatements(connectionSource, databaseTableConfig);
+            
+            TableUtils.createTable(connectionSource, WordWithCachedPlayback.class);
             TableUtils.createTable(connectionSource, WordGroup.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
@@ -53,10 +61,24 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    /**
-     * Returns the Database Access Object (DAO) for our Word class. It will create it or just give the cached
-     * value.
-     */
+    public void cacheWordPlayback (Word word, byte[] playback) throws SQLException {
+        WordWithCachedPlayback wordWithCachedPlayback = getWordWithCachedPlaybackDao().queryForId(word.getId());
+        wordWithCachedPlayback.cachedPlayback = playback;
+        getWordWithCachedPlaybackDao().update(wordWithCachedPlayback);
+    }
+
+    public byte[] getWordPlaybackCache(Word word) throws SQLException {
+        WordWithCachedPlayback wordWithCachedPlayback = getWordWithCachedPlaybackDao().queryForId(word.getId());
+        return wordWithCachedPlayback.getCachedPlayback();
+    }
+
+    private Dao<WordWithCachedPlayback, Integer> getWordWithCachedPlaybackDao() throws SQLException {
+        if (wordWithCachedPlaybackDao == null) {
+            wordWithCachedPlaybackDao = getDao(WordWithCachedPlayback.class);
+        }
+        return wordWithCachedPlaybackDao;
+    }
+
     public Dao<Word, Integer> getWordDao() throws SQLException {
         if (wordDao == null) {
             wordDao = getDao(Word.class);
