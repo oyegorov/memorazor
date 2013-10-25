@@ -32,6 +32,8 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private ListView wordsListView;
     private WordAdapter wordsAdapter;
 
+    WordPlaybackManager playbackManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +63,11 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         registerForContextMenu(wordsListView);
 
-        final Activity activity = this;
+        playbackManager = new WordPlaybackManager(getHelper(), this);
         wordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Word selectedWord = words.get(i);
-
-               WordPlaybackManager playbackManager = new WordPlaybackManager(getHelper(), activity);
+               Word selectedWord = words.get(i);
                playbackManager.PlayWord(selectedWord);
             }
         });

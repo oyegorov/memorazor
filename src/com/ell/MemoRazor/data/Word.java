@@ -15,7 +15,6 @@ public class Word extends HistoryObject implements Serializable{
 
     public Word() {
         language = App.getDefaultLanguage();
-        isPlaying = false;
     }
 
     public Word(String name) {
@@ -54,14 +53,6 @@ public class Word extends HistoryObject implements Serializable{
         this.id = id;
     }
 
-    public Boolean getIsPlaying() {
-        return isPlaying;
-    }
-
-    public void setIsPlaying(Boolean isPlaying) {
-        this.isPlaying = isPlaying;
-    }
-
     public String getLanguage() {
         return language;
     }
@@ -98,8 +89,6 @@ public class Word extends HistoryObject implements Serializable{
 
     @DatabaseField
     protected String language;
-
-    protected Boolean isPlaying;
 }
 
 @DatabaseTable (tableName = "Words")

@@ -19,10 +19,12 @@ public class WordPlaybackManager {
     private final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=en_GB";
     private DatabaseHelper databaseHelper;
     private Activity activity;
+    private Boolean isFetching;
 
     public WordPlaybackManager(DatabaseHelper databaseHelper, Activity activity) {
         this.databaseHelper = databaseHelper;
         this.activity = activity;
+        isFetching = false;
     }
 
     public void PlayWord (Word word) {
@@ -37,11 +39,11 @@ public class WordPlaybackManager {
             return;
         }
 
-        if (word.getIsPlaying()) {
+        if (isFetching)
             return;
-        }
 
-        word.setIsPlaying(true);
+        isFetching = true;
+
         new AsyncTask<Word, Void, byte[]>() {
             @Override
             protected void onPreExecute() {
@@ -60,7 +62,7 @@ public class WordPlaybackManager {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
 
-                selectedWord.setIsPlaying(false);
+                isFetching = false;
                 return mp3data;
             }
 
