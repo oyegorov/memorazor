@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import com.ell.MemoRazor.App;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
-import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +42,6 @@ public class WordPlaybackManager {
             return;
 
         isFetching = true;
-
         new AsyncTask<Word, Void, byte[]>() {
             @Override
             protected void onPreExecute() {
@@ -62,12 +60,13 @@ public class WordPlaybackManager {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
 
-                isFetching = false;
                 return mp3data;
             }
 
             @Override
             protected void onPostExecute(byte[] mp3data) {
+                isFetching = false;
+
                 if (mp3data != null) {
                     playMp3(mp3data);
                }
@@ -76,8 +75,10 @@ public class WordPlaybackManager {
     }
 
     private void playMp3(byte[] mp3SoundByteArray) {
-        if (mp3SoundByteArray == null)
+        if (mp3SoundByteArray == null) {
+            isFetching = false;
             return;
+        }
 
         try {
             Random r = new Random(System.currentTimeMillis());
@@ -98,6 +99,9 @@ public class WordPlaybackManager {
         } catch (IOException ex) {
             String s = ex.toString();
             ex.printStackTrace();
+        }
+        finally {
+            isFetching = false;
         }
     }
 }
