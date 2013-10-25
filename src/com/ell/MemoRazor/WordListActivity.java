@@ -203,13 +203,16 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         if (!YandexOpenJSONTranslator.isTranslatable(selectedWord, force)) {
             return;
         }
+
+        final String nativeLanguage = App.getNativeLanguage();
+        selectedWord.setTranscription(null);
+        selectedWord.setMeaning(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS);
+        wordsAdapter.notifyDataSetChanged();
         new AsyncTask<Word, Void, Word>() {
             @Override
             protected Word doInBackground(Word... words) {
-                words[0].setMeaning(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS);
-                wordsAdapter.notifyDataSetChanged();
                 YandexOpenJSONTranslator translator = new YandexOpenJSONTranslator();
-                return translator.translateWord(words[0], words[0].getLanguage(), App.getNativeLanguage());
+                return translator.translateWord(words[0], words[0].getLanguage(), nativeLanguage);
             }
 
             @Override
