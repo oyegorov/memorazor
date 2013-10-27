@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.ell.MemoRazor.R;
 import com.ell.MemoRazor.data.Word;
@@ -35,6 +36,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
             TextView wordAddedTextView = (TextView)convertView.findViewById(R.id.word_added_text);
             TextView wordMeaningTextView = (TextView)convertView.findViewById(R.id.word_meaning_text);
             TextView wordTranscriptionTextView = (TextView)convertView.findViewById(R.id.word_transcription_text);
+            TextView wordFetchStatusView = (TextView)convertView.findViewById(R.id.word_fetchstatus_text);
+            ProgressBar wordFetchProgress = (ProgressBar)convertView.findViewById(R.id.word_fetch_progress);
 
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             wordNameTextView.setText(word.getName());
@@ -54,6 +57,15 @@ public class WordAdapter extends ArrayAdapter<Word> {
             } else {
                 wordTranscriptionTextView.setText(transcription);
                 wordTranscriptionTextView.setVisibility(View.VISIBLE);
+            }
+
+            if (!(word.getFetchingPlayback() || word.getFetchingTranslation())) {
+                wordFetchStatusView.setVisibility(View.GONE);
+                wordFetchProgress.setVisibility(View.INVISIBLE);
+            } else {
+                wordFetchStatusView.setText(word.getFetchingTranslation() ? R.string.translation_expected : R.string.playback_expected);
+                wordFetchStatusView.setVisibility(View.VISIBLE);
+                wordFetchProgress.setVisibility(View.VISIBLE);
             }
         }
 

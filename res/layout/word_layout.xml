@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent" android:padding="10dp">
-    <TextView android:id="@+id/word_added_text"
-              android:gravity="right" android:layout_height="wrap_content" android:layout_gravity="right"
-              android:layout_width="wrap_content" android:text="(created datetime)" android:textColor="#777777"/>
+              android:layout_height="wrap_content" android:padding="10dp">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1">
+        <TextView android:id="@+id/word_added_text"
+                  android:gravity="right" android:layout_height="wrap_content" android:layout_gravity="left"
+                  android:layout_width="wrap_content" android:text="(created datetime)" android:textColor="#777777"/>
 
-    <TextView android:id="@+id/word_name_text" android:gravity="left" android:text="(word name)"
-              android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="20sp"/>
+        <TextView android:id="@+id/word_name_text" android:gravity="left" android:text="(word name)"
+                  android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="20sp"/>
+        <TextView android:id="@+id/word_fetchstatus_text"
+                  android:gravity="right" android:layout_height="wrap_content" android:layout_gravity="left"
+                  android:layout_width="wrap_content" android:text="(fetching translation)" android:textSize="12sp"/>
 
-    <TextView android:id="@+id/word_transcription_text"
-              android:gravity="right" android:layout_height="wrap_content" android:layout_gravity="left"
-              android:layout_width="wrap_content" android:text="(transcription)" android:textSize="12sp"/>
-    <TextView android:id="@+id/word_meaning_text"
-              android:gravity="right" android:layout_height="wrap_content" android:layout_gravity="left"
-              android:layout_width="wrap_content" android:text="(meaning)" />
+        <TextView android:id="@+id/word_transcription_text"
+                  android:layout_height="wrap_content" android:layout_gravity="left"
+                  android:layout_width="wrap_content" android:text="(transcription)" android:textSize="12sp"/>
+        <TextView android:id="@+id/word_meaning_text"
+                  android:layout_height="wrap_content" android:layout_gravity="left"
+                  android:layout_width="wrap_content" android:text="(meaning)"/>
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/word_fetch_progress" android:indeterminate="true" android:indeterminateOnly="true" android:indeterminateBehavior="repeat"
+                 android:layout_height="wrap_content" android:layout_width="wrap_content"
+                 android:layout_weight="1" android:layout_gravity="center" android:visibility="invisible"/>
 </LinearLayout>

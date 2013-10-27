@@ -93,7 +93,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
                 for (Word w : wg.getWords()) {
                     if (!(w.getMeaning() == null || w.getMeaning().isEmpty() ||
                             w.getMeaning().equals(YandexOpenJSONTranslator.YANDEX_TRANSLATION_NOT_AVAILABLE) ||
-                            w.getMeaning().equals(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS))) {
+                            w.getFetchingTranslation())) {
                         allWords.add(w);
                     }
                 }

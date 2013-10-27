@@ -49,7 +49,8 @@
     <string name="cards_header">Карточки</string>
     <string name="main_actionCards">Карточки</string>
     <string name="quiz_hint">* введите слово на языке оригинала</string>
-    <string name="translation_expected">(ожидается перевод)</string>
+    <string name="translation_expected">(загружается перевод)</string>
+    <string name="playback_expected">(загружается произношение)</string>
     <string name="no_translation">(нет перевода)</string>
     <string name="word_group_language">Язык слов</string>
     <string name="add_wordgroup_withlang">Добавить (другой язык)</string>

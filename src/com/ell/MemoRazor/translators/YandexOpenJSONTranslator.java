@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class YandexOpenJSONTranslator implements Translator {
-    public final static String TRANSLATION_IN_PROGRESS = App.getContext().getResources().getString(R.string.translation_expected);
     private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=%s-%s&text=%s&flags=3";
     public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = App.getContext().getResources().getString(R.string.no_translation);
     private static final Pattern pattern = Pattern.compile("[a-zA-Z]+");
@@ -58,7 +57,7 @@ public final class YandexOpenJSONTranslator implements Translator {
 
             try {
                 String transcription = def.getString("ts");
-                if (!word.getMeaning().equals(TRANSLATION_IN_PROGRESS)) {
+                if (!word.getFetchingTranslation()) {
                     word.setTranscription(null);
                     return word;
                 }
@@ -78,7 +77,7 @@ public final class YandexOpenJSONTranslator implements Translator {
                 if (i != translationsJson.length() - 1)
                     translation.append("; ");
             }
-            if (!word.getMeaning().equals(TRANSLATION_IN_PROGRESS)) {
+            if (!word.getFetchingTranslation()) {
                 word.setTranscription(null);
                 return word;
             }

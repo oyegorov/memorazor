@@ -15,9 +15,12 @@ public class Word extends HistoryObject implements Serializable{
 
     public Word() {
         language = App.getDefaultLanguage();
+        isFetchingPlayback = false;
+        isFetchingTranslation = false;
     }
 
     public Word(String name) {
+        this();
         this.name = name;
     }
 
@@ -68,6 +71,27 @@ public class Word extends HistoryObject implements Serializable{
     public void setTranscription(String transcription) {
         this.transcription = transcription;
     }
+
+
+    public Boolean getFetchingTranslation() {
+        return isFetchingTranslation;
+    }
+
+    public void setFetchingTranslation(Boolean value) {
+        isFetchingTranslation = value;
+    }
+
+    public Boolean getFetchingPlayback() {
+        return isFetchingPlayback;
+    }
+
+    public void setFetchingPlayback(Boolean value) {
+        isFetchingPlayback = value;
+    }
+
+    protected Boolean isFetchingTranslation;
+
+    protected Boolean isFetchingPlayback;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = WORDGROUP_ID_FIELD_NAME, index = true)
     protected WordGroup wordGroup;

@@ -15,6 +15,7 @@ import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
 import com.ell.MemoRazor.helpers.NetworkHelper;
+import com.ell.MemoRazor.helpers.WordPlaybackFetcher;
 import com.ell.MemoRazor.helpers.WordPlaybackManager;
 import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -220,7 +221,8 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         final String nativeLanguage = App.getNativeLanguage();
         selectedWord.setTranscription(null);
-        selectedWord.setMeaning(YandexOpenJSONTranslator.TRANSLATION_IN_PROGRESS);
+        selectedWord.setFetchingTranslation(true);
+        selectedWord.setFetchingPlayback(true);
         wordsAdapter.notifyDataSetChanged();
         new AsyncTask<Word, Void, Word>() {
             @Override
@@ -231,12 +233,29 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
             @Override
             protected void onPostExecute(Word translatedWord) {
+                translatedWord.setFetchingTranslation(false);
                 wordsAdapter.notifyDataSetChanged();
                 try {
                     wordsDao.update(translatedWord);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+            }
+        }.execute(selectedWord);
+
+        final DatabaseHelper databaseHelper = getHelper();
+        new AsyncTask<Word, Void, Word>() {
+            @Override
+            protected Word doInBackground(Word... words) {
+                Word selectedWord = words[0];
+                WordPlaybackManager.CacheWordPlayback(databaseHelper, selectedWord);
+                return selectedWord;
+            }
+
+            @Override
+            protected void onPostExecute(Word translatedWord) {
+                translatedWord.setFetchingPlayback(false);
+                wordsAdapter.notifyDataSetChanged();
             }
         }.execute(selectedWord);
     }

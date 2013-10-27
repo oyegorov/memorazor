@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class WordPlaybackManager {
-    private final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=en_GB";
+    private static final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=en_GB";
     private DatabaseHelper databaseHelper;
     private Activity activity;
     private Boolean isFetching;
@@ -24,6 +24,23 @@ public class WordPlaybackManager {
         this.databaseHelper = databaseHelper;
         this.activity = activity;
         isFetching = false;
+    }
+
+    public static byte[] CacheWordPlayback (DatabaseHelper databaseHelper, Word word)
+    {
+        if (word == null)
+            throw new IllegalArgumentException();
+
+        WordPlaybackFetcher wordPlaybackFetcher = new WordPlaybackFetcher();
+        byte[] mp3data = wordPlaybackFetcher.getWordPlayback(String.format(AUDIO_SOURCE_URL_TEMPLATE, word.getName()));
+
+        try {
+            databaseHelper.cacheWordPlayback(word, mp3data);
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return mp3data;
     }
 
     public void PlayWord (Word word) {
@@ -50,17 +67,7 @@ public class WordPlaybackManager {
             @Override
             protected byte[] doInBackground(Word... words) {
                 Word selectedWord = words[0];
-
-                WordPlaybackFetcher wordPlaybackFetcher = new WordPlaybackFetcher();
-                byte[] mp3data = wordPlaybackFetcher.getWordPlayback(String.format(AUDIO_SOURCE_URL_TEMPLATE, selectedWord.getName()));
-
-                try {
-                    databaseHelper.cacheWordPlayback(selectedWord, mp3data);
-                } catch (SQLException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-
-                return mp3data;
+                return CacheWordPlayback(databaseHelper, selectedWord);
             }
 
             @Override

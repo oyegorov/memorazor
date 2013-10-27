@@ -49,7 +49,8 @@
     <string name="cards_header">Cards</string>
     <string name="main_actionCards">Cards</string>
     <string name="quiz_hint">* enter original word</string>
-    <string name="translation_expected">(waiting for translation)</string>
+    <string name="translation_expected">(fetching translation)</string>
+    <string name="playback_expected">(fetching playback)</string>
     <string name="no_translation">(no translation)</string>
     <string name="word_group_language">Language</string>
     <string name="add_wordgroup_withlang">Add (other language)</string>
