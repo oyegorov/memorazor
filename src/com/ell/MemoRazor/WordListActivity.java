@@ -182,8 +182,6 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             case R.id.action_add_word:
                 addWord();
                 return true;
-            case R.id.action_back_to_groups:
-                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -61,7 +61,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.wordgroupselectionmenu, menu);
-        startItem = menu.getItem(1);
+        startItem = menu.getItem(0);
         startItem.setEnabled(false);
         wordGroupSelectionAdapter.setMenuItem(startItem);
 
@@ -73,9 +73,6 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
         switch (item.getItemId()) {
             case R.id.action_start:
                 startQuiz();
-                break;
-            case R.id.action_back_to_main:
-                finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

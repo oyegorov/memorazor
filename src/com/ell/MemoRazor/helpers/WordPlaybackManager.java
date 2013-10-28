@@ -59,6 +59,7 @@ public class WordPlaybackManager {
             return;
 
         word.setFetchingPlayback(true);
+        wordAdapter.notifyDataSetChanged();
         new AsyncTask<Word, Void, Word>() {
             @Override
             protected void onPreExecute() {

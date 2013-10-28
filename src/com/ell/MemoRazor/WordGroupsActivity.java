@@ -141,9 +141,6 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             case R.id.action_add_with_language:
                 addWordGroupWithLanguage();
                 break;
-            case R.id.action_back_to_main:
-                finish();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -92,12 +92,8 @@ public class QuizResultsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_back_to_main:
-                finish();
-                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 }
