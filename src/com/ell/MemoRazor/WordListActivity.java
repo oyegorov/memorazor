@@ -64,7 +64,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         registerForContextMenu(wordsListView);
 
-        playbackManager = new WordPlaybackManager(getHelper(), this);
+        playbackManager = new WordPlaybackManager(getHelper(), wordsAdapter);
         wordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

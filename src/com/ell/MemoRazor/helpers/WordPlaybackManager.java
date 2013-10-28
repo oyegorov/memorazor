@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.adapters.WordAdapter;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
+import com.j256.ormlite.dao.Dao;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,13 +19,11 @@ import java.util.Random;
 public class WordPlaybackManager {
     private static final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=en_GB";
     private DatabaseHelper databaseHelper;
-    private Activity activity;
-    private Boolean isFetching;
+    private WordAdapter wordAdapter;
 
-    public WordPlaybackManager(DatabaseHelper databaseHelper, Activity activity) {
+    public WordPlaybackManager(DatabaseHelper databaseHelper, WordAdapter wordAdapter) {
         this.databaseHelper = databaseHelper;
-        this.activity = activity;
-        isFetching = false;
+        this.wordAdapter = wordAdapter;
     }
 
     public static byte[] CacheWordPlayback (DatabaseHelper databaseHelper, Word word)
@@ -55,35 +55,42 @@ public class WordPlaybackManager {
             return;
         }
 
-        if (isFetching)
+        if (word.getFetchingPlayback())
             return;
 
-        isFetching = true;
-        new AsyncTask<Word, Void, byte[]>() {
+        word.setFetchingPlayback(true);
+        new AsyncTask<Word, Void, Word>() {
             @Override
             protected void onPreExecute() {
             }
 
             @Override
-            protected byte[] doInBackground(Word... words) {
+            protected Word doInBackground(Word... words) {
                 Word selectedWord = words[0];
-                return CacheWordPlayback(databaseHelper, selectedWord);
+                CacheWordPlayback(databaseHelper, selectedWord);
+                return selectedWord;
             }
 
             @Override
-            protected void onPostExecute(byte[] mp3data) {
-                isFetching = false;
+            protected void onPostExecute(Word selectedWord) {
+                selectedWord.setFetchingPlayback(false);
+                wordAdapter.notifyDataSetChanged();
 
+                byte[] mp3data = null;
+                try {
+                    mp3data = databaseHelper.getWordPlaybackCache(selectedWord);
+                } catch (SQLException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
                 if (mp3data != null) {
                     playMp3(mp3data);
-               }
+                }
             }
         }.execute(word);
     }
 
     private void playMp3(byte[] mp3SoundByteArray) {
         if (mp3SoundByteArray == null) {
-            isFetching = false;
             return;
         }
 
@@ -106,9 +113,6 @@ public class WordPlaybackManager {
         } catch (IOException ex) {
             String s = ex.toString();
             ex.printStackTrace();
-        }
-        finally {
-            isFetching = false;
         }
     }
 }
