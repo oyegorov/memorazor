@@ -56,6 +56,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         intent.putExtra(EXTRA_SELECTEDWORDS_ACTION, "cards");
                         startActivity(intent);
                         break;
+                    case 3:
+                        intent = new Intent(context, ImportExportActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });

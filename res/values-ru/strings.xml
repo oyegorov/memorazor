@@ -57,6 +57,10 @@
     <string name="select_atleast_one_group">Выберите хотя бы одну группу</string>
     <string name="no_words_selected">В выбранных группах нет слов</string>
 
+    <string name="ie_import">Импортировать</string>
+    <string name="ie_export">Экспортировать</string>
+    <string name="ie_export_and_share">Экспортировать и поделиться</string>
+
     <string name="lang_en">Английский</string>
     <string name="lang_es">Испанский</string>
     <string name="lang_de">Немецкий</string>
