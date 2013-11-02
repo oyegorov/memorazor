@@ -32,7 +32,7 @@
     <string name="main_actionQuiz">Викторина</string>
     <string name="main_actionStatistics">Статистика</string>
     <string name="main_actionAbout">О программе</string>
-    <string name="main_actionExportImport">Экспорт / импорт слов</string>
+    <string name="main_actionExportImport">Экспорт слов</string>
     <string name="quiz_header">Викторина</string>
     <string name="quiz_skip">Пропустить</string>
     <string name="quiz_next">Принять</string>
@@ -66,6 +66,8 @@
     <string name="lang_de">Немецкий</string>
     <string name="lang_ru">Русский</string>
     <string name="exportFailed">Не удалось сделать экспорт.</string>
-    <string name="exportSuccessful">Экспорт успешен: %s</string>
+    <string name="exportSuccessful">Экспорт на карту памяти успешен: %s</string>
     <string name="send_to">Отправить</string>
+    <string name="importSucceeded">Импорт завершился успешно.</string>
+    <string name="importFailed">Ошибка импорта.</string>
 </resources>

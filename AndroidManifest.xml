@@ -39,8 +39,17 @@
         <activity android:name=".ImportExportActivity"
                   android:label="@string/main_actionExportImport"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="file" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.mrz" />
+                <data android:host="*" />
+            </intent-filter>
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

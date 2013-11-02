@@ -32,7 +32,7 @@
     <string name="main_actionQuiz">Quiz</string>
     <string name="main_actionStatistics">Statistics</string>
     <string name="main_actionAbout">About</string>
-    <string name="main_actionExportImport">Export / import</string>
+    <string name="main_actionExportImport">Export</string>
     <string name="quiz_header">Quiz</string>
     <string name="quiz_skip">Skip</string>
     <string name="quiz_next">Accept</string>
@@ -57,7 +57,7 @@
     <string name="select_atleast_one_group">Select at least one group</string>
     <string name="no_words_selected">Selected groups contain no words</string>
     <string name="ie_import">Import</string>
-    <string name="ie_export">Export</string>
+    <string name="ie_export">Export to /sdcard</string>
     <string name="ie_export_and_share">Export and Share</string>
 
     <string name="lang_en">English</string>
@@ -65,6 +65,8 @@
     <string name="lang_de">German</string>
     <string name="lang_ru">Russian</string>
     <string name="exportFailed">Export failed.</string>
-    <string name="exportSuccessful">Export successful: %s</string>
+    <string name="exportSuccessful">Export to /sdcard successful: %s</string>
     <string name="send_to">Send to</string>
+    <string name="importSucceeded">Import was successful.</string>
+    <string name="importFailed">Import failed.</string>
 </resources>

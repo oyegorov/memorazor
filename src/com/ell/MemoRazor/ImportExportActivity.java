@@ -21,6 +21,7 @@ import com.j256.ormlite.support.DatabaseConnection;
 import com.j256.ormlite.table.TableUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.sql.Savepoint;
@@ -39,7 +40,6 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         setContentView(R.layout.importexport);
 
         actions = new ArrayList<String>();
-        actions.add(getResources().getString(R.string.ie_import));
         actions.add(getResources().getString(R.string.ie_export));
         actions.add(getResources().getString(R.string.ie_export_and_share));
 
@@ -55,50 +55,82 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             wordGroups = new ArrayList<WordGroup>();
         }
 
-        final Context context = this;
         actionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ExportManager exportManager;
-
                 switch (i) {
                     case 0:
+                        ExportToFile();
                         break;
                     case 1:
-                        exportManager = new ExportManager(getHelper());
-                        String json = null;
-                        try {
-                            json = exportManager.Export(getVersionCode());
-                            File outputFile = new File(context.getFilesDir(), "export.mrz");
-                            FileOutputStream out = new FileOutputStream(outputFile);
-                            out.write(json.getBytes());
-                            out.close();
-
-                            DialogHelper.MessageBox(context, String.format(getString(R.string.exportSuccessful), outputFile.getPath()));
-                        } catch (Exception e) {
-                            DialogHelper.MessageBox(context, getString(R.string.exportFailed));
-                            e.printStackTrace();
-                        }
-                        break;
-                    case 2:
-                        exportManager = new ExportManager(getHelper());
-                        try {
-                            json = exportManager.Export(getVersionCode());
-
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.putExtra(Intent.EXTRA_STREAM, json.getBytes());
-                            shareIntent.setType("*/*");
-                            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-                        } catch (Exception e) {
-                            DialogHelper.MessageBox(context, getString(R.string.exportFailed));
-                            e.printStackTrace();
-                        }
-
+                        ExportAndShare();
                         break;
                 }
             }
         });
+
+        Intent intent = getIntent();
+
+        if ("file".equals(intent.getScheme()) && "android.intent.action.VIEW".equals(intent.getAction())) {
+            String filePath = intent.getData().getPath();
+            Import(filePath);
+        }
+    }
+
+    private void Import(String filePath) {
+        ExportManager exportManager = new ExportManager(getHelper());
+        try {
+            FileInputStream fileInputStream = new FileInputStream(filePath);
+            StringBuffer fileContent = new StringBuffer("");
+            byte[] buffer = new byte[100];
+
+            int dataRead;
+            while ((dataRead = fileInputStream.read(buffer)) != -1) {
+                fileContent.append(new String(buffer, 0, dataRead));
+            }
+            String json = fileContent.toString();
+
+            exportManager.Import(getVersionCode(), json);
+            DialogHelper.MessageBox(this, getString(R.string.importSucceeded));
+        } catch (Exception e) {
+            DialogHelper.MessageBox(this, getString(R.string.importFailed));
+            e.printStackTrace();
+        }
+    }
+
+    private void ExportAndShare() {
+        ExportManager exportManager = new ExportManager(getHelper());
+        try {
+            String json = exportManager.Export(getVersionCode());
+
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, json.getBytes());
+            shareIntent.setType("*/*");
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+        } catch (Exception e) {
+            DialogHelper.MessageBox(this, getString(R.string.exportFailed));
+            e.printStackTrace();
+        }
+    }
+
+    private void ExportToFile() {
+        ExportManager exportManager;
+
+        exportManager = new ExportManager(getHelper());
+        String json = null;
+        try {
+            json = exportManager.Export(getVersionCode());
+            File outputFile = new File(Environment.getExternalStorageDirectory(), "MemoRazor_export.mrz");
+            FileOutputStream out = new FileOutputStream(outputFile, false);
+            out.write(json.getBytes());
+            out.close();
+
+            DialogHelper.MessageBox(this, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
+        } catch (Exception e) {
+            DialogHelper.MessageBox(this, getString(R.string.exportFailed));
+            e.printStackTrace();
+        }
     }
 
     private int getVersionCode() {
