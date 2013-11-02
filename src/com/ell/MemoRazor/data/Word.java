@@ -89,12 +89,12 @@ public class Word extends HistoryObject implements Serializable{
         isFetchingPlayback = value;
     }
 
-    protected Boolean isFetchingTranslation;
+    protected transient Boolean isFetchingTranslation;
 
-    protected Boolean isFetchingPlayback;
+    protected transient Boolean isFetchingPlayback;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = WORDGROUP_ID_FIELD_NAME, index = true)
-    protected WordGroup wordGroup;
+    protected transient WordGroup wordGroup;
 
     @DatabaseField(generatedId = true)
     protected int id;
