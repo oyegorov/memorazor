@@ -70,4 +70,10 @@
     <string name="send_to">Отправить</string>
     <string name="importSucceeded">Импорт завершился успешно.</string>
     <string name="importFailed">Ошибка импорта.</string>
+    <string name="license">Эта программа распространяется с открытым кодом по лицензии LGPL v3.</string>
+    <string name="projectPage">Страница проекта: %s</string>
+
+    <string name="developedBy">Разработано О. Егоровом, 2013 </string>
+    <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
+    <string name="about">О программе</string>
 </resources>

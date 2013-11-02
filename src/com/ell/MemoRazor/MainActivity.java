@@ -60,6 +60,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         intent = new Intent(context, ImportExportActivity.class);
                         startActivity(intent);
                         break;
+                    case 4:
+                        intent = new Intent(context, AboutActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });

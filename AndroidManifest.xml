@@ -36,6 +36,10 @@
                   android:label="@string/cards_header"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
         </activity>
+        <activity android:name=".AboutActivity"
+                  android:label="@string/about"
+                  android:parentActivityName="com.ell.MemoRazor.MainActivity">
+        </activity>
         <activity android:name=".ImportExportActivity"
                   android:label="@string/main_actionExportImport"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
