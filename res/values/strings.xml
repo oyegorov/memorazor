@@ -75,4 +75,5 @@
     <string name="developedBy">Developed by Oleg Yegorov in 2013</string>
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
     <string name="about">About MemoRazor</string>
+    <string name="exportFileName">Export file name:</string>
 </resources>

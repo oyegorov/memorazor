@@ -105,7 +105,8 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, json.getBytes());
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "export.mrz");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, json);
             shareIntent.setType("*/*");
             startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
         } catch (Exception e) {
@@ -118,15 +119,24 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         ExportManager exportManager;
 
         exportManager = new ExportManager(getHelper());
-        String json = null;
         try {
-            json = exportManager.Export(getVersionCode());
-            File outputFile = new File(Environment.getExternalStorageDirectory(), "MemoRazor_export.mrz");
-            FileOutputStream out = new FileOutputStream(outputFile, false);
-            out.write(json.getBytes());
-            out.close();
+            final String json = exportManager.Export(getVersionCode());
 
-            DialogHelper.MessageBox(this, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
+            final Context context = this;
+            DialogHelper.RequestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.exportFileName), "MemoRazor_export.mrz", new DialogHelper.OnRequestInputListener() {
+                @Override
+                public void onRequestInput(String input) {
+                    try {
+                        File outputFile = new File(Environment.getExternalStorageDirectory(), input);
+                        FileOutputStream out = new FileOutputStream(outputFile, false);
+                        out.write(json.getBytes());
+                        out.close();
+                        DialogHelper.MessageBox(context, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
+                    } catch (Exception e) {
+                        DialogHelper.MessageBox(context, "Export failed.");
+                    }
+                }
+            });
         } catch (Exception e) {
             DialogHelper.MessageBox(this, getString(R.string.exportFailed));
             e.printStackTrace();

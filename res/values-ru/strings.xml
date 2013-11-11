@@ -76,4 +76,5 @@
     <string name="developedBy">Разработано О. Егоровом, 2013 </string>
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
     <string name="about">О программе</string>
+    <string name="exportFileName">Имя файла:</string>
 </resources>
