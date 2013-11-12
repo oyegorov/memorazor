@@ -3,6 +3,7 @@ package com.ell.MemoRazor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.*;
@@ -103,12 +104,19 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         try {
             String json = exportManager.Export(getVersionCode());
 
+            final String tempFileName = "Export.mrz";
+            File outputFile = new File(Environment.getExternalStorageDirectory(), tempFileName);
+            FileOutputStream out = new FileOutputStream(outputFile, false);
+            out.write(json.getBytes());
+            out.close();
+
+            File sendFile = new File(Environment.getExternalStorageDirectory(), tempFileName);
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "export.mrz");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, json);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(sendFile));
             shareIntent.setType("*/*");
             startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+            sendFile.deleteOnExit();
         } catch (Exception e) {
             DialogHelper.MessageBox(this, getString(R.string.exportFailed));
             e.printStackTrace();
@@ -133,7 +141,7 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                         out.close();
                         DialogHelper.MessageBox(context, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
                     } catch (Exception e) {
-                        DialogHelper.MessageBox(context, "Export failed.");
+                        DialogHelper.MessageBox(context, context.getString(R.string.exportFailed));
                     }
                 }
             });
