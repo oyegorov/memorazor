@@ -2,6 +2,18 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_add" android:showAsAction="always" android:icon="@drawable/add" />
-    <item android:id="@+id/action_add_with_language" android:showAsAction="never|withText"
-          android:title="@string/add_wordgroup_withlang" android:icon="@drawable/language"  />
+    <item android:id="@+id/action_add_en" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_english" android:icon="@drawable/en"  />
+    <item android:id="@+id/action_add_es" android:showAsAction="never"
+          android:title="@string/add_wordgroup_spanish" android:icon="@drawable/es"  />
+    <item android:id="@+id/action_add_de" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_german" android:icon="@drawable/de"  />
+    <item android:id="@+id/action_add_fr" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_french" android:icon="@drawable/fr"  />
+    <item android:id="@+id/action_add_it" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_italian" android:icon="@drawable/it"  />
+    <item android:id="@+id/action_add_pl" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_polish" android:icon="@drawable/pl"  />
+    <item android:id="@+id/action_add_ru" android:showAsAction="never|withText"
+          android:title="@string/add_wordgroup_russian" android:icon="@drawable/ru"  />
 </menu>

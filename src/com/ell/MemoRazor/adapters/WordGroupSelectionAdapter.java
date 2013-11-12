@@ -2,17 +2,12 @@ package com.ell.MemoRazor.adapters;
 
 import android.content.Context;
 import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TextView;
+import android.widget.*;
 import com.ell.MemoRazor.R;
 import com.ell.MemoRazor.data.WordGroup;
+import com.ell.MemoRazor.helpers.LanguageHelper;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
     private ArrayList<WordGroup> selectedObjects;
@@ -58,10 +53,14 @@ public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
         WordGroup wordGroup = objects.get(position);
 
         if (wordGroup != null) {
-            CheckBox groupNameCheckbox = (CheckBox)convertView.findViewById(R.id.selection_group_name_text);
-            groupNameCheckbox.setText(wordGroup.toString());
-            groupNameCheckbox.setTag(wordGroup);
-            groupNameCheckbox.setOnCheckedChangeListener(checkListener);
+            TextView groupName = (TextView)convertView.findViewById(R.id.selection_group_name);
+            CheckBox selectionGroupCheckbox = (CheckBox)convertView.findViewById(R.id.selection_group_checkbox);
+            ImageView imageView = (ImageView)convertView.findViewById(R.id.group_selection_lang_icon);
+            imageView.setImageResource(LanguageHelper.langCodeToImage(wordGroup.getLanguage()));
+
+            groupName.setText(wordGroup.toString());
+            selectionGroupCheckbox.setTag(wordGroup);
+            selectionGroupCheckbox.setOnCheckedChangeListener(checkListener);
         }
 
         return convertView;

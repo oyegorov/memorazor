@@ -29,11 +29,7 @@ public class WordGroup extends HistoryObject implements Serializable {
 
     @Override
     public String toString() {
-        if (getLanguage().equalsIgnoreCase(App.getDefaultLanguage())) {
-            return getName();
-        }  else {
-            return String.format("%s [%s]", getName(), getLanguage());
-        }
+        return getName();
     }
 
     public String getLanguage() {

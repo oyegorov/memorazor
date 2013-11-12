@@ -65,6 +65,10 @@
     <string name="lang_es">Испанский</string>
     <string name="lang_de">Немецкий</string>
     <string name="lang_ru">Русский</string>
+    <string name="lang_it">Итальянский</string>
+    <string name="lang_pl">Польский</string>
+    <string name="lang_fr">Французский</string>
+
     <string name="exportFailed">Не удалось сделать экспорт.</string>
     <string name="exportSuccessful">Экспорт на карту памяти успешен: %s</string>
     <string name="send_to">Отправить</string>
@@ -77,4 +81,11 @@
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
     <string name="about">О программе</string>
     <string name="exportFileName">Имя файла:</string>
+    <string name="add_wordgroup_english">Добавить (Английский)</string>
+    <string name="add_wordgroup_spanish">Добавить (Испанский)</string>
+    <string name="add_wordgroup_german">Добавить (Немецкий)</string>
+    <string name="add_wordgroup_french">Добавить (Французский)</string>
+    <string name="add_wordgroup_italian">Добавить (Итальянский)</string>
+    <string name="add_wordgroup_russian">Добавить (Русский)</string>
+    <string name="add_wordgroup_polish">Добавить (Польский)</string>
 </resources>

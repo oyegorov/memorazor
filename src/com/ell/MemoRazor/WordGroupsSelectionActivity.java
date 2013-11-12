@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
-import com.ell.MemoRazor.adapters.WordGroupAdapter;
 import com.ell.MemoRazor.adapters.WordGroupSelectionAdapter;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
@@ -16,7 +15,6 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     public static final String EXTRA_SELECTED_WORDS = "com.ell.SELECTED_WORDS";
@@ -49,7 +47,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
         groupsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CheckBox checkBox = (CheckBox)view.findViewById(R.id.selection_group_name_text);
+                CheckBox checkBox = (CheckBox)view.findViewById(R.id.selection_group_checkbox);
                 checkBox.setChecked(!checkBox.isChecked());
             }
         });

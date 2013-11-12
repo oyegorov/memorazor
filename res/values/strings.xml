@@ -11,16 +11,16 @@
     <string name="wordGroups_delete">Delete</string>
     <string name="wordGroups_performAction">Select action:</string>
     <string name="wordGroups_addWordGroup">Add group</string>
-    <string name="wordGroups_addWordGroupInputName">Name:</string>
+    <string name="wordGroups_addWordGroupInputName">Type the name of the group to add:</string>
     <string name="wordGroups_confirmDelete">Delete group %s with all words?</string>
-    <string name="wordGroups_newName">New name:</string>
+    <string name="wordGroups_newName">Type the new name of the group.</string>
     <string name="wordGroups_wordGroups">Word groups</string>
     <string name="wordGroups_selectWordGroups">Select groups</string>
     <string name="words_performAction">Select action:</string>
     <string name="words_translate">Translate</string>
     <string name="words_delete">Delete</string>
     <string name="words_confirmDelete">Delete word?</string>
-    <string name="words_addWord">Add word</string>
+    <string name="words_addWord">Type the word. The translation will be automatically loaded.</string>
     <string name="words_noNetwork">Network connectivity failure.</string>
     <string name="words_openYandex">Open in Yandex.Dictionaries</string>
     <string name="words_openGoogleTranslate">Open in Google Translate</string>
@@ -64,6 +64,9 @@
     <string name="lang_es">Spanish</string>
     <string name="lang_de">German</string>
     <string name="lang_ru">Russian</string>
+    <string name="lang_it">Italian</string>
+    <string name="lang_pl">Polish</string>
+    <string name="lang_fr">French</string>
     <string name="exportFailed">Export failed.</string>
     <string name="exportSuccessful">Export to /sdcard successful: %s</string>
     <string name="send_to">Send to</string>
@@ -76,4 +79,11 @@
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
     <string name="about">About MemoRazor</string>
     <string name="exportFileName">Export file name:</string>
+    <string name="add_wordgroup_english">Add group (English)</string>
+    <string name="add_wordgroup_spanish">Add group (Spanish)</string>
+    <string name="add_wordgroup_german">Add group (German)</string>
+    <string name="add_wordgroup_french">Add group (French)</string>
+    <string name="add_wordgroup_italian">Add group (Italian)</string>
+    <string name="add_wordgroup_polish">Add group (Polish)</string>
+    <string name="add_wordgroup_russian">Add group (Russian)</string>
 </resources>

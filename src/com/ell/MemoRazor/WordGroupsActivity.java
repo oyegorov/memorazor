@@ -136,21 +136,40 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                addWordGroup();
+                addWordGroup(App.getDefaultLanguage());
                 break;
-            case R.id.action_add_with_language:
-                addWordGroupWithLanguage();
+            case R.id.action_add_en:
+                addWordGroup("en");
+                break;
+            case R.id.action_add_de:
+                addWordGroup("de");
+                break;
+            case R.id.action_add_es:
+                addWordGroup("es");
+                break;
+            case R.id.action_add_pl:
+                addWordGroup("pl");
+                break;
+            case R.id.action_add_it:
+                addWordGroup("it");
+                break;
+            case R.id.action_add_ru:
+                addWordGroup("ru");
+                break;
+            case R.id.action_add_fr:
+                addWordGroup("fr");
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void addWordGroup() {
+    private void addWordGroup(final String lang) {
         DialogHelper.RequestInput(this, getResources().getString(R.string.wordGroups_addWordGroup),
                 getResources().getString(R.string.wordGroups_addWordGroupInputName), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(final String input) {
                 WordGroup wordGroup = new WordGroup(input);
+                wordGroup.setLanguage(lang);
                 wordGroupsAdapter.insert(wordGroup, 0);
                 try {
                     if (wordGroupsDao != null) {
@@ -158,36 +177,6 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                     }
                 } catch (SQLException e) {
                 }
-            }
-        });
-    }
-
-    private void addWordGroupWithLanguage() {
-        final Context context = this;
-        final String languages[] = LanguageHelper.getAlternativeLanguages();
-
-        DialogHelper.RequestInput(this, getResources().getString(R.string.wordGroups_addWordGroup),
-                getResources().getString(R.string.wordGroups_addWordGroupInputName), new DialogHelper.OnRequestInputListener() {
-            @Override
-            public void onRequestInput(final String input) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(R.string.word_group_language);
-                builder.setItems(languages, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        WordGroup wordGroup = new WordGroup(input);
-                        wordGroup.setLanguage(LanguageHelper.getLanguageCode(languages[which]));
-
-                        wordGroupsAdapter.insert(wordGroup, 0);
-                        try {
-                            if (wordGroupsDao != null) {
-                                wordGroupsDao.create(wordGroup);
-                            }
-                        } catch (SQLException e) {
-                        }
-                    }
-                });
-                builder.show();
             }
         });
     }

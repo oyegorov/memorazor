@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.ell.MemoRazor.App;
 import com.ell.MemoRazor.R;
 import com.ell.MemoRazor.data.WordGroup;
+import com.ell.MemoRazor.helpers.LanguageHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,6 +36,9 @@ public class WordGroupAdapter extends ArrayAdapter<WordGroup> {
 
         if (wordGroup != null) {
             TextView groupNameTextView = (TextView)convertView.findViewById(R.id.group_name_text);
+            ImageView imageView = (ImageView)convertView.findViewById(R.id.group_lang_icon);
+
+            imageView.setImageResource(LanguageHelper.langCodeToImage(wordGroup.getLanguage()));
             //TextView groupAddedTextView = (TextView)convertView.findViewById(R.id.group_added_text);
 
             //DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -43,4 +48,7 @@ public class WordGroupAdapter extends ArrayAdapter<WordGroup> {
 
         return convertView;
     }
+
+
+
 }

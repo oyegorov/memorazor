@@ -13,10 +13,7 @@ import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.HistoryObject;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
-import com.ell.MemoRazor.helpers.DialogHelper;
-import com.ell.MemoRazor.helpers.NetworkHelper;
-import com.ell.MemoRazor.helpers.WordPlaybackFetcher;
-import com.ell.MemoRazor.helpers.WordPlaybackManager;
+import com.ell.MemoRazor.helpers.*;
 import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
@@ -49,7 +46,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             wordGroupsDao = getHelper().getWordGroupDao();
             selectedGroup = wordGroupsDao.queryForId(selectedGroupId);
             setTitle(selectedGroup.getName());
-            getActionBar().setIcon(R.drawable.word);
+            getActionBar().setIcon(LanguageHelper.langCodeToImage(selectedGroup.getLanguage()));
 
             words = new ArrayList<Word>(wordsDao.queryBuilder()
                     .orderBy(Word.CREATED_DATE_COLUMN, false)

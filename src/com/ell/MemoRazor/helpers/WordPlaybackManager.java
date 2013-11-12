@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class WordPlaybackManager {
-    private static final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=en_GB";
+    private static final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=%s";
     private DatabaseHelper databaseHelper;
     private WordAdapter wordAdapter;
 
@@ -32,7 +32,7 @@ public class WordPlaybackManager {
             throw new IllegalArgumentException();
 
         WordPlaybackFetcher wordPlaybackFetcher = new WordPlaybackFetcher();
-        byte[] mp3data = wordPlaybackFetcher.getWordPlayback(String.format(AUDIO_SOURCE_URL_TEMPLATE, word.getName()));
+        byte[] mp3data = wordPlaybackFetcher.getWordPlayback(String.format(AUDIO_SOURCE_URL_TEMPLATE, word.getName(), LanguageHelper.langCodeToAudioCode(word.getLanguage())));
 
         try {
             databaseHelper.cacheWordPlayback(word, mp3data);
