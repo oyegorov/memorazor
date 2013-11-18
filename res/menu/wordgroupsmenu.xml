@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_add" android:showAsAction="always" android:icon="@drawable/add" />
-    <item android:id="@+id/action_add_en" android:showAsAction="never|withText"
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:memorazor="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_add" memorazor:showAsAction="always" android:icon="@drawable/add" />
+    <item android:id="@+id/action_add_en" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_english" android:icon="@drawable/en"  />
-    <item android:id="@+id/action_add_es" android:showAsAction="never"
+    <item android:id="@+id/action_add_es" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_spanish" android:icon="@drawable/es"  />
-    <item android:id="@+id/action_add_de" android:showAsAction="never|withText"
+    <item android:id="@+id/action_add_de" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_german" android:icon="@drawable/de"  />
-    <item android:id="@+id/action_add_fr" android:showAsAction="never|withText"
+    <item android:id="@+id/action_add_fr" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_french" android:icon="@drawable/fr"  />
-    <item android:id="@+id/action_add_it" android:showAsAction="never|withText"
+    <item android:id="@+id/action_add_it" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_italian" android:icon="@drawable/it"  />
-    <item android:id="@+id/action_add_pl" android:showAsAction="never|withText"
+    <item android:id="@+id/action_add_pl" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_polish" android:icon="@drawable/pl"  />
-    <item android:id="@+id/action_add_ru" android:showAsAction="never|withText"
+    <item android:id="@+id/action_add_ru" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_russian" android:icon="@drawable/ru"  />
 </menu>

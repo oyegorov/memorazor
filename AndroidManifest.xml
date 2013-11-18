@@ -3,8 +3,8 @@
           package="com.ell.MemoRazor"
           android:versionCode="1"
           android:versionName="0.1">
-    <uses-sdk android:minSdkVersion="11"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:name=".App">
+    <uses-sdk android:minSdkVersion="7"/>
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:name=".App" android:theme="@style/Theme.AppCompat">
         <activity android:name="MainActivity"
                   android:label="@string/app_name">
             <intent-filter>
@@ -15,34 +15,58 @@
         <activity android:name=".WordGroupsActivity"
                   android:label="@string/wordGroups_wordGroups"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
         <activity android:name=".WordListActivity"
                   android:label="@string/words_list"
                   android:parentActivityName="com.ell.MemoRazor.WordGroupsActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.WordGroupsActivity" />
         </activity>
         <activity android:name=".WordGroupsSelectionActivity"
                   android:label="@string/wordGroups_selectWordGroups"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
         <activity android:name=".QuizActivity"
                   android:label="@string/quiz_header"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
         <activity android:name=".QuizResultsActivity"
                   android:label="@string/quiz_header"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
         <activity android:name=".CardsActivity"
                   android:label="@string/cards_header"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
         <activity android:name=".AboutActivity"
                   android:label="@string/about"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
         <activity android:name=".ImportExportActivity"
                   android:label="@string/main_actionExportImport"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

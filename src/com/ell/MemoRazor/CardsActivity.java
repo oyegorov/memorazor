@@ -1,6 +1,7 @@
 package com.ell.MemoRazor;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +15,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CardsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class CardsActivity extends OrmLiteActivity {
     public static final String EXTRA_QUIZ_ANSWERS = "com.ell.QUIZ_ANSWERS";
 
     private Random random = new Random(System.currentTimeMillis());
@@ -34,9 +35,11 @@ public class CardsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.cards);
-        //getActionBar().setIcon(R.drawable.group);
-        //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
         card = (TextView) findViewById(R.id.cards_card);
         cardNumber = (TextView) findViewById(R.id.cards_cardnumber);
         nextButton = (Button) findViewById(R.id.cards_next);

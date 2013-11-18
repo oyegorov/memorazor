@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordGroupAdapter;
@@ -18,7 +19,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class WordGroupsActivity extends OrmLiteActivity {
     public static final String EXTRA_GROUP_ID = "com.ell.GROUP_ID";
 
     private ArrayList<WordGroup> wordGroups;
@@ -29,7 +30,12 @@ public class WordGroupsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setIcon(R.drawable.group);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setIcon(R.drawable.group);
+
         setTitle(getResources().getString(R.string.wordGroups_wordGroups));
 
         setContentView(R.layout.wordgroups);

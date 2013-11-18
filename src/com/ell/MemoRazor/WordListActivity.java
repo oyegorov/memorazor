@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordAdapter;
@@ -21,7 +22,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class WordListActivity extends OrmLiteActivity {
     private ArrayList<Word> words;
     private Dao<Word, Integer> wordsDao;
     private Dao<WordGroup, Integer> wordGroupsDao;
@@ -36,6 +37,9 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.words);
 
         int selectedGroupId = getIntent().getIntExtra(WordGroupsActivity.EXTRA_GROUP_ID, 0);
@@ -46,7 +50,7 @@ public class WordListActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             wordGroupsDao = getHelper().getWordGroupDao();
             selectedGroup = wordGroupsDao.queryForId(selectedGroupId);
             setTitle(selectedGroup.getName());
-            getActionBar().setIcon(LanguageHelper.langCodeToImage(selectedGroup.getLanguage()));
+            getSupportActionBar().setIcon(LanguageHelper.langCodeToImage(selectedGroup.getLanguage()));
 
             words = new ArrayList<Word>(wordsDao.queryBuilder()
                     .orderBy(Word.CREATED_DATE_COLUMN, false)

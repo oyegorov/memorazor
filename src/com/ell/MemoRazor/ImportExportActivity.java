@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.data.DatabaseHelper;
@@ -28,7 +29,7 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 
-public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ImportExportActivity extends OrmLiteActivity {
     private ArrayAdapter<String> actionsAdapter;
     private ListView actionsListView;
     private ArrayList<String> actions;
@@ -38,6 +39,10 @@ public class ImportExportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.importexport);
 
         actions = new ArrayList<String>();

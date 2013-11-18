@@ -2,6 +2,7 @@ package com.ell.MemoRazor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordGroupSelectionAdapter;
@@ -16,7 +17,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class WordGroupsSelectionActivity extends OrmLiteActivity {
     public static final String EXTRA_SELECTED_WORDS = "com.ell.SELECTED_WORDS";
     private ArrayList<WordGroup> wordGroups;
     private Dao<WordGroup, Integer> wordGroupsDao;
@@ -28,7 +29,11 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setIcon(R.drawable.group);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.group);
+
         setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
 
         setContentView(R.layout.wordgroups_selection);
@@ -86,7 +91,7 @@ public class WordGroupsSelectionActivity extends OrmLiteBaseActivity<DatabaseHel
             ArrayList<Word> allWords = new ArrayList<Word>();
             for (WordGroup wg : selectedWordGroups) {
                 for (Word w : wg.getWords()) {
-                    if (!(w.getMeaning() == null || w.getMeaning().isEmpty() ||
+                    if (!(w.getMeaning() == null || w.getMeaning().length() == 0 ||
                             w.getMeaning().equals(YandexOpenJSONTranslator.YANDEX_TRANSLATION_NOT_AVAILABLE) ||
                             w.getFetchingTranslation())) {
                         allWords.add(w);

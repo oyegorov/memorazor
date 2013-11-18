@@ -11,6 +11,7 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class ExportManager {
     private DatabaseHelper databaseHelper;
@@ -31,7 +32,8 @@ public class ExportManager {
             exportedWordGroups.add(new ExportedWordGroup(wg));
         }
 
-        ExportedData exportedData = new ExportedData(version, exportedWordGroups);
+        Hashtable<String, Object> settings = new Hashtable<String, Object>();
+        ExportedData exportedData = new ExportedData(version, exportedWordGroups, settings);
 
         Gson gson = new Gson();
         return gson.toJson(exportedData);

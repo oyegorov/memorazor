@@ -2,6 +2,7 @@ package com.ell.MemoRazor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class QuizActivity extends OrmLiteActivity {
     public static final String EXTRA_QUIZ_ANSWERS = "com.ell.QUIZ_ANSWERS";
 
     private Random random = new Random(System.currentTimeMillis());
@@ -44,6 +45,10 @@ public class QuizActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.quiz);
         //getActionBar().setIcon(R.drawable.group);
         //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));

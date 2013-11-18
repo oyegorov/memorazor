@@ -3,6 +3,7 @@ package com.ell.MemoRazor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.MainActionsAdapter;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class MainActivity extends ActionBarActivity {
     public static final String EXTRA_SELECTEDWORDS_ACTION = "com.ell.EXTRA_SELECTEDWORDS_ACTION";
     private MainActionsAdapter mainActionsAdapter;
     private ListView actionsListView;

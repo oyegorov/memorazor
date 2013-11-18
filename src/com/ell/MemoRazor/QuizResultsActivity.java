@@ -3,6 +3,7 @@ package com.ell.MemoRazor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class QuizResultsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class QuizResultsActivity extends OrmLiteActivity {
     private TextView quizResult;
     private TextView quizScore;
     private TextView quizSkipped;
@@ -34,6 +35,10 @@ public class QuizResultsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.quiz_results);
 
         //getActionBar().setIcon(R.drawable.group);
