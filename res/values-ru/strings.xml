@@ -68,6 +68,7 @@
     <string name="lang_it">Итальянский</string>
     <string name="lang_pl">Польский</string>
     <string name="lang_fr">Французский</string>
+    <string name="lang_nl">Голландский</string>
 
     <string name="exportFailed">Не удалось сделать экспорт.</string>
     <string name="exportSuccessful">Экспорт на карту памяти успешен: %s</string>
@@ -88,4 +89,5 @@
     <string name="add_wordgroup_italian">Добавить (Итальянский)</string>
     <string name="add_wordgroup_russian">Добавить (Русский)</string>
     <string name="add_wordgroup_polish">Добавить (Польский)</string>
+    <string name="add_wordgroup_dutch">Добавить (Голландский)</string>
 </resources>

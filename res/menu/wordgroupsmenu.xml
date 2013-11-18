@@ -14,6 +14,8 @@
           android:title="@string/add_wordgroup_italian" android:icon="@drawable/it"  />
     <item android:id="@+id/action_add_pl" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_polish" android:icon="@drawable/pl"  />
+    <item android:id="@+id/action_add_nl" memorazor:showAsAction="collapseActionView"
+          android:title="@string/add_wordgroup_dutch" android:icon="@drawable/nl"  />
     <item android:id="@+id/action_add_ru" memorazor:showAsAction="collapseActionView"
           android:title="@string/add_wordgroup_russian" android:icon="@drawable/ru"  />
 </menu>

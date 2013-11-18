@@ -67,6 +67,8 @@
     <string name="lang_it">Italian</string>
     <string name="lang_pl">Polish</string>
     <string name="lang_fr">French</string>
+    <string name="lang_nl">Dutch</string>
+
     <string name="exportFailed">Export failed.</string>
     <string name="exportSuccessful">Export to /sdcard successful: %s</string>
     <string name="send_to">Send to</string>
@@ -86,4 +88,5 @@
     <string name="add_wordgroup_italian">Add group (Italian)</string>
     <string name="add_wordgroup_polish">Add group (Polish)</string>
     <string name="add_wordgroup_russian">Add group (Russian)</string>
+    <string name="add_wordgroup_dutch">Add group (Dutch)</string>
 </resources>

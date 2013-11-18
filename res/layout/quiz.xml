@@ -17,7 +17,7 @@
             android:text="Значение раз; значение два; значение три"
             android:id="@+id/quizTranslation" android:layout_gravity="center" android:textIsSelectable="false"
             android:textSize="20sp"
-            android:background="#141414" android:singleLine="false" android:minHeight="100dp"
+            android:background="#CCCCCC" android:singleLine="false" android:minHeight="100dp"
             android:textAlignment="center" android:gravity="center_vertical|center_horizontal"/>
     <EditText
             android:layout_width="fill_parent"
