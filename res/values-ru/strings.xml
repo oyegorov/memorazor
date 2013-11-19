@@ -106,4 +106,5 @@
     </string>
     <string name="num_cards">Количество карточекs</string>
     <string name="num_cards_summary">Максимальное количество карточек со словами, случайно выбранными из указанных групп</string>
+    <string name="settingsNotInitialized">Перед началом работы с программой выберите ваш язык и язык, который вы планируете изучать.</string>
 </resources>

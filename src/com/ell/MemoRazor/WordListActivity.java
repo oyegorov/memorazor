@@ -1,6 +1,5 @@
 package com.ell.MemoRazor;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,12 +10,10 @@ import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordAdapter;
 import com.ell.MemoRazor.data.DatabaseHelper;
-import com.ell.MemoRazor.data.HistoryObject;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.*;
 import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
@@ -125,7 +122,7 @@ public class WordListActivity extends OrmLiteActivity {
             case 3:
                 OpenUrl(String.format(GOOGLE_TRANSLATE_URL_TEMPLATE,
                         selectedWord.getLanguage(),
-                        App.getNativeLanguage(),
+                        App.getFirstLanguage(),
                         selectedWord.getName()));
                 break;
             case 4:
@@ -169,7 +166,7 @@ public class WordListActivity extends OrmLiteActivity {
             menu.add(Menu.NONE, 2, 2, getResources().getString(R.string.words_editTranslation));
             menu.add(Menu.NONE, 3, 3, getResources().getString(R.string.words_openGoogleTranslate));
 
-            if (App.getNativeLanguage() == "ru") {
+            if (App.getFirstLanguage() == "ru") {
                 menu.add(Menu.NONE, 4, 4, getResources().getString(R.string.words_openYandex));
                 menu.add(Menu.NONE, 5, 5, getResources().getString(R.string.words_openMultitran));
             }
@@ -218,7 +215,7 @@ public class WordListActivity extends OrmLiteActivity {
             return;
         }
 
-        final String nativeLanguage = App.getNativeLanguage();
+        final String nativeLanguage = App.getFirstLanguage();
         selectedWord.setTranscription(null);
         selectedWord.setFetchingTranslation(true);
         selectedWord.setFetchingPlayback(true);

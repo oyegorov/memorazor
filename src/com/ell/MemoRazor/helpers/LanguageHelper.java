@@ -59,7 +59,7 @@ public class LanguageHelper {
 
         for (String lang : getSupportedLanguages()){
             if (!App.getDefaultLanguage().equalsIgnoreCase(getLanguageCode(lang))
-                    && !App.getNativeLanguage().equalsIgnoreCase(getLanguageCode(lang))) {
+                    && !App.getFirstLanguage().equalsIgnoreCase(getLanguageCode(lang))) {
                 alternativeLanguages.add(lang);
             }
         }

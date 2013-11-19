@@ -7,13 +7,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.MainActionsAdapter;
-import com.ell.MemoRazor.adapters.WordGroupAdapter;
-import com.ell.MemoRazor.data.DatabaseHelper;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.ell.MemoRazor.helpers.DialogHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
     public static final String EXTRA_SELECTEDWORDS_ACTION = "com.ell.EXTRA_SELECTEDWORDS_ACTION";
@@ -73,6 +69,13 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
+
+        if (App.getSettingsNotInitialized()) {
+            DialogHelper.MessageBox(context, getString(R.string.settingsNotInitialized));
+
+            Intent intent = new Intent(context, SettingsActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

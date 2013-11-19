@@ -31,7 +31,7 @@
 
     <PreferenceCategory
             android:title="Quiz and cards settings"
-            android:key="quiz_cards">
+            android:key="quiz_cards_settings">
         <CheckBoxPreference
                 android:key="simplified_quiz"
                 android:title="@string/simplified_quiz"

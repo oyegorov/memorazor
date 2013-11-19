@@ -107,4 +107,7 @@
     </string>
     <string name="num_cards">Max number of cards</string>
     <string name="num_cards_summary">Maximum number of cards randomly selected from target groups</string>
+    <string name="settingsNotInitialized">You will be taken to the Settings page. Please select your first language and
+        the language that you wish to study.
+    </string>
 </resources>
