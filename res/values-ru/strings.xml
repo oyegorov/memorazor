@@ -90,4 +90,5 @@
     <string name="add_wordgroup_russian">Добавить (Русский)</string>
     <string name="add_wordgroup_polish">Добавить (Польский)</string>
     <string name="add_wordgroup_dutch">Добавить (Голландский)</string>
+    <string name="preferences">Настройки</string>
 </resources>

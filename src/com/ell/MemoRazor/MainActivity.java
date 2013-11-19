@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
         actions.add(getResources().getString(R.string.main_actionQuiz));
         actions.add(getResources().getString(R.string.main_actionCards));
         actions.add(getResources().getString(R.string.main_actionExportImport));
+        actions.add(getResources().getString(R.string.preferences));
         actions.add(getResources().getString(R.string.main_actionAbout));
 
         actionsListView = (ListView) findViewById(R.id.main_actions_list);
@@ -62,6 +63,10 @@ public class MainActivity extends ActionBarActivity {
                         startActivity(intent);
                         break;
                     case 4:
+                        intent = new Intent(context, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
                         intent = new Intent(context, AboutActivity.class);
                         startActivity(intent);
                         break;

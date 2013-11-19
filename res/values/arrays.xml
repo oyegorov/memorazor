@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languages">
+        <item name="lang_en">@string/lang_en</item>
+        <item name="lang_es">@string/lang_es</item>
+        <item name="lang_de">@string/lang_de</item>
+        <item name="lang_ru">@string/lang_ru</item>
+        <item name="lang_it">@string/lang_it</item>
+        <item name="lang_pl">@string/lang_pl</item>
+        <item name="lang_fr">@string/lang_fr</item>
+        <item name="lang_nl">@string/lang_nl</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item name="lang_en">en</item>
+        <item name="lang_es">es</item>
+        <item name="lang_de">de</item>
+        <item name="lang_ru">ru</item>
+        <item name="lang_it">it</item>
+        <item name="lang_pl">pl</item>
+        <item name="lang_fr">fr</item>
+        <item name="lang_nl">nl</item>
+    </string-array>
+
+    <string-array name="max_quiz_questions">
+        <item name="10">10</item>
+        <item name="15">15</item>
+        <item name="20">20</item>
+        <item name="30">30</item>
+        <item name="50">50</item>
+        <item name="75">75</item>
+        <item name="100">100</item>
+    </string-array>
+
+    <string-array name="max_cards">
+        <item name="10">10</item>
+        <item name="15">15</item>
+        <item name="20">20</item>
+        <item name="30">30</item>
+        <item name="50">50</item>
+        <item name="75">75</item>
+        <item name="100">100</item>
+    </string-array>
+</resources>

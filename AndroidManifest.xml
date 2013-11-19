@@ -61,6 +61,13 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.ell.MemoRazor.MainActivity" />
         </activity>
+        <activity android:name=".SettingsActivity"
+                  android:label="@string/preferences"
+                  android:parentActivityName="com.ell.MemoRazor.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ell.MemoRazor.MainActivity" />
+        </activity>
         <activity android:name=".ImportExportActivity"
                   android:label="@string/main_actionExportImport"
                   android:parentActivityName="com.ell.MemoRazor.MainActivity">

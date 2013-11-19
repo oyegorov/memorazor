@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="Language settings"
+            android:key="language_settings">
+        <ListPreference
+                android:key="first_language"
+                android:title="Your first language"
+                android:summary="All added words will be translated into this language"
+                android:defaultValue="ru"
+                android:entries="@array/languages"
+                android:entryValues="@array/language_values"
+                />
+        <ListPreference
+                android:key="study_language"
+                android:title="Language to study"
+                android:summary="Choose the main language that you want to study"
+                android:defaultValue="ru"
+                android:entries="@array/languages"
+                android:entryValues="@array/language_values"
+                />
+        <CheckBoxPreference
+                android:key="other_languages"
+                android:title="Enable other languages"
+                android:summary="Allows you to create groups containing words of other languages"
+                android:defaultValue="false"
+                />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="Quiz and cards settings"
+            android:key="quiz_cards">
+        <CheckBoxPreference
+                android:key="simplified_quiz"
+                android:summary="Simplified version of quiz where you will need to pick letters in a correct order instead of typing the word"
+                android:title="Simplified quiz"
+                android:defaultValue="true"
+                />
+
+        <ListPreference
+                android:key="max_qiz_questions"
+                android:title="Number of quiz questions"
+                android:summary="Maximum number of questions that will be randomly selected from target groups for the quiz"
+                android:defaultValue="20"
+                android:entries="@array/max_quiz_questions"
+                android:entryValues="@array/max_quiz_questions"
+                />
+        <ListPreference
+                android:key="max_quiz_questions"
+                android:title="Max number of cards"
+                android:summary="Maximum number of cards randomly selected from target groups"
+                android:defaultValue="20"
+                android:entries="@array/max_cards"
+                android:entryValues="@array/max_cards"
+                />
+    </PreferenceCategory>
+</PreferenceScreen>
