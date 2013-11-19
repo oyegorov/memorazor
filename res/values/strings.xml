@@ -90,4 +90,21 @@
     <string name="add_wordgroup_russian">Add group (Russian)</string>
     <string name="add_wordgroup_dutch">Add group (Dutch)</string>
     <string name="preferences">Preferences</string>
+    <string name="first_language">Your first language</string>
+    <string name="first_language_summary">All added words will be translated into this language</string>
+    <string name="language_to_study">Language to study</string>
+    <string name="language_to_study_summary">Choose the main language that you want to study</string>
+    <string name="enable_other_languages">Enable other languages</string>
+    <string name="enable_other_languages_summary">Allows you to create groups containing words of other languages
+    </string>
+    <string name="simplified_quiz">Simplified quiz</string>
+    <string name="simplified_quiz_summary">Simplified version of quiz where you will need to pick letters in a correct
+        order instead of typing the word
+    </string>
+    <string name="num_quiz_questions">Number of quiz questions</string>
+    <string name="num_quiz_questions_summary">Maximum number of questions that will be randomly selected from target
+        groups for the quiz
+    </string>
+    <string name="num_cards">Max number of cards</string>
+    <string name="num_cards_summary">Maximum number of cards randomly selected from target groups</string>
 </resources>

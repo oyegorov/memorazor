@@ -91,4 +91,19 @@
     <string name="add_wordgroup_polish">Добавить (Польский)</string>
     <string name="add_wordgroup_dutch">Добавить (Голландский)</string>
     <string name="preferences">Настройки</string>
+
+    <string name="first_language">Ваш язык</string>
+    <string name="first_language_summary">Добавленые слова будут автоматически переведены на этот язык</string>
+    <string name="language_to_study">Изучаемый язык</string>
+    <string name="language_to_study_summary">Основной язык, который вы собираетесь изучать</string>
+    <string name="enable_other_languages">Поддержка других языков</string>
+    <string name="enable_other_languages_summary">Позволяет создавать группы слов на языке, отличном от основного</string>
+    <string name="simplified_quiz">Упрощенная викторина</string>
+    <string name="simplified_quiz_summary">Упрощенная версия викторины, в которой нужно расставить буквы в правильном порядке вместо того, чтобы ввести слово полностью
+    </string>
+    <string name="num_quiz_questions">Количество вопросов викторины</string>
+    <string name="num_quiz_questions_summary">Максимальное количество слов, которые будут случайно выбраны и указанных групп для викторины
+    </string>
+    <string name="num_cards">Количество карточекs</string>
+    <string name="num_cards_summary">Максимальное количество карточек со словами, случайно выбранными из указанных групп</string>
 </resources>
