@@ -52,7 +52,7 @@ public class CardsActivity extends OrmLiteActivity {
         }
 
         wordIndices = new ArrayList<Integer>();
-        for (int i=0; i < 20 && i < allWords.size(); i++) {
+        for (int i=0; i < App.getNumCards() && i < allWords.size(); i++) {
             int index = random.nextInt(availableIndices.size());
             wordIndices.add(availableIndices.get(index));
             availableIndices.remove(index);

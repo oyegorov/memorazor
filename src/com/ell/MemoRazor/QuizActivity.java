@@ -180,7 +180,7 @@ public class QuizActivity extends OrmLiteActivity {
     }
 
     private void RefreshSteps() {
-        totalSteps = Math.min(20, availableIndices.size() + currentStep);
+        totalSteps = Math.min(App.getNumQuizQuestions(), availableIndices.size() + currentStep);
 
         String labelText = String.format(getResources().getString(R.string.quiz_word_number),
                 currentStep,

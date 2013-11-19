@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
     public static final String EXTRA_SELECTEDWORDS_ACTION = "com.ell.EXTRA_SELECTEDWORDS_ACTION";
+    public static final String EXTRA_FIRSTTIME_SETTINGS = "com.ell.EXTRA_FIRSTTIME_SETTINGS";
     private MainActionsAdapter mainActionsAdapter;
     private ListView actionsListView;
     private ArrayList<String> actions;
@@ -71,9 +72,8 @@ public class MainActivity extends ActionBarActivity {
         });
 
         if (App.getSettingsNotInitialized()) {
-            DialogHelper.MessageBox(context, getString(R.string.settingsNotInitialized));
-
             Intent intent = new Intent(context, SettingsActivity.class);
+            intent.putExtra(EXTRA_FIRSTTIME_SETTINGS, true);
             startActivity(intent);
         }
     }

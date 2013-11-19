@@ -48,10 +48,10 @@
                 android:entryValues="@array/max_quiz_questions"
                 />
         <ListPreference
-                android:key="max_quiz_questions"
+                android:key="num_cards"
                 android:title="@string/num_cards"
                 android:summary="@string/num_cards_summary"
-                android:defaultValue="20"
+                android:defaultValue="50"
                 android:entries="@array/max_cards"
                 android:entryValues="@array/max_cards"
                 />

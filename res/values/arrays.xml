@@ -23,6 +23,7 @@
     </string-array>
 
     <string-array name="max_quiz_questions">
+        <item name="10">5</item>
         <item name="10">10</item>
         <item name="15">15</item>
         <item name="20">20</item>
@@ -33,6 +34,7 @@
     </string-array>
 
     <string-array name="max_cards">
+        <item name="10">5</item>
         <item name="10">10</item>
         <item name="15">15</item>
         <item name="20">20</item>

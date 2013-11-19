@@ -26,62 +26,84 @@ public class App extends Application {
     }
 
     public static String getDefaultLanguage() {
-        return sharedPreferences.getString("study_language", "en");
+        return getStringSetting("study_language", "en");
     }
 
     public static void setDefaultLanguage(String value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("study_language", value);
-        editor.commit();
+        setStringSetting("study_language", value);
     }
 
     public static String getFirstLanguage() {
-        return sharedPreferences.getString("first_language", "ru");
+        return getStringSetting("first_language", "ru");
     }
 
     public static void setFirstLanguage(String value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("first_language", value);
-        editor.commit();
+        setStringSetting("first_language", value);
     }
 
     public static Boolean getShowOtherLanguages() {
-        return sharedPreferences.getBoolean("other_languages", false);
+        return getBooleanSetting("other_languages", false);
     }
 
     public static void setShowOtherLanguages(Boolean value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("other_languages", value);
-        editor.commit();
+        setBooleanSetting("other_languages", value);
     }
 
     public static Boolean getSimplifiedQuiz() {
-        return sharedPreferences.getBoolean("simplified_quiz", false);
+        return getBooleanSetting("simplified_quiz", false);
     }
 
     public static void setSimplifiedQuiz(Boolean value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("simplified_quiz", value);
-        editor.commit();
+        setBooleanSetting("simplified_quiz", value);
     }
 
     public static int getNumQuizQuestions() {
-        return sharedPreferences.getInt("max_quiz_questions", 20);
+        return getIntSetting("max_quiz_questions", 20);
     }
 
     public static void setNumQuizQuestions(int value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("max_quiz_questions", value);
-        editor.commit();
+        setIntSetting("max_quiz_questions", value);
     }
 
     public static int getNumCards() {
-        return sharedPreferences.getInt("num_cards", 20);
+        return getIntSetting("num_cards", 20);
     }
 
     public static void setNumCards(int value) {
+        setIntSetting("num_cards", value);
+    }
+
+    private static String getStringSetting(String settingName, String defaultValue) {
+        return sharedPreferences.getString(settingName, defaultValue);
+    }
+
+    private static void setStringSetting(String settingName, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("num_cards", value);
+        editor.putString(settingName, value);
+        editor.commit();
+    }
+
+    private static int getIntSetting(String settingName, int defaultValue) {
+        String stringValue = sharedPreferences.getString(settingName, null);
+        if (stringValue == null)
+            return defaultValue;
+
+        return Integer.valueOf(stringValue);
+    }
+
+    private static void setIntSetting(String settingName, int value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(settingName, String.valueOf(value));
+        editor.commit();
+    }
+
+    private static Boolean getBooleanSetting(String settingName, Boolean defaultValue) {
+        return sharedPreferences.getBoolean(settingName, defaultValue);
+    }
+
+    private static void setBooleanSetting(String settingName, Boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(settingName, value);
         editor.commit();
     }
 }
