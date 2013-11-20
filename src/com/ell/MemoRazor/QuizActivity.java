@@ -1,6 +1,8 @@
 package com.ell.MemoRazor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
@@ -10,17 +12,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.ell.MemoRazor.data.DatabaseHelper;
 
 import com.ell.MemoRazor.data.QuizAnswer;
 import com.ell.MemoRazor.data.Word;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 public class QuizActivity extends OrmLiteActivity {
@@ -39,8 +39,9 @@ public class QuizActivity extends OrmLiteActivity {
     private TextView quizWordNumber;
     private TextView quizTranslation;
     private EditText quizAnswer;
-    private Button quizNext;
+    private Button quizAccept;
     private Button quizSkip;
+    private TextView quizHint;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,9 @@ public class QuizActivity extends OrmLiteActivity {
         quizWordNumber = (TextView) findViewById(R.id.quizWordNumber);
         quizTranslation = (TextView) findViewById(R.id.quizTranslation);
         quizAnswer = (EditText) findViewById(R.id.quizAnswer);
-        quizNext = (Button) findViewById(R.id.quizNext);
+        quizAccept = (Button) findViewById(R.id.quizNext);
         quizSkip = (Button) findViewById(R.id.quizSkip);
+        quizHint = (TextView) findViewById(R.id.quizHint);
 
         answers = new ArrayList<QuizAnswer>();
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
@@ -83,7 +85,7 @@ public class QuizActivity extends OrmLiteActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                quizNext.setEnabled(quizAnswer.getText().length() > 0);
+                quizAccept.setEnabled(quizAnswer.getText().length() > 0 && quizHint.getVisibility() == View.INVISIBLE);
             }
 
             @Override
@@ -96,7 +98,12 @@ public class QuizActivity extends OrmLiteActivity {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_NULL
                         && keyEvent.getAction() == KeyEvent.ACTION_DOWN && quizAnswer.getText().length() > 0) {
-                    NextWord(false);
+
+                    InputMethodManager imm = (InputMethodManager)getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+
+                    EnterWord();
                 }
                 return true;
             }
@@ -104,19 +111,55 @@ public class QuizActivity extends OrmLiteActivity {
     }
 
     private void addQuizSkipHandler() {
-        quizSkip.setOnClickListener(new View.OnClickListener() {
+        quizSkip.setOnClickListener(
+            new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NextWord(true);
+                if (quizHint.getVisibility() == View.INVISIBLE) {
+                    quizHint.setTextColor(Color.RED);
+                    quizHint.setText(currentWord.getName());
+                    quizAnswer.setText("");
+                    quizSkip.setText(getResources().getText(R.string.quiz_next));
+                    quizAccept.setVisibility(View.GONE);
+                    quizHint.setVisibility(View.VISIBLE);
+                } else {
+                    quizAccept.setVisibility(View.VISIBLE);
+                    quizHint.setVisibility(View.INVISIBLE);
+                    quizSkip.setText(getResources().getText(R.string.quiz_skip));
+                    NextWord(true);
+                }
             }
         });
     }
 
+    private void EnterWord() {
+        if (quizHint.getVisibility() == View.INVISIBLE) {
+            String answer = quizAnswer.getText().toString().trim();
+            boolean correctAnswer = answer.equalsIgnoreCase(currentWord.getName());
+            quizHint.setText(currentWord.getName());
+            if (correctAnswer) {
+                quizHint.setTextColor(Color.GREEN);
+            } else {
+                quizHint.setTextColor(Color.RED);
+            }
+
+            quizAnswer.setText("");
+            quizSkip.setText(getResources().getText(R.string.quiz_next));
+            quizAccept.setVisibility(View.GONE);
+            quizHint.setVisibility(View.VISIBLE);
+        } else {
+            quizHint.setVisibility(View.INVISIBLE);
+            quizSkip.setText(getResources().getText(R.string.quiz_skip));
+            quizAccept.setVisibility(View.VISIBLE);
+            NextWord(false);
+        }
+    }
+
     private void addQuizNextHandler() {
-        quizNext.setOnClickListener(new View.OnClickListener() {
+        quizAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NextWord(false);
+                EnterWord();
             }
         });
     }

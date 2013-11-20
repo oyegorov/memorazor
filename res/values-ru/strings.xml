@@ -35,7 +35,8 @@
     <string name="main_actionExportImport">Экспорт слов</string>
     <string name="quiz_header">Викторина</string>
     <string name="quiz_skip">Пропустить</string>
-    <string name="quiz_next">Принять</string>
+    <string name="quiz_accept">Принять</string>
+    <string name="quiz_next">Далее</string>
     <string name="quiz_word_number" formatted="false">Слово %s из %s</string>
     <string name="quiz_result_yourresult_text">ваш результат</string>
     <string name="quiz_result_score_text" formatted="false">%s из %s</string>

@@ -35,7 +35,8 @@
     <string name="main_actionExportImport">Export</string>
     <string name="quiz_header">Quiz</string>
     <string name="quiz_skip">Skip</string>
-    <string name="quiz_next">Accept</string>
+    <string name="quiz_accept">Accept</string>
+    <string name="quiz_next">Next word</string>
     <string name="quiz_word_number" formatted="false">Word %s of %s</string>
     <string name="quiz_result_yourresult_text">your result</string>
     <string name="quiz_result_score_text" formatted="false">%s of %s</string>
