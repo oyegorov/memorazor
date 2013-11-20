@@ -40,7 +40,7 @@ public class QuizActivity extends OrmLiteActivity {
     private TextView quizTranslation;
     private EditText quizAnswer;
     private Button quizAccept;
-    private Button quizSkip;
+    private Button quizNext;
     private TextView quizHint;
 
     @Override
@@ -57,7 +57,7 @@ public class QuizActivity extends OrmLiteActivity {
         quizTranslation = (TextView) findViewById(R.id.quizTranslation);
         quizAnswer = (EditText) findViewById(R.id.quizAnswer);
         quizAccept = (Button) findViewById(R.id.quizNext);
-        quizSkip = (Button) findViewById(R.id.quizSkip);
+        quizNext = (Button) findViewById(R.id.quizSkip);
         quizHint = (TextView) findViewById(R.id.quizHint);
 
         answers = new ArrayList<QuizAnswer>();
@@ -70,7 +70,7 @@ public class QuizActivity extends OrmLiteActivity {
         PickNewWord();
         RefreshSteps();
 
-        addQuizNextHandler();
+        addQuizAcceptHandler();
         addQuizSkipHandler();
         addQuizAnswerChanged();
 
@@ -111,25 +111,26 @@ public class QuizActivity extends OrmLiteActivity {
     }
 
     private void addQuizSkipHandler() {
-        quizSkip.setOnClickListener(
-            new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (quizHint.getVisibility() == View.INVISIBLE) {
-                    quizHint.setTextColor(Color.RED);
-                    quizHint.setText(currentWord.getName());
-                    quizAnswer.setText("");
-                    quizSkip.setText(getResources().getText(R.string.quiz_next));
-                    quizAccept.setVisibility(View.GONE);
-                    quizHint.setVisibility(View.VISIBLE);
-                } else {
-                    quizAccept.setVisibility(View.VISIBLE);
-                    quizHint.setVisibility(View.INVISIBLE);
-                    quizSkip.setText(getResources().getText(R.string.quiz_skip));
-                    NextWord(true);
-                }
-            }
-        });
+        quizNext.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (quizHint.getVisibility() == View.INVISIBLE) {
+                            quizHint.setTextColor(Color.RED);
+                            quizHint.setText(currentWord.getName());
+                            quizAnswer.setEnabled(false);
+                            quizNext.setText(getResources().getText(R.string.quiz_next));
+                            quizAccept.setVisibility(View.GONE);
+                            quizHint.setVisibility(View.VISIBLE);
+                        } else {
+                            quizAccept.setVisibility(View.VISIBLE);
+                            quizAnswer.setEnabled(true);
+                            quizHint.setVisibility(View.INVISIBLE);
+                            quizNext.setText(getResources().getText(R.string.quiz_skip));
+                            NextWord(quizHint.getCurrentTextColor() == Color.RED);
+                        }
+                    }
+                });
     }
 
     private void EnterWord() {
@@ -143,19 +144,20 @@ public class QuizActivity extends OrmLiteActivity {
                 quizHint.setTextColor(Color.RED);
             }
 
-            quizAnswer.setText("");
-            quizSkip.setText(getResources().getText(R.string.quiz_next));
+            quizNext.setText(getResources().getText(R.string.quiz_next));
+            quizAnswer.setEnabled(true);
             quizAccept.setVisibility(View.GONE);
             quizHint.setVisibility(View.VISIBLE);
         } else {
             quizHint.setVisibility(View.INVISIBLE);
-            quizSkip.setText(getResources().getText(R.string.quiz_skip));
+            quizAnswer.setEnabled(false);
+            quizNext.setText(getResources().getText(R.string.quiz_skip));
             quizAccept.setVisibility(View.VISIBLE);
             NextWord(false);
         }
     }
 
-    private void addQuizNextHandler() {
+    private void addQuizAcceptHandler() {
         quizAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
