@@ -15,10 +15,12 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ell.MemoRazor.data.QuizAnswer;
 import com.ell.MemoRazor.data.Word;
+import com.ell.MemoRazor.helpers.LanguageHelper;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,6 +44,7 @@ public class QuizActivity extends OrmLiteActivity {
     private Button quizAccept;
     private Button quizNext;
     private TextView quizHint;
+    private ImageView quizLang;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class QuizActivity extends OrmLiteActivity {
         quizAccept = (Button) findViewById(R.id.quizNext);
         quizNext = (Button) findViewById(R.id.quizSkip);
         quizHint = (TextView) findViewById(R.id.quizHint);
+        quizLang = (ImageView) findViewById(R.id.quizLang);
 
         answers = new ArrayList<QuizAnswer>();
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
@@ -219,6 +223,7 @@ public class QuizActivity extends OrmLiteActivity {
         availableIndices.remove(i);
 
         currentWord = allWords.get(currentWordIndex);
+        quizLang.setImageResource(LanguageHelper.langCodeToImage(currentWord.getLanguage()));
         quizTranslation.setSingleLine();
         quizTranslation.setSingleLine(false);
         quizTranslation.setText(currentWord.getMeaning());

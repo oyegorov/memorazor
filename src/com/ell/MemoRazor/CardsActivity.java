@@ -6,11 +6,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import com.ell.MemoRazor.data.DatabaseHelper;
 
 import com.ell.MemoRazor.data.Word;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.ell.MemoRazor.helpers.LanguageHelper;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,6 +32,8 @@ public class CardsActivity extends OrmLiteActivity {
     private Button nextButton;
     private Button prevButton;
 
+    private ImageView cardLang;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class CardsActivity extends OrmLiteActivity {
         cardNumber = (TextView) findViewById(R.id.cards_cardnumber);
         nextButton = (Button) findViewById(R.id.cards_next);
         prevButton = (Button) findViewById(R.id.cards_prev);
+        cardLang = (ImageView) findViewById(R.id.card_lang);
 
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
         ArrayList<Integer> availableIndices = new ArrayList<Integer>();
@@ -116,6 +119,7 @@ public class CardsActivity extends OrmLiteActivity {
         currentWord = allWords.get(currentWordIndex);
 
         card.setText(isWordShown ? currentWord.getName() : currentWord.getMeaning());
+        cardLang.setImageResource(LanguageHelper.langCodeToImage(currentWord.getLanguage()));
     }
 
     private void RefreshSteps() {

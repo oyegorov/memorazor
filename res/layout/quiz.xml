@@ -5,12 +5,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" android:padding="10dp">
 
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/quizLang" android:layout_gravity="center"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quiz_word_number"
-            android:id="@+id/quizWordNumber" android:layout_gravity="center" android:textColor="#777777"
-            android:textSize="20sp"/>
+            android:id="@+id/quizWordNumber" android:layout_gravity="center"
+            android:textSize="26sp"/>
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -30,7 +34,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/quizAnswer" android:layout_gravity="center"
-            android:focusable="true"/>
+            android:focusable="true" android:inputType="textNoSuggestions"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
