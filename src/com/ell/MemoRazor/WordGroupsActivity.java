@@ -65,7 +65,12 @@ public class WordGroupsActivity extends OrmLiteActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.wordgroupsmenu, menu);
+
+        if (App.getShowOtherLanguages()) {
+            inflater.inflate(R.menu.wordgroupsmenu, menu);
+        } else {
+            inflater.inflate(R.menu.wordgroupsmenu_singlelang, menu);
+        }
 
         return super.onCreateOptionsMenu(menu);
     }
