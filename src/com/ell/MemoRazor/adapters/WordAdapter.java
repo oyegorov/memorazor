@@ -52,7 +52,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
             }
 
             String transcription = word.getTranscription();
-            if (transcription == null) {
+            if (transcription == null || transcription.equals("")) {
                 wordTranscriptionTextView.setVisibility(View.GONE);
             } else {
                 wordTranscriptionTextView.setText(transcription);
