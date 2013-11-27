@@ -1,5 +1,7 @@
 package com.ell.MemoRazor.export;
 
+import android.content.SharedPreferences;
+import com.ell.MemoRazor.App;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
@@ -12,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ExportManager {
     private DatabaseHelper databaseHelper;
@@ -33,6 +37,14 @@ public class ExportManager {
         }
 
         Hashtable<String, Object> settings = new Hashtable<String, Object>();
+
+        Map<String, ?> sharedPreferencesList = App.getSharedPreferences().getAll();
+        Iterator it = sharedPreferencesList.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            settings.put(pairs.getKey().toString(), pairs.getValue());
+        }
+
         ExportedData exportedData = new ExportedData(version, exportedWordGroups, settings);
 
         Gson gson = new Gson();
@@ -42,6 +54,27 @@ public class ExportManager {
     public Boolean Import(int version, String json) {
         Gson gson = new Gson();
         ExportedData data = gson.fromJson(json, ExportedData.class);
+
+        Iterator it = data.getSettings().entrySet().iterator();
+
+        try
+        {
+            SharedPreferences sharedPreferences = App.getSharedPreferences();
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+            while (it.hasNext()) {
+                Map.Entry pairs = (Map.Entry)it.next();
+                if (pairs.getValue() instanceof String)
+                    preferencesEditor.putString(pairs.getKey().toString(), pairs.getValue().toString());
+                if (pairs.getValue() instanceof Boolean)
+                    preferencesEditor.putBoolean(pairs.getKey().toString(), (Boolean)pairs.getValue());
+            }
+            preferencesEditor.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
         try {
             DatabaseConnection conn = databaseHelper.getWordGroupDao().startThreadConnection();
             Savepoint savepoint = null;

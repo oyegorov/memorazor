@@ -20,6 +20,10 @@ public class App extends Application {
         return context;
     }
 
+    public static SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
+    }
+
     public static Boolean getSettingsNotInitialized() {
         String firstLanguage = sharedPreferences.getString("first_language", null);
         return firstLanguage == null;
