@@ -58,7 +58,8 @@ public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
             ImageView imageView = (ImageView)convertView.findViewById(R.id.group_selection_lang_icon);
             imageView.setImageResource(LanguageHelper.langCodeToImage(wordGroup.getLanguage()));
 
-            groupName.setText(String.format("%s (%s)", wordGroup.toString(), wordGroup.getWords().size()));
+            groupName.setText(String.format("%s (%s)", wordGroup.toString(),
+                    wordGroup.getWords() == null ? 0 : wordGroup.getWords().size()));
             selectionGroupCheckbox.setTag(wordGroup);
             selectionGroupCheckbox.setOnCheckedChangeListener(checkListener);
         }

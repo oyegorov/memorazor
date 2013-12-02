@@ -42,7 +42,9 @@ public class WordGroupAdapter extends ArrayAdapter<WordGroup> {
             //TextView groupAddedTextView = (TextView)convertView.findViewById(R.id.group_added_text);
 
             //DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            groupNameTextView.setText(String.format("%s (%s)", wordGroup.toString(), wordGroup.getWords().size()));
+
+            groupNameTextView.setText(String.format("%s (%s)", wordGroup.toString(),
+                    wordGroup.getWords() == null ? 0 : wordGroup.getWords().size()));
             //groupAddedTextView.setText(dateFormat.format(wordGroup.getCreatedDate()));
         }
 
