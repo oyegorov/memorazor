@@ -22,14 +22,13 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.support.DatabaseConnection;
 import com.j256.ormlite.table.TableUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 
 public class ImportExportActivity extends OrmLiteActivity {
+    public static final String UTF16 = "UTF16";
     private ArrayAdapter<String> actionsAdapter;
     private ListView actionsListView;
     private ArrayList<String> actions;
@@ -85,20 +84,31 @@ public class ImportExportActivity extends OrmLiteActivity {
 
     private void Import(String filePath) {
         ExportManager exportManager = new ExportManager(getHelper());
-        try {
+
+        try
+        {
             FileInputStream fileInputStream = new FileInputStream(filePath);
-            StringBuffer fileContent = new StringBuffer("");
-            byte[] buffer = new byte[100];
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, UTF16);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            try {
 
-            int dataRead;
-            while ((dataRead = fileInputStream.read(buffer)) != -1) {
-                fileContent.append(new String(buffer, 0, dataRead));
+                StringBuffer fileContent = new StringBuffer("");
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    fileContent.append(line);
+                }
+                String json = fileContent.toString();
+
+                exportManager.Import(getVersionCode(), json);
+                DialogHelper.MessageBox(this, getString(R.string.importSucceeded));
             }
-            String json = fileContent.toString();
-
-            exportManager.Import(getVersionCode(), json);
-            DialogHelper.MessageBox(this, getString(R.string.importSucceeded));
-        } catch (Exception e) {
+            finally {
+                bufferedReader.close();
+               inputStreamReader.close();
+               fileInputStream.close();
+            }
+        }
+        catch (Exception e) {
             DialogHelper.MessageBox(this, getString(R.string.importFailed));
             e.printStackTrace();
         }
@@ -111,9 +121,17 @@ public class ImportExportActivity extends OrmLiteActivity {
 
             final String tempFileName = "Export.mrz";
             File outputFile = new File(Environment.getExternalStorageDirectory(), tempFileName);
-            FileOutputStream out = new FileOutputStream(outputFile, false);
-            out.write(json.getBytes());
-            out.close();
+
+            FileOutputStream out = null;
+            try
+            {
+                out = new FileOutputStream(outputFile, false);
+                out.write(json.getBytes(UTF16));
+            }
+            finally {
+                if (out != null)
+                    out.close();
+            }
 
             File sendFile = new File(Environment.getExternalStorageDirectory(), tempFileName);
             Intent shareIntent = new Intent();
@@ -141,9 +159,16 @@ public class ImportExportActivity extends OrmLiteActivity {
                 public void onRequestInput(String input) {
                     try {
                         File outputFile = new File(Environment.getExternalStorageDirectory(), input);
-                        FileOutputStream out = new FileOutputStream(outputFile, false);
-                        out.write(json.getBytes());
-                        out.close();
+
+                        FileOutputStream out = null;
+                        try {
+                            out = new FileOutputStream(outputFile, false);
+                            out.write(json.getBytes(UTF16));
+                        }
+                        finally {
+                            if (out != null)
+                                out.close();
+                        }
                         DialogHelper.MessageBox(context, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
                     } catch (Exception e) {
                         DialogHelper.MessageBox(context, context.getString(R.string.exportFailed));
