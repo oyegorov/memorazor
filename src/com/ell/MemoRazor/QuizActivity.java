@@ -100,8 +100,7 @@ public class QuizActivity extends OrmLiteActivity {
         quizAnswer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_NULL
-                        && keyEvent.getAction() == KeyEvent.ACTION_DOWN && quizAnswer.getText().length() > 0) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
 
                     InputMethodManager imm = (InputMethodManager)getSystemService(
                             Context.INPUT_METHOD_SERVICE);
