@@ -67,12 +67,11 @@ public class FlowLayout extends ViewGroup {
                 continue;
             }
 
-            child.measure(
-                    MeasureSpec.makeMeasureSpec(sizeWidth, modeWidth == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : modeWidth),
-                    MeasureSpec.makeMeasureSpec(sizeHeight, modeHeight == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : modeHeight)
-            );
-
             LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            child.measure(
+                    MeasureSpec.makeMeasureSpec(lp.width, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(lp.height, MeasureSpec.EXACTLY)
+            );
 
             int hSpacing = this.horizontalSpacing;
             int vSpacing = this.verticalSpacing;
