@@ -39,7 +39,7 @@
     <string name="quiz_next">Далее</string>
     <string name="quiz_word_number" formatted="false">Слово %s из %s</string>
     <string name="quiz_result_yourresult_text">ваш результат</string>
-    <string name="quiz_result_score_text" formatted="false">Карточка %s из %s</string>
+    <string name="quiz_result_score_text" formatted="false">%s из %s</string>
     <string name="quiz_result_skipped_text" formatted="false">Пропущено: %s</string>
     <string name="quiz_result_elapsed_text" formatted="false">Потрачено: %.2f сек.</string>
     <string name="quiz_results_finish_text">Завершить</string>
