@@ -29,6 +29,11 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/yandexcred"
+            android:id="@+id/yandexcred" android:paddingTop="10dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/projectPage"
             android:id="@+id/projectPage" android:paddingTop="10dp"/>
 </LinearLayout>

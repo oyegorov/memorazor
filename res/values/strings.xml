@@ -111,4 +111,5 @@
     <string name="settingsNotInitialized">Before starting to use the application, select your first language and
         the language that you wish to study.
     </string>
+    <string name="yandexcred">The application uses Yandex.Translate web services.</string>
 </resources>
