@@ -187,6 +187,11 @@ public class WordListActivity extends OrmLiteActivity {
 
     private void addWord() {
         final Context context = this;
+        if (!NetworkHelper.isNetworkOnline(context)) {
+            DialogHelper.MessageBox(context, getString(R.string.no_network_available));
+            return;
+        }
+
         DialogHelper.RequestInput(this, getResources().getString(R.string.words_addWord), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(String input) {

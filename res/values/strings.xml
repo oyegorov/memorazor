@@ -112,4 +112,5 @@
         the language that you wish to study.
     </string>
     <string name="yandexcred">The application uses Yandex.Translate web services.</string>
+    <string name="no_network_available">Cannot add word when no network is available</string>
 </resources>
