@@ -19,7 +19,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WordListActivity extends OrmLiteActivity {
+public class WordListActivity extends MemoRazorActivity {
     private ArrayList<Word> words;
     private Dao<Word, Integer> wordsDao;
     private Dao<WordGroup, Integer> wordGroupsDao;
@@ -28,15 +28,11 @@ public class WordListActivity extends OrmLiteActivity {
     private ListView wordsListView;
     private WordAdapter wordsAdapter;
 
-    WordPlaybackManager playbackManager;
+    private WordPlaybackManager playbackManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.words);
 
         int selectedGroupId = getIntent().getIntExtra(WordGroupsActivity.EXTRA_GROUP_ID, 0);

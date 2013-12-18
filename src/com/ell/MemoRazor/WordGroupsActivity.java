@@ -1,25 +1,19 @@
 package com.ell.MemoRazor;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordGroupAdapter;
-import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
-import com.ell.MemoRazor.helpers.LanguageHelper;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WordGroupsActivity extends OrmLiteActivity {
+public class WordGroupsActivity extends MemoRazorActivity {
     public static final String EXTRA_GROUP_ID = "com.ell.GROUP_ID";
 
     private ArrayList<WordGroup> wordGroups;
@@ -28,13 +22,14 @@ public class WordGroupsActivity extends OrmLiteActivity {
     private WordGroupAdapter wordGroupsAdapter;
 
     @Override
+    protected void configureActionBar(ActionBar actionBar) {
+        super.configureActionBar(actionBar);
+        actionBar.setIcon(R.drawable.group);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setIcon(R.drawable.group);
 
         setTitle(getResources().getString(R.string.wordGroups_wordGroups));
 

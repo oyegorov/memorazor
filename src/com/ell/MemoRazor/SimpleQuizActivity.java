@@ -19,7 +19,7 @@ import com.ell.MemoRazor.helpers.WordPlaybackManager;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SimpleQuizActivity extends OrmLiteActivity {
+public class SimpleQuizActivity extends MemoRazorActivity {
     public static final String EXTRA_QUIZ_ANSWERS = "com.ell.QUIZ_ANSWERS";
 
     private Random random = new Random(System.currentTimeMillis());
@@ -44,13 +44,8 @@ public class SimpleQuizActivity extends OrmLiteActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.simplequiz);
-        //getActionBar().setIcon(R.drawable.group);
-        //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
+
         quizWordNumber = (TextView) findViewById(R.id.quizWordNumber);
         quizTranslation = (TextView) findViewById(R.id.quizTranslation);
         quizNext = (Button) findViewById(R.id.quizNext);

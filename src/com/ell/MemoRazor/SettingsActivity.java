@@ -1,10 +1,9 @@
 package com.ell.MemoRazor;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import com.ell.MemoRazor.helpers.DialogHelper;
 
-public class SettingsActivity extends OrmLiteActivity {
+public class SettingsActivity extends MemoRazorActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

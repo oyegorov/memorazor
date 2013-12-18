@@ -15,7 +15,7 @@ import com.ell.MemoRazor.helpers.LanguageHelper;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CardsActivity extends OrmLiteActivity {
+public class CardsActivity extends MemoRazorActivity {
     public static final String EXTRA_QUIZ_ANSWERS = "com.ell.QUIZ_ANSWERS";
 
     private Random random = new Random(System.currentTimeMillis());
@@ -37,11 +37,8 @@ public class CardsActivity extends OrmLiteActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.cards);
+
         card = (TextView) findViewById(R.id.cards_card);
         cardNumber = (TextView) findViewById(R.id.cards_cardnumber);
         nextButton = (Button) findViewById(R.id.cards_next);

@@ -9,25 +9,16 @@ import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
-import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.export.ExportManager;
-import com.ell.MemoRazor.export.ExportedData;
-import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
-import com.google.gson.*;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.support.DatabaseConnection;
-import com.j256.ormlite.table.TableUtils;
 
 import java.io.*;
 import java.sql.SQLException;
-import java.sql.Savepoint;
 import java.util.ArrayList;
 
-public class ImportExportActivity extends OrmLiteActivity {
+public class ImportExportActivity extends MemoRazorActivity {
     public static final String UTF16 = "UTF16";
     private ArrayAdapter<String> actionsAdapter;
     private ListView actionsListView;
@@ -38,10 +29,6 @@ public class ImportExportActivity extends OrmLiteActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.importexport);
 
         actions = new ArrayList<String>();

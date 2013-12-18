@@ -6,18 +6,16 @@ import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordGroupSelectionAdapter;
-import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
 import com.ell.MemoRazor.translators.YandexOpenJSONTranslator;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class WordGroupsSelectionActivity extends OrmLiteActivity {
+public class WordGroupsSelectionActivity extends MemoRazorActivity {
     public static final String EXTRA_SELECTED_WORDS = "com.ell.SELECTED_WORDS";
     private ArrayList<WordGroup> wordGroups;
     private Dao<WordGroup, Integer> wordGroupsDao;
@@ -27,12 +25,14 @@ public class WordGroupsSelectionActivity extends OrmLiteActivity {
     private MenuItem startItem;
 
     @Override
+    protected void configureActionBar(ActionBar actionBar) {
+        super.configureActionBar(actionBar);
+        actionBar.setIcon(R.drawable.group);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.group);
 
         setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
 

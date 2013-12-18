@@ -4,27 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import com.ell.MemoRazor.data.DatabaseHelper;
 
 import com.ell.MemoRazor.data.QuizAnswer;
-import com.ell.MemoRazor.data.Word;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
-public class QuizResultsActivity extends OrmLiteActivity {
+public class QuizResultsActivity extends MemoRazorActivity {
     private TextView quizResult;
     private TextView quizScore;
     private TextView quizSkipped;
@@ -35,10 +25,6 @@ public class QuizResultsActivity extends OrmLiteActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.quiz_results);
 
         //getActionBar().setIcon(R.drawable.group);

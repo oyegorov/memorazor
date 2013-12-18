@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.view.MenuItem;
 import android.widget.TextView;
-import com.ell.MemoRazor.data.DatabaseHelper;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-public class AboutActivity extends OrmLiteActivity {
+public class AboutActivity extends MemoRazorActivity {
     private TextView aboutText;
     private TextView email;
     private TextView projectPage;
@@ -18,10 +15,6 @@ public class AboutActivity extends OrmLiteActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.about);
 
         aboutText = (TextView)findViewById(R.id.aboutText);
