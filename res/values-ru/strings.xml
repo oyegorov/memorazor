@@ -11,7 +11,7 @@
     <string name="wordGroups_delete">Удалить</string>
     <string name="wordGroups_performAction">Выберите действие:</string>
     <string name="wordGroups_addWordGroup">Добавление группы</string>
-    <string name="wordGroups_addWordGroupInputName">Имя:</string>
+    <string name="wordGroups_addWordGroupInputName">Введите имя группы, которую вы хотите добавить.</string>
     <string name="wordGroups_confirmDelete">Удалить группу %s со всеми словами?</string>
     <string name="wordGroups_newName">Новое имя:</string>
     <string name="wordGroups_wordGroups">Группы слов</string>
@@ -20,7 +20,7 @@
     <string name="words_translate">Перевести</string>
     <string name="words_delete">Удалить</string>
     <string name="words_confirmDelete">Удалить слово?</string>
-    <string name="words_addWord">Добавить слово</string>
+    <string name="words_addWord">Введите слово, которое вы хотите добавить. Перевод загрузится автоматически.</string>
     <string name="words_noNetwork">Отсутствует сеть.</string>
     <string name="words_openYandex">Смотреть в Яндекс.Словарях</string>
     <string name="words_openGoogleTranslate">Смотреть в Google Translate</string>
@@ -32,7 +32,7 @@
     <string name="main_actionQuiz">Викторина</string>
     <string name="main_actionStatistics">Статистика</string>
     <string name="main_actionAbout">О программе</string>
-    <string name="main_actionExportImport">Экспорт слов</string>
+    <string name="main_actionExportImport">Экспорт / импорт</string>
     <string name="quiz_header">Викторина</string>
     <string name="quiz_skip">Пропустить</string>
     <string name="quiz_accept">Принять</string>
@@ -76,10 +76,10 @@
     <string name="send_to">Отправить</string>
     <string name="importSucceeded">Импорт завершился успешно.</string>
     <string name="importFailed">Ошибка импорта.</string>
-    <string name="license">Эта программа распространяется с открытым кодом по лицензии LGPL v3.</string>
-    <string name="projectPage">Страница проекта: %s</string>
+    <string name="license">MemoRazor - программа с открытым исходным кодом (LGPL v3)</string>
+    <string name="projectPage">Страница проекта: \r\n%s</string>
 
-    <string name="developedBy">Разработано О. Егоровом, 2013 </string>
+    <string name="developedBy">Разработано О. Егоровым, 2013 </string>
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
     <string name="about">О программе</string>
     <string name="exportFileName">Имя файла:</string>
@@ -94,19 +94,19 @@
     <string name="preferences">Настройки</string>
 
     <string name="first_language">Ваш язык</string>
-    <string name="first_language_summary">Добавленые слова будут автоматически переведены на этот язык</string>
+    <string name="first_language_summary">Добавленные слова будут автоматически переведены на этот язык</string>
     <string name="language_to_study">Изучаемый язык</string>
     <string name="language_to_study_summary">Основной язык, который вы собираетесь изучать</string>
     <string name="enable_other_languages">Поддержка других языков</string>
     <string name="enable_other_languages_summary">Позволяет создавать группы слов на языке, отличном от основного</string>
     <string name="simplified_quiz">Упрощенная викторина</string>
-    <string name="simplified_quiz_summary">Упрощенная версия викторины, в которой нужно расставить буквы в правильном порядке вместо того, чтобы ввести слово полностью
+    <string name="simplified_quiz_summary">Упрощенная версия викторины, в которой нужно расставить буквы в правильном порядке вместо того, чтобы вводить слово полностью
     </string>
     <string name="num_quiz_questions">Количество вопросов викторины</string>
-    <string name="num_quiz_questions_summary">Максимальное количество слов, которые будут случайно выбраны и указанных групп для викторины
+    <string name="num_quiz_questions_summary">Максимальное количество слов, которые будут случайно выбраны из указанных групп для викторины
     </string>
     <string name="num_cards">Количество карточекs</string>
     <string name="num_cards_summary">Максимальное количество карточек со словами, случайно выбранными из указанных групп</string>
     <string name="settingsNotInitialized">Перед началом работы с программой выберите ваш язык и язык, который вы планируете изучать.</string>
-    <string name="yandexcred">Приложение использует веб-службы Яндекс.Переводы</string>
+    <string name="yandexcred">Приложение использует веб-службы Яндекс.Перевод</string>
 </resources>

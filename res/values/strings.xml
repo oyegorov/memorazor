@@ -76,7 +76,7 @@
     <string name="importSucceeded">Import was successful.</string>
     <string name="importFailed">Import failed.</string>
     <string name="license">This program is open source (LGPL v3).</string>
-    <string name="projectPage">Project page: %s</string>
+    <string name="projectPage">Project page: \r\n%s</string>
 
     <string name="developedBy">Developed by Oleg Yegorov in 2013</string>
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
