@@ -162,7 +162,7 @@ public class WordListActivity extends MemoRazorActivity {
             menu.add(Menu.NONE, 2, 2, getResources().getString(R.string.words_editTranslation));
             menu.add(Menu.NONE, 3, 3, getResources().getString(R.string.words_openGoogleTranslate));
 
-            if (App.getFirstLanguage() == "ru") {
+            if (App.getFirstLanguage().equalsIgnoreCase("ru")) {
                 menu.add(Menu.NONE, 4, 4, getResources().getString(R.string.words_openYandex));
                 menu.add(Menu.NONE, 5, 5, getResources().getString(R.string.words_openMultitran));
             }
