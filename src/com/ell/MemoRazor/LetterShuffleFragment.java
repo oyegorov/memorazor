@@ -2,6 +2,7 @@ package com.ell.MemoRazor;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
@@ -85,6 +86,7 @@ public class LetterShuffleFragment extends Fragment {
                 }
             });
             button.setText(Character.toString(currentChar));
+            button.setTypeface(null, Typeface.BOLD);
             button.setLayoutParams(new FlowLayout.LayoutParams(90, 90));
 
             container.addView(button);
