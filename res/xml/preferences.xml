@@ -40,7 +40,7 @@
                 />
 
         <ListPreference
-                android:key="max_qiz_questions"
+                android:key="max_quiz_questions"
                 android:title="@string/num_quiz_questions"
                 android:summary="@string/num_quiz_questions_summary"
                 android:defaultValue="10"
