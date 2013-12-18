@@ -85,7 +85,7 @@ public class LetterShuffleFragment extends Fragment {
                 }
             });
             button.setText(Character.toString(currentChar));
-            button.setLayoutParams(new FlowLayout.LayoutParams(70, 70));
+            button.setLayoutParams(new FlowLayout.LayoutParams(90, 90));
 
             container.addView(button);
         }
