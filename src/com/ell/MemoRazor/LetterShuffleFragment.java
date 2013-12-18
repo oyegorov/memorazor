@@ -1,5 +1,9 @@
 package com.ell.MemoRazor;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,16 +15,29 @@ import com.ell.MemoRazor.layouts.FlowLayout;
 import java.util.Random;
 
 public class LetterShuffleFragment extends Fragment {
+    private Button lastWrongLetterButton;
     private String userInput;
     private OnInputLetterListener onInputCorrectLetter;
     private OnInputLetterListener onInputWrongLetter;
+    private boolean noErrors = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.lettershuffle, container, false);
     }
 
+    public boolean noErrors() {
+       return noErrors;
+    }
+
+    public String getUserInput() {
+        return userInput;
+    }
+
     public void setWord (final String word) {
+        lastWrongLetterButton = null;
+        noErrors = true;
+
         FlowLayout container = (FlowLayout)getView().findViewById(R.id.lettershuffle_container);
         container.removeAllViews();
 
@@ -35,24 +52,40 @@ public class LetterShuffleFragment extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    view.setVisibility(View.GONE);
+                    Button buttonClicked = (Button)view;
 
-                    String letter = ((Button)view).getText().toString();
-                    userInput +=letter;
+                    String letter = buttonClicked.getText().toString().toUpperCase();
+                    String currentInput = userInput + letter;
 
-                    if (word.toUpperCase().startsWith(userInput)) {
+                    if (buttonClicked != lastWrongLetterButton && lastWrongLetterButton != null) {
+                        lastWrongLetterButton.getBackground().clearColorFilter();
+                        lastWrongLetterButton.invalidate();
+                    }
+
+                    if (word.toUpperCase().startsWith(currentInput)) {
+                        lastWrongLetterButton = null;
+                        userInput = currentInput;
+                        buttonClicked.setVisibility(View.INVISIBLE);
+
                         if (onInputCorrectLetter != null) {
-                            onInputCorrectLetter.onInputLetter(letter, userInput);
+                            onInputCorrectLetter.onInputLetter(letter, currentInput);
                         }
                     } else {
+                        lastWrongLetterButton = buttonClicked;
+                        lastWrongLetterButton.getBackground().setColorFilter(Color.rgb(255, 100, 100), PorterDuff.Mode.MULTIPLY);
+                        noErrors = false;
+
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE, 200);
+
                         if (onInputWrongLetter != null) {
-                            onInputWrongLetter.onInputLetter(letter, userInput);
+                            onInputWrongLetter.onInputLetter(letter, currentInput);
                         }
                     }
                 }
             });
             button.setText(Character.toString(currentChar));
-            button.setLayoutParams(new FlowLayout.LayoutParams(90, 90));
+            button.setLayoutParams(new FlowLayout.LayoutParams(70, 70));
 
             container.addView(button);
         }
@@ -60,7 +93,7 @@ public class LetterShuffleFragment extends Fragment {
 
     static void shuffleArray(char[] letters)
     {
-        Random rnd = new Random();
+        Random rnd = new Random(System.currentTimeMillis());
         for (int i = letters.length - 1; i > 0; i--)
         {
             int index = rnd.nextInt(i + 1);

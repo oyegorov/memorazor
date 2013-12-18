@@ -5,16 +5,22 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" android:padding="10dp">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/card_lang" android:layout_gravity="center"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cards_cardNumber"
-            android:id="@+id/cards_cardnumber" android:layout_gravity="center"
-            android:textSize="26sp"/>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+                  android:gravity="center">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_lang" android:layout_gravity="center"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cards_cardNumber"
+                android:id="@+id/cards_cardnumber" android:layout_gravity="center"
+                android:textSize="26sp"
+                android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

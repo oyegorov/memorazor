@@ -43,7 +43,7 @@ public class WordPlaybackManager {
         return mp3data;
     }
 
-    public void PlayWord (Word word) {
+    public void PlayWord (Word word, boolean cacheOnly) {
         byte[] cachedPlayback = null;
         try {
             cachedPlayback = databaseHelper.getWordPlaybackCache(word);
@@ -52,6 +52,9 @@ public class WordPlaybackManager {
         }
         if (cachedPlayback != null) {
             playMp3(cachedPlayback);
+            return;
+        }
+        else if (cacheOnly) {
             return;
         }
 
@@ -88,6 +91,10 @@ public class WordPlaybackManager {
                 }
             }
         }.execute(word);
+    }
+
+    public void PlayWord (Word word) {
+        PlayWord(word, false);
     }
 
     private void playMp3(byte[] mp3SoundByteArray) {

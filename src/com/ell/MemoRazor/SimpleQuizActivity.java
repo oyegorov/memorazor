@@ -1,20 +1,13 @@
 package com.ell.MemoRazor;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +19,7 @@ import com.ell.MemoRazor.helpers.WordPlaybackManager;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class QuizActivity extends OrmLiteActivity {
+public class SimpleQuizActivity extends OrmLiteActivity {
     public static final String EXTRA_QUIZ_ANSWERS = "com.ell.QUIZ_ANSWERS";
 
     private Random random = new Random(System.currentTimeMillis());
@@ -41,11 +34,11 @@ public class QuizActivity extends OrmLiteActivity {
     private ArrayList<Word> allWords;
     private TextView quizWordNumber;
     private TextView quizTranslation;
-    private EditText quizAnswer;
-    private Button quizAccept;
     private Button quizNext;
+    private Button quizSkip;
     private TextView quizHint;
     private ImageView quizLang;
+    private LetterShuffleFragment quizShuffledWord;
     private WordPlaybackManager playbackManager;
 
     @Override
@@ -55,16 +48,16 @@ public class QuizActivity extends OrmLiteActivity {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.quiz);
+        setContentView(R.layout.simplequiz);
         //getActionBar().setIcon(R.drawable.group);
         //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
         quizWordNumber = (TextView) findViewById(R.id.quizWordNumber);
         quizTranslation = (TextView) findViewById(R.id.quizTranslation);
-        quizAnswer = (EditText) findViewById(R.id.quizAnswer);
-        quizAccept = (Button) findViewById(R.id.quizNext);
-        quizNext = (Button) findViewById(R.id.quizSkip);
+        quizNext = (Button) findViewById(R.id.quizNext);
+        quizSkip = (Button) findViewById(R.id.quizSkip);
         quizHint = (TextView) findViewById(R.id.quizHint);
         quizLang = (ImageView) findViewById(R.id.quizLang);
+        quizShuffledWord = (LetterShuffleFragment)getSupportFragmentManager().findFragmentById(R.id.quizShuffledWord);
 
         answers = new ArrayList<QuizAnswer>();
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
@@ -76,101 +69,71 @@ public class QuizActivity extends OrmLiteActivity {
         playbackManager = new WordPlaybackManager(getHelper(), null);
 
         LoadNewWord();
-        RefreshSteps();
 
-        addQuizAcceptHandler();
+        addShuffledWordButtonsHandlers();
+        addQuizNextHandler();
         addQuizSkipHandler();
-        addQuizAnswerChanged();
+        addQuizNextWordHandler();
 
         currentQuestionStartTime = System.currentTimeMillis();
     }
 
-    private void addQuizAnswerChanged() {
-        quizAnswer.addTextChangedListener(new TextWatcher() {
+    private void addQuizNextWordHandler() {
+        quizNext.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                quizAccept.setEnabled(quizAnswer.getText().length() > 0 && quizHint.getVisibility() == View.INVISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onClick(View view) {
+                NextWord(!quizShuffledWord.getUserInput().equalsIgnoreCase(currentWord.getName()));
             }
         });
+    }
 
-        quizAnswer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    private void inputLetter(String word) {
+        quizHint.setText(word.toUpperCase());
+
+        if (word.length() == currentWord.getName().length()) {
+            if (currentWord.getName().equalsIgnoreCase(word)) {
+                FinishWordInput(quizShuffledWord.noErrors());
+            } else {
+                FinishWordInput(false);
+            }
+        }
+    }
+
+    private void addShuffledWordButtonsHandlers() {
+        quizShuffledWord.setOnInputCorrectLetter(new LetterShuffleFragment.OnInputLetterListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_DONE) {
-
-                    InputMethodManager imm = (InputMethodManager)getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-
-                    EnterWord();
-                }
-                return true;
+            public void onInputLetter(String letter, String word) {
+                inputLetter(word);
             }
         });
     }
 
     private void addQuizSkipHandler() {
-        quizNext.setOnClickListener(
+        quizSkip.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (quizHint.getVisibility() == View.INVISIBLE) {
-                            playbackManager.PlayWord(currentWord, true);
-                            quizHint.setTextColor(Color.RED);
-                            quizHint.setText(currentWord.getName().toUpperCase());
-                            quizAnswer.setEnabled(false);
-                            quizNext.setText(getResources().getText(R.string.quiz_next));
-                            quizAccept.setVisibility(View.GONE);
-                            quizHint.setVisibility(View.VISIBLE);
-                        } else {
-                            quizAccept.setVisibility(View.VISIBLE);
-                            quizAnswer.setEnabled(true);
-                            quizHint.setVisibility(View.INVISIBLE);
-                            quizNext.setText(getResources().getText(R.string.quiz_skip));
-                            NextWord(quizHint.getCurrentTextColor() == Color.RED);
-                        }
+                        FinishWordInput(false);
                     }
                 });
     }
 
-    private void EnterWord() {
-        if (quizHint.getVisibility() == View.INVISIBLE) {
-            String answer = quizAnswer.getText().toString().trim();
-            boolean correctAnswer = answer.equalsIgnoreCase(currentWord.getName());
-            quizHint.setText(currentWord.getName().toUpperCase());
-            playbackManager.PlayWord(currentWord, true);
-            if (correctAnswer) {
-                quizHint.setTextColor(Color.GREEN);
-            } else {
-                quizHint.setTextColor(Color.RED);
-            }
+    private void FinishWordInput(boolean inputCorrect) {
+        playbackManager.PlayWord(currentWord, true);
 
-            quizNext.setText(getResources().getText(R.string.quiz_next));
-            quizAnswer.setEnabled(true);
-            quizAccept.setVisibility(View.GONE);
-            quizHint.setVisibility(View.VISIBLE);
-        } else {
-            quizHint.setVisibility(View.INVISIBLE);
-            quizAnswer.setEnabled(false);
-            quizNext.setText(getResources().getText(R.string.quiz_skip));
-            quizAccept.setVisibility(View.VISIBLE);
-            NextWord(false);
-        }
+        quizHint.setTextColor(inputCorrect ? Color.GREEN : Color.RED);
+        quizHint.setText(currentWord.getName().toUpperCase());
+        quizNext.setVisibility(View.VISIBLE);
+        quizSkip.setVisibility(View.GONE);
+
+        getSupportFragmentManager().beginTransaction().hide(quizShuffledWord).commit();
     }
 
-    private void addQuizAcceptHandler() {
-        quizAccept.setOnClickListener(new View.OnClickListener() {
+    private void addQuizNextHandler() {
+        quizNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EnterWord();
+                NextWord(currentWord.getName().equalsIgnoreCase(quizShuffledWord.getUserInput()) && quizShuffledWord.noErrors());
             }
         });
     }
@@ -186,8 +149,8 @@ public class QuizActivity extends OrmLiteActivity {
                 answer.setSkipped(true);
             } else {
                 answer.setSkipped(false);
-                answer.setProposedAnswer(quizAnswer.getText().toString().trim());
-                answer.setCorrect(answer.getProposedAnswer().equalsIgnoreCase(currentWord.getName()));
+                answer.setProposedAnswer(quizShuffledWord.getUserInput().toString().trim());
+                answer.setCorrect(quizShuffledWord.noErrors());
             }
             answers.add(answer);
 
@@ -198,9 +161,8 @@ public class QuizActivity extends OrmLiteActivity {
             } else {
                 currentStep++;
                 LoadNewWord();
-                RefreshSteps();
 
-                quizAnswer.setText("");
+           //     quizAnswer.setText("");
                 currentQuestionStartTime = System.currentTimeMillis();
             }
         }
@@ -232,14 +194,20 @@ public class QuizActivity extends OrmLiteActivity {
         quizTranslation.setSingleLine();
         quizTranslation.setSingleLine(false);
         quizTranslation.setText(currentWord.getMeaning());
-    }
 
-    private void RefreshSteps() {
         totalSteps = Math.min(App.getNumQuizQuestions(), availableIndices.size() + currentStep);
 
         String labelText = String.format(getResources().getString(R.string.quiz_word_number),
                 currentStep,
                 totalSteps);
         quizWordNumber.setText(labelText);
+
+        quizNext.setVisibility(View.GONE);
+        quizSkip.setVisibility(View.VISIBLE);
+        quizHint.setText("");
+        quizHint.setTextColor(Color.BLACK);
+
+        quizShuffledWord.setWord(currentWord.getName());
+        getSupportFragmentManager().beginTransaction().show(quizShuffledWord).commit();
     }
 }

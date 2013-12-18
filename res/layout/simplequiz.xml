@@ -6,6 +6,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent" android:padding="10dp">
 
+
         <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal"
                       android:gravity="center">
             <ImageView
@@ -31,20 +32,12 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
+                android:text=""
                 android:id="@+id/quizHint" android:layout_gravity="center_horizontal" android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" android:textSize="20sp" android:textColor="#ff0000"
-                android:textStyle="bold" android:visibility="invisible"/>
-        <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/quizAnswer" android:layout_gravity="center"
-                android:focusable="true" android:inputType="textNoSuggestions"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quiz_hint"
-                android:id="@+id/cards_hint"/>
+                android:layout_marginBottom="5dp" android:textSize="20sp" android:textStyle="bold"/>
+        <fragment android:layout_width="fill_parent" android:layout_height="wrap_content" android:name="com.ell.MemoRazor.LetterShuffleFragment"
+                  android:id="@+id/quizShuffledWord" />
+
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -53,8 +46,8 @@
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/quiz_accept"
-                    android:id="@+id/quizNext" android:minWidth="110dp" android:enabled="false"/>
+                    android:text="@string/quiz_next"
+                    android:id="@+id/quizNext" android:minWidth="110dp" android:visibility="gone"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

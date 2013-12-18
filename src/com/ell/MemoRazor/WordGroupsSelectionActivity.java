@@ -103,7 +103,7 @@ public class WordGroupsSelectionActivity extends OrmLiteActivity {
             } else {
                 Intent quizIntent;
                 if (action.equals("quiz")) {
-                    quizIntent = new Intent(this, QuizActivity.class);
+                    quizIntent = (App.getSimplifiedQuiz()) ? new Intent(this, SimpleQuizActivity.class) : new Intent(this, QuizActivity.class);
                 } else if (action.equals("cards")) {
                     quizIntent = new Intent(this, CardsActivity.class);
                 } else {
