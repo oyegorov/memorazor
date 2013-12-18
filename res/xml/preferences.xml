@@ -17,7 +17,7 @@
                 android:key="study_language"
                 android:title="@string/language_to_study"
                 android:summary="@string/language_to_study_summary"
-                android:defaultValue="ru"
+                android:defaultValue="en"
                 android:entries="@array/languages"
                 android:entryValues="@array/language_values"
                 />
