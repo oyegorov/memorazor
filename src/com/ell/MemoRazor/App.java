@@ -62,7 +62,7 @@ public class App extends Application {
     }
 
     public static int getNumQuizQuestions() {
-        return getIntSetting("max_quiz_questions", 20);
+        return getIntSetting("max_quiz_questions", 10);
     }
 
     public static void setNumQuizQuestions(int value) {

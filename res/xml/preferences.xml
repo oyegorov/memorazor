@@ -43,7 +43,7 @@
                 android:key="max_qiz_questions"
                 android:title="@string/num_quiz_questions"
                 android:summary="@string/num_quiz_questions_summary"
-                android:defaultValue="20"
+                android:defaultValue="10"
                 android:entries="@array/max_quiz_questions"
                 android:entryValues="@array/max_quiz_questions"
                 />
