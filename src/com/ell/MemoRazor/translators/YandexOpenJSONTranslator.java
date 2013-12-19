@@ -9,21 +9,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class YandexOpenJSONTranslator implements Translator {
     private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=%s-%s&text=%s&flags=3";
     public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = App.getContext().getResources().getString(R.string.no_translation);
-    private static final Pattern pattern = Pattern.compile("[a-zA-Z]+");
 
     public static boolean isTranslatable(Word word, boolean force) {
         if (!force && YANDEX_TRANSLATION_NOT_AVAILABLE.equals(word.getMeaning()))  {
             return false;
         }
-
-        Matcher matcher = pattern.matcher(word.getName());
-        if (!matcher.matches()) {
+        if (word.getName() == null || word.getName().trim().length() == 0){
             return false;
         }
 
@@ -39,8 +39,17 @@ public final class YandexOpenJSONTranslator implements Translator {
         if (targetLang == null)
             throw new IllegalArgumentException("targetLang cannot be null");
 
-        String url = String.format(TRANSLATE_URL_TEMPLATE, sourceLang, targetLang, word.getName());
-        JSONObject json = (new JSONFetcher()).getJSONFromUrl(url);
+        JSONObject json = null;
+        try {
+            String url = String.format(TRANSLATE_URL_TEMPLATE,
+                    sourceLang,
+                    targetLang,
+                    URLEncoder.encode(word.getName(), "UTF-8"));
+            json = (new JSONFetcher()).getJSONFromUrl(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (json == null) {
             return word;
         }

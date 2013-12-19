@@ -11,15 +11,14 @@ import org.json.JSONObject;
 import java.io.*;
 
 public class JSONFetcher {
-
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
-
     // constructor
     public JSONFetcher() {}
 
     public JSONObject getJSONFromUrl(String url) {
+        InputStream inputStream = null;
+        JSONObject jsonObject = null;
+        String json = "";
+
         // Making HTTP request
         try {
             // defaultHttpClient
@@ -31,7 +30,7 @@ public class JSONFetcher {
 
             HttpResponse httpResponse = httpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
-            is = httpEntity.getContent();
+            inputStream = httpEntity.getContent();
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -43,13 +42,13 @@ public class JSONFetcher {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "utf-8"), 8);
+                    inputStream, "utf-8"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }
-            is.close();
+            inputStream.close();
             json = sb.toString();
         } catch (Exception e) {
             //Log.e("Buffer Error", "Error converting result " + e.toString());
@@ -57,12 +56,12 @@ public class JSONFetcher {
 
         // try parse the string to a JSON object
         try {
-            jObj = new JSONObject(json);
+            jsonObject = new JSONObject(json);
         } catch (JSONException e) {
             //Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
 
         // return JSON String
-        return jObj;
+        return jsonObject;
     }
 }

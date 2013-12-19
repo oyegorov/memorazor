@@ -9,6 +9,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.zip.GZIPInputStream;
 
 public class YandexPlaybackFetcher implements WordPlaybackFetcher {
@@ -22,7 +23,8 @@ public class YandexPlaybackFetcher implements WordPlaybackFetcher {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
 
-            String url = String.format(AUDIO_SOURCE_URL_TEMPLATE, word.getName(), LanguageHelper.langCodeToAudioCode(word.getLanguage()));
+            String url = String.format(AUDIO_SOURCE_URL_TEMPLATE, URLEncoder.encode(word.getName(), "UTF-8"),
+                    LanguageHelper.langCodeToAudioCode(word.getLanguage()));
             HttpGet httpGet = new HttpGet(url);
 
             httpGet.addHeader("Accept", "*/*");
