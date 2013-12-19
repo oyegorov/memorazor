@@ -5,20 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.ell.MemoRazor.R;
-import com.ell.MemoRazor.data.Word;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainActionsAdapter extends ArrayAdapter<String> {
-    private ArrayList<String> objects;
+    private ArrayList<String> actions;
+    private ArrayList<Integer> images;
 
-    public MainActionsAdapter(Context context, int resource, ArrayList<String> objects) {
-        super(context, resource, objects);
-        this.objects = objects;
+    public MainActionsAdapter(Context context, int resource, ArrayList<String> actions) {
+        super(context, resource, actions);
+        this.actions = actions;
+
+        images = new ArrayList<Integer>();
+        images.add(R.drawable.group);
+        images.add(R.drawable.quiz);
+        images.add(R.drawable.cards);
+        images.add(R.drawable.exportimport);
+        images.add(R.drawable.preferences);
+        images.add(R.drawable.about);
     }
 
     @Override
@@ -28,11 +35,13 @@ public class MainActionsAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.main_action_layout, null);
         }
 
-        String action = objects.get(position);
+        String action = actions.get(position);
 
         if (action != null) {
             TextView actionNameTextView = (TextView)convertView.findViewById(R.id.action_name_text);
+            ImageView actionImage = (ImageView)convertView.findViewById(R.id.action_image);
 
+            actionImage.setImageResource(images.get(position));
             actionNameTextView.setText(action);
         }
 
