@@ -56,7 +56,7 @@
     <string name="word_group_language">Язык слов</string>
     <string name="add_wordgroup_withlang">Добавить (другой язык)</string>
     <string name="select_atleast_one_group">Выберите хотя бы одну группу</string>
-    <string name="no_words_selected">В выбранных группах нет слов</string>
+    <string name="no_words_selected">В выбранных группах нет слов или все слова без перевода</string>
 
     <string name="ie_import">Импортировать</string>
     <string name="ie_export">Экспортировать</string>

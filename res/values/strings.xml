@@ -56,7 +56,7 @@
     <string name="word_group_language">Language</string>
     <string name="add_wordgroup_withlang">Add (other language)</string>
     <string name="select_atleast_one_group">Select at least one group</string>
-    <string name="no_words_selected">Selected groups contain no words</string>
+    <string name="no_words_selected">Selected groups contain no words or all the words have no translation</string>
     <string name="ie_import">Import</string>
     <string name="ie_export">Export to /sdcard</string>
     <string name="ie_export_and_share">Export and Share</string>

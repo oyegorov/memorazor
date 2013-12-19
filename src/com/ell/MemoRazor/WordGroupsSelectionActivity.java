@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 public class WordGroupsSelectionActivity extends MemoRazorActivity {
     public static final String EXTRA_SELECTED_WORDS = "com.ell.SELECTED_WORDS";
+    public static final String QUIZ_ACTIVITY_ACTION = "quiz";
+    public static final String CARDS_ACTIVITY_ACTION = "cards";
+
     private ArrayList<WordGroup> wordGroups;
     private Dao<WordGroup, Integer> wordGroupsDao;
     private ListView groupsListView;
@@ -114,9 +117,9 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
                 DialogHelper.MessageBox(this, getResources().getString(R.string.no_words_selected));
             } else {
                 Intent quizIntent;
-                if (action.equals("quiz")) {
+                if (isQuizSelection()) {
                     quizIntent = (App.getSimplifiedQuiz()) ? new Intent(this, SimpleQuizActivity.class) : new Intent(this, QuizActivity.class);
-                } else if (action.equals("cards")) {
+                } else if (isCardsSelection()) {
                     quizIntent = new Intent(this, CardsActivity.class);
                 } else {
                     return;
@@ -127,5 +130,15 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
                 startActivity(quizIntent);
             }
         }
+    }
+
+    private boolean isQuizSelection() {
+        action = getIntent().getStringExtra(MainActivity.EXTRA_SELECTEDWORDS_ACTION);
+        return QUIZ_ACTIVITY_ACTION.equalsIgnoreCase(action);
+    }
+
+    private boolean isCardsSelection() {
+        action = getIntent().getStringExtra(MainActivity.EXTRA_SELECTEDWORDS_ACTION);
+        return CARDS_ACTIVITY_ACTION.equalsIgnoreCase(action);
     }
 }
