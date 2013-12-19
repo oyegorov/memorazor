@@ -3,7 +3,6 @@ package com.ell.MemoRazor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,14 +25,22 @@ public class QuizResultsActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_results);
+    }
 
-        //getActionBar().setIcon(R.drawable.group);
-        //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
+    @Override
+    protected void bindControls() {
+        super.bindControls();
+
         quizResult = (TextView)findViewById(R.id.quiz_result_yourresult);
         quizScore = (TextView)findViewById(R.id.quiz_result_score);
         quizSkipped = (TextView)findViewById(R.id.quiz_result_skipped);
         quizElapsed = (TextView)findViewById(R.id.quiz_result_elapsed);
         finishButton = (Button)findViewById(R.id.quiz_results_finish);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
 
         final Context context = this;
         answers = (ArrayList<QuizAnswer>) getIntent().getSerializableExtra(QuizActivity.EXTRA_QUIZ_ANSWERS);
@@ -46,10 +53,10 @@ public class QuizResultsActivity extends MemoRazorActivity {
             }
         });
 
-        DisplayResults();
+        displayResults();
     }
 
-    private void DisplayResults() {
+    private void displayResults() {
         int skipped = 0;
         long totalElapsed = 0;
         int correctAnswers = 0;
@@ -70,21 +77,5 @@ public class QuizResultsActivity extends MemoRazorActivity {
         quizSkipped.setText(String.format(getResources().getString(R.string.quiz_result_skipped_text), skipped));
         quizElapsed.setText(String.format(getResources().getString(R.string.quiz_result_elapsed_text),
                 (double)totalElapsed / 1000));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.wordgroupselectionmenu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

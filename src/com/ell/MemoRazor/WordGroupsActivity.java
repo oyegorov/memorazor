@@ -30,10 +30,21 @@ public class WordGroupsActivity extends MemoRazorActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.wordgroups);
+    }
+
+    @Override
+    protected void bindControls() {
+        super.bindControls();
+
+        groupsListView = (ListView) findViewById(R.id.groups_list);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
 
         setTitle(getResources().getString(R.string.wordGroups_wordGroups));
-
-        setContentView(R.layout.wordgroups);
 
         try {
             wordGroupsDao = getHelper().getWordGroupDao();
@@ -43,7 +54,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
             wordGroups = new ArrayList<WordGroup>();
         }
 
-        groupsListView = (ListView) findViewById(R.id.groups_list);
+
         wordGroupsAdapter = new WordGroupAdapter(this, R.layout.word_group_layout, wordGroups);
         groupsListView.setAdapter(wordGroupsAdapter);
 

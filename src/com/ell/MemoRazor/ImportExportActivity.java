@@ -2,74 +2,78 @@ package com.ell.MemoRazor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.export.ExportManager;
-import com.ell.MemoRazor.data.WordGroup;
 import com.ell.MemoRazor.helpers.DialogHelper;
-import com.j256.ormlite.dao.Dao;
 
 import java.io.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ImportExportActivity extends MemoRazorActivity {
     public static final String UTF16 = "UTF16";
-    private ArrayAdapter<String> actionsAdapter;
+    public static final String IMPORT_INTENT_SCHEME = "file";
+    public static final String ANDROID_INTENT_ACTION_VIEW = "android.intent.action.VIEW";
+    public static final String EXPORT_FILE_NAME = "MemoRazor_export.mrz";
+    public static final String TEMP_EXPORT_FILE_NAME = "Export.mrz";
     private ListView actionsListView;
-    private ArrayList<String> actions;
-    private Dao<WordGroup, Integer> wordGroupsDao;
-    private ArrayList<WordGroup> wordGroups;
+
+    private ArrayAdapter<String> actionsAdapter;
+    private ArrayList<String> actionsList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.importexport);
+    }
 
-        actions = new ArrayList<String>();
-        actions.add(getResources().getString(R.string.ie_export));
-        actions.add(getResources().getString(R.string.ie_export_and_share));
-
+    @Override
+    protected void bindControls() {
+        super.bindControls();
         actionsListView = (ListView) findViewById(R.id.importexport_actions_list);
-        actionsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, actions);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+
+        actionsList = new ArrayList<String>();
+        actionsList.add(getResources().getString(R.string.ie_export));
+        actionsList.add(getResources().getString(R.string.ie_export_and_share));
+
+        actionsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, actionsList);
         actionsListView.setAdapter(actionsAdapter);
-
-        try {
-            wordGroupsDao = getHelper().getWordGroupDao();
-
-            wordGroups = new ArrayList<WordGroup>(wordGroupsDao.queryBuilder().orderBy(WordGroup.CREATED_DATE_COLUMN, false).query());
-        } catch (SQLException e) {
-            wordGroups = new ArrayList<WordGroup>();
-        }
 
         actionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-                        ExportToFile();
+                        exportToFile();
                         break;
                     case 1:
-                        ExportAndShare();
+                        exportAndShare();
                         break;
                 }
             }
         });
 
+        checkImportIntent();
+    }
+
+    private void checkImportIntent() {
         Intent intent = getIntent();
 
-        if ("file".equals(intent.getScheme()) && "android.intent.action.VIEW".equals(intent.getAction())) {
+        if (IMPORT_INTENT_SCHEME.equals(intent.getScheme()) && ANDROID_INTENT_ACTION_VIEW.equals(intent.getAction())) {
             String filePath = intent.getData().getPath();
-            Import(filePath);
+            importFromFile(filePath);
         }
     }
 
-    private void Import(String filePath) {
+    private void importFromFile(String filePath) {
         ExportManager exportManager = new ExportManager(getHelper());
 
         try
@@ -86,7 +90,7 @@ public class ImportExportActivity extends MemoRazorActivity {
                 }
                 String json = fileContent.toString();
 
-                exportManager.Import(getVersionCode(), json);
+                exportManager.Import(App.getVersionCode(), json);
                 DialogHelper.MessageBox(this, getString(R.string.importSucceeded));
             }
             finally {
@@ -101,12 +105,12 @@ public class ImportExportActivity extends MemoRazorActivity {
         }
     }
 
-    private void ExportAndShare() {
+    private void exportAndShare() {
         ExportManager exportManager = new ExportManager(getHelper());
         try {
-            String json = exportManager.Export(getVersionCode());
+            String json = exportManager.Export(App.getVersionCode());
 
-            final String tempFileName = "Export.mrz";
+            final String tempFileName = TEMP_EXPORT_FILE_NAME;
             File outputFile = new File(Environment.getExternalStorageDirectory(), tempFileName);
 
             FileOutputStream out = null;
@@ -133,15 +137,15 @@ public class ImportExportActivity extends MemoRazorActivity {
         }
     }
 
-    private void ExportToFile() {
+    private void exportToFile() {
         ExportManager exportManager;
 
         exportManager = new ExportManager(getHelper());
         try {
-            final String json = exportManager.Export(getVersionCode());
+            final String json = exportManager.Export(App.getVersionCode());
 
             final Context context = this;
-            DialogHelper.RequestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.exportFileName), "MemoRazor_export.mrz", new DialogHelper.OnRequestInputListener() {
+            DialogHelper.RequestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.exportFileName), EXPORT_FILE_NAME, new DialogHelper.OnRequestInputListener() {
                 @Override
                 public void onRequestInput(String input) {
                     try {
@@ -166,22 +170,5 @@ public class ImportExportActivity extends MemoRazorActivity {
             DialogHelper.MessageBox(this, getString(R.string.exportFailed));
             e.printStackTrace();
         }
-    }
-
-    private int getVersionCode() {
-        try {
-            return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            return -1;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mainmenu, menu);
-
-        return super.onCreateOptionsMenu(menu);
     }
 }

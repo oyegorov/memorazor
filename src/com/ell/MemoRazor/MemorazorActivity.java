@@ -39,7 +39,11 @@ public class MemoRazorActivity extends ActionBarActivity {
         return databaseHelper;
     }
 
-    protected void BindControls() {
+    protected void bindControls() {
+    }
+
+    protected void initialize() {
+
     }
 
     protected void configureActionBar(ActionBar actionBar) {
@@ -55,19 +59,20 @@ public class MemoRazorActivity extends ActionBarActivity {
     @Override
     public void setContentView(View view) {
         super.setContentView(view);    //To change body of overridden methods use File | Settings | File Templates.
-        BindControls();
+        bindControls();
     }
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);    //To change body of overridden methods use File | Settings | File Templates.
-        BindControls();
+        bindControls();
+        initialize();
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);    //To change body of overridden methods use File | Settings | File Templates.
-        BindControls();
+        bindControls();
     }
 
     @Override

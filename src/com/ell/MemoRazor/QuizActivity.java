@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -32,7 +31,6 @@ public class QuizActivity extends MemoRazorActivity {
     private Random random = new Random(System.currentTimeMillis());
     private int currentStep = 1;
     private int totalSteps;
-
     private long currentQuestionStartTime;
 
     private Word currentWord;
@@ -52,8 +50,12 @@ public class QuizActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz);
-        //getActionBar().setIcon(R.drawable.group);
-        //setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
+    }
+
+    @Override
+    protected void bindControls() {
+        super.bindControls();
+
         quizWordNumber = (TextView) findViewById(R.id.quizWordNumber);
         quizTranslation = (TextView) findViewById(R.id.quizTranslation);
         quizAnswer = (EditText) findViewById(R.id.quizAnswer);
@@ -61,6 +63,11 @@ public class QuizActivity extends MemoRazorActivity {
         quizNext = (Button) findViewById(R.id.quizSkip);
         quizHint = (TextView) findViewById(R.id.quizHint);
         quizLang = (ImageView) findViewById(R.id.quizLang);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
 
         answers = new ArrayList<QuizAnswer>();
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
@@ -71,8 +78,8 @@ public class QuizActivity extends MemoRazorActivity {
 
         playbackManager = new WordPlaybackManager(getHelper(), null);
 
-        LoadNewWord();
-        RefreshSteps();
+        loadNewWord();
+        refreshSteps();
 
         addQuizAcceptHandler();
         addQuizSkipHandler();
@@ -106,7 +113,7 @@ public class QuizActivity extends MemoRazorActivity {
                             Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
 
-                    EnterWord();
+                    enterWord();
                 }
                 return true;
             }
@@ -131,13 +138,13 @@ public class QuizActivity extends MemoRazorActivity {
                             quizAnswer.setEnabled(true);
                             quizHint.setVisibility(View.INVISIBLE);
                             quizNext.setText(getResources().getText(R.string.quiz_skip));
-                            NextWord(quizHint.getCurrentTextColor() == Color.RED);
+                            nextWord(quizHint.getCurrentTextColor() == Color.RED);
                         }
                     }
                 });
     }
 
-    private void EnterWord() {
+    private void enterWord() {
         if (quizHint.getVisibility() == View.INVISIBLE) {
             String answer = quizAnswer.getText().toString().trim();
             boolean correctAnswer = answer.equalsIgnoreCase(currentWord.getName());
@@ -158,7 +165,7 @@ public class QuizActivity extends MemoRazorActivity {
             quizAnswer.setEnabled(false);
             quizNext.setText(getResources().getText(R.string.quiz_skip));
             quizAccept.setVisibility(View.VISIBLE);
-            NextWord(false);
+            nextWord(false);
         }
     }
 
@@ -166,12 +173,12 @@ public class QuizActivity extends MemoRazorActivity {
         quizAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EnterWord();
+                enterWord();
             }
         });
     }
 
-    private void NextWord(Boolean skip) {
+    private void nextWord(Boolean skip) {
         if (currentStep <= totalSteps) {
             QuizAnswer answer = new QuizAnswer();
             answer.setElapsedMilliseconds(System.currentTimeMillis() - currentQuestionStartTime);
@@ -193,8 +200,8 @@ public class QuizActivity extends MemoRazorActivity {
                 startActivity(quizResultsIntent);
             } else {
                 currentStep++;
-                LoadNewWord();
-                RefreshSteps();
+                loadNewWord();
+                refreshSteps();
 
                 quizAnswer.setText("");
                 currentQuestionStartTime = System.currentTimeMillis();
@@ -202,23 +209,7 @@ public class QuizActivity extends MemoRazorActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.wordgroupselectionmenu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void LoadNewWord() {
+    private void loadNewWord() {
         int i = random.nextInt(availableIndices.size());
         int currentWordIndex = availableIndices.get(i);
         availableIndices.remove(i);
@@ -230,7 +221,7 @@ public class QuizActivity extends MemoRazorActivity {
         quizTranslation.setText(currentWord.getMeaning());
     }
 
-    private void RefreshSteps() {
+    private void refreshSteps() {
         totalSteps = Math.min(App.getNumQuizQuestions(), availableIndices.size() + currentStep);
 
         String labelText = String.format(getResources().getString(R.string.quiz_word_number),

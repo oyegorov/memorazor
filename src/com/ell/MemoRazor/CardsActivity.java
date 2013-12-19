@@ -1,7 +1,6 @@
 package com.ell.MemoRazor;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,12 +37,22 @@ public class CardsActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cards);
+    }
+
+    @Override
+    protected void bindControls() {
+        super.bindControls();
 
         card = (TextView) findViewById(R.id.cards_card);
         cardNumber = (TextView) findViewById(R.id.cards_cardnumber);
         nextButton = (Button) findViewById(R.id.cards_next);
         prevButton = (Button) findViewById(R.id.cards_prev);
         cardLang = (ImageView) findViewById(R.id.card_lang);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
 
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
         ArrayList<Integer> availableIndices = new ArrayList<Integer>();
@@ -61,46 +70,25 @@ public class CardsActivity extends MemoRazorActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Move(false);
+                changeCard(false);
             }
         });
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Move(true);
+                changeCard(true);
             }
         });
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 isWordShown =!isWordShown;
-                RefreshWord();
+                updateWordUi();
             }
         });
 
-        RefreshWord();
-        RefreshSteps();
-    }
-
-    private void Move(Boolean forward) {
-        if (forward) {
-            currentIndex++;
-        } else {
-            currentIndex--;
-        }
-        currentIndex = (currentIndex + wordIndices.size()) % wordIndices.size();
-        isWordShown = false;
-
-        RefreshWord();
-        RefreshSteps();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.wordgroupselectionmenu, menu);
-
-        return super.onCreateOptionsMenu(menu);
+        updateWordUi();
+        updateStepsUi();
     }
 
     @Override
@@ -111,7 +99,20 @@ public class CardsActivity extends MemoRazorActivity {
         }
     }
 
-    private void RefreshWord() {
+    private void changeCard(boolean goForward) {
+        if (goForward) {
+            currentIndex++;
+        } else {
+            currentIndex--;
+        }
+        currentIndex = (currentIndex + wordIndices.size()) % wordIndices.size();
+        isWordShown = false;
+
+        updateWordUi();
+        updateStepsUi();
+    }
+
+    private void updateWordUi() {
         int currentWordIndex = wordIndices.get(currentIndex);
         currentWord = allWords.get(currentWordIndex);
 
@@ -119,7 +120,7 @@ public class CardsActivity extends MemoRazorActivity {
         cardLang.setImageResource(LanguageHelper.langCodeToImage(currentWord.getLanguage()));
     }
 
-    private void RefreshSteps() {
+    private void updateStepsUi() {
         totalSteps = wordIndices.size();
 
         String labelText = String.format(getResources().getString(R.string.cards_cardNumber),

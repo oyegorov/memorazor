@@ -3,7 +3,6 @@ package com.ell.MemoRazor;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,6 @@ public class SimpleQuizActivity extends MemoRazorActivity {
     private Random random = new Random(System.currentTimeMillis());
     private int currentStep = 1;
     private int totalSteps;
-
     private long currentQuestionStartTime;
 
     private Word currentWord;
@@ -45,6 +43,11 @@ public class SimpleQuizActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simplequiz);
+    }
+
+    @Override
+    protected void bindControls() {
+        super.bindControls();
 
         quizWordNumber = (TextView) findViewById(R.id.quizWordNumber);
         quizTranslation = (TextView) findViewById(R.id.quizTranslation);
@@ -53,6 +56,11 @@ public class SimpleQuizActivity extends MemoRazorActivity {
         quizHint = (TextView) findViewById(R.id.quizHint);
         quizLang = (ImageView) findViewById(R.id.quizLang);
         quizShuffledWord = (LetterShuffleFragment)getSupportFragmentManager().findFragmentById(R.id.quizShuffledWord);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
 
         answers = new ArrayList<QuizAnswer>();
         allWords = (ArrayList<Word>) getIntent().getSerializableExtra(WordGroupsSelectionActivity.EXTRA_SELECTED_WORDS);
@@ -63,7 +71,7 @@ public class SimpleQuizActivity extends MemoRazorActivity {
 
         playbackManager = new WordPlaybackManager(getHelper(), null);
 
-        LoadNewWord();
+        loadNewWord();
 
         addShuffledWordButtonsHandlers();
         addQuizNextHandler();
@@ -77,7 +85,7 @@ public class SimpleQuizActivity extends MemoRazorActivity {
         quizNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NextWord(!quizShuffledWord.getUserInput().equalsIgnoreCase(currentWord.getName()));
+                nextWord(!quizShuffledWord.getUserInput().equalsIgnoreCase(currentWord.getName()));
             }
         });
     }
@@ -87,9 +95,9 @@ public class SimpleQuizActivity extends MemoRazorActivity {
 
         if (word.length() == currentWord.getName().length()) {
             if (currentWord.getName().equalsIgnoreCase(word)) {
-                FinishWordInput(quizShuffledWord.noErrors());
+                finishWordInput(quizShuffledWord.noErrors());
             } else {
-                FinishWordInput(false);
+                finishWordInput(false);
             }
         }
     }
@@ -108,12 +116,12 @@ public class SimpleQuizActivity extends MemoRazorActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FinishWordInput(false);
+                        finishWordInput(false);
                     }
                 });
     }
 
-    private void FinishWordInput(boolean inputCorrect) {
+    private void finishWordInput(boolean inputCorrect) {
         playbackManager.PlayWord(currentWord, true);
 
         quizHint.setTextColor(inputCorrect ? Color.GREEN : Color.RED);
@@ -128,12 +136,12 @@ public class SimpleQuizActivity extends MemoRazorActivity {
         quizNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NextWord(currentWord.getName().equalsIgnoreCase(quizShuffledWord.getUserInput()) && quizShuffledWord.noErrors());
+                nextWord(currentWord.getName().equalsIgnoreCase(quizShuffledWord.getUserInput()) && quizShuffledWord.noErrors());
             }
         });
     }
 
-    private void NextWord(Boolean skip) {
+    private void nextWord(Boolean skip) {
         if (currentStep <= totalSteps) {
             QuizAnswer answer = new QuizAnswer();
             answer.setElapsedMilliseconds(System.currentTimeMillis() - currentQuestionStartTime);
@@ -155,31 +163,14 @@ public class SimpleQuizActivity extends MemoRazorActivity {
                 startActivity(quizResultsIntent);
             } else {
                 currentStep++;
-                LoadNewWord();
+                loadNewWord();
 
-           //     quizAnswer.setText("");
                 currentQuestionStartTime = System.currentTimeMillis();
             }
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.wordgroupselectionmenu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void LoadNewWord() {
+    private void loadNewWord() {
         int i = random.nextInt(availableIndices.size());
         int currentWordIndex = availableIndices.get(i);
         availableIndices.remove(i);

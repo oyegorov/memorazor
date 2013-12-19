@@ -20,12 +20,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class WordListActivity extends MemoRazorActivity {
+    private ListView wordsListView;
+
     private ArrayList<Word> words;
     private Dao<Word, Integer> wordsDao;
     private Dao<WordGroup, Integer> wordGroupsDao;
-
     private WordGroup selectedGroup;
-    private ListView wordsListView;
     private WordAdapter wordsAdapter;
 
     private WordPlaybackManager playbackManager;
@@ -34,10 +34,20 @@ public class WordListActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.words);
+    }
+
+    @Override
+    protected void bindControls() {
+        super.bindControls();
+
+        wordsListView = (ListView) findViewById(R.id.words_list);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
 
         int selectedGroupId = getIntent().getIntExtra(WordGroupsActivity.EXTRA_GROUP_ID, 0);
-        wordsListView = (ListView) findViewById(R.id.words_list);
-
         try {
             wordsDao = getHelper().getWordDao();
             wordGroupsDao = getHelper().getWordGroupDao();
@@ -62,8 +72,8 @@ public class WordListActivity extends MemoRazorActivity {
         wordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               Word selectedWord = words.get(i);
-               playbackManager.PlayWord(selectedWord);
+                Word selectedWord = words.get(i);
+                playbackManager.PlayWord(selectedWord);
             }
         });
     }
