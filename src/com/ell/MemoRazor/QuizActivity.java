@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -50,6 +51,12 @@ public class QuizActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz);
+    }
+
+    @Override
+    protected void configureActionBar(ActionBar actionBar) {
+        super.configureActionBar(actionBar);
+        actionBar.setIcon(R.drawable.quiz);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
     @Override
     protected void configureActionBar(ActionBar actionBar) {
         super.configureActionBar(actionBar);
-        actionBar.setIcon(R.drawable.group);
+        actionBar.setIcon(isQuizSelection() ? R.drawable.quiz : R.drawable.cards);
     }
 
     @Override

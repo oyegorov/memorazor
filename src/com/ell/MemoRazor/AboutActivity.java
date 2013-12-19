@@ -2,6 +2,7 @@ package com.ell.MemoRazor;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
@@ -18,6 +19,12 @@ public class AboutActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
+    }
+
+    @Override
+    protected void configureActionBar(ActionBar actionBar) {
+        super.configureActionBar(actionBar);
+        actionBar.setIcon(R.drawable.about);
     }
 
     @Override

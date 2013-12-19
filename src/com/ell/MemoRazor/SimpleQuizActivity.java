@@ -3,6 +3,7 @@ package com.ell.MemoRazor;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,12 @@ public class SimpleQuizActivity extends MemoRazorActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simplequiz);
+    }
+
+    @Override
+    protected void configureActionBar(ActionBar actionBar) {
+        super.configureActionBar(actionBar);
+        actionBar.setIcon(R.drawable.quiz);
     }
 
     @Override
