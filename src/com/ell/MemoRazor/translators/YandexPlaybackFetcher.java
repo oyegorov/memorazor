@@ -1,28 +1,28 @@
-package com.ell.MemoRazor.helpers;
+package com.ell.MemoRazor.translators;
 
+import com.ell.MemoRazor.data.Word;
+import com.ell.MemoRazor.helpers.LanguageHelper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
-public class WordPlaybackFetcher {
+public class YandexPlaybackFetcher implements WordPlaybackFetcher {
+    private static final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=%s";
     static InputStream is = null;
 
-    // constructor
-    public WordPlaybackFetcher() {}
-
-    public byte[] getWordPlayback(String url) {
+    @Override
+    public byte[] getWordPlayback(Word word) {
         // Making HTTP request
         try {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
+
+            String url = String.format(AUDIO_SOURCE_URL_TEMPLATE, word.getName(), LanguageHelper.langCodeToAudioCode(word.getLanguage()));
             HttpGet httpGet = new HttpGet(url);
 
             httpGet.addHeader("Accept", "*/*");

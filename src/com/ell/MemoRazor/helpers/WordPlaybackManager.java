@@ -1,13 +1,12 @@
 package com.ell.MemoRazor.helpers;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import com.ell.MemoRazor.App;
 import com.ell.MemoRazor.adapters.WordAdapter;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
-import com.j256.ormlite.dao.Dao;
+import com.ell.MemoRazor.translators.YandexPlaybackFetcher;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class WordPlaybackManager {
-    private static final String AUDIO_SOURCE_URL_TEMPLATE = "http://tts.voicetech.yandex.net/tts?format=mp3&quality=hi&platform=web&application=translate&text=%s&lang=%s";
+
     private DatabaseHelper databaseHelper;
     private WordAdapter wordAdapter;
 
@@ -31,8 +30,8 @@ public class WordPlaybackManager {
         if (word == null)
             throw new IllegalArgumentException();
 
-        WordPlaybackFetcher wordPlaybackFetcher = new WordPlaybackFetcher();
-        byte[] mp3data = wordPlaybackFetcher.getWordPlayback(String.format(AUDIO_SOURCE_URL_TEMPLATE, word.getName(), LanguageHelper.langCodeToAudioCode(word.getLanguage())));
+        YandexPlaybackFetcher wordPlaybackFetcher = new YandexPlaybackFetcher();
+        byte[] mp3data = wordPlaybackFetcher.getWordPlayback(word);
 
         try {
             databaseHelper.cacheWordPlayback(word, mp3data);
