@@ -113,4 +113,7 @@
     </string>
     <string name="yandexcred">The application uses Yandex.Translate web services.</string>
     <string name="no_network_available">Cannot add word when no network is available</string>
+    <string name="click_plus_to_add_group">Click the + button to add your first word group</string>
+    <string name="click_plus_to_add_word">Click the + button to add your first word to this group</string>
+    <string name="no_word_groups">There are no word groups</string>
 </resources>

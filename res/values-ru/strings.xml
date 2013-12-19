@@ -110,4 +110,7 @@
     <string name="settingsNotInitialized">Перед началом работы с программой выберите ваш язык и язык, который вы планируете изучать.</string>
     <string name="yandexcred">Приложение использует веб-службы Яндекс.Перевод</string>
     <string name="no_network_available">Сеть недоступна. Невозможно добавить слово.</string>
+    <string name="click_plus_to_add_group">Для того, чтобы добавить вашу первую группу, нажмите на кнопку +</string>
+    <string name="click_plus_to_add_word">Для того, чтобы добавить ваше первое слово в эту группу, нажмите на кнопку +</string>
+    <string name="no_word_groups">Нет ни одной группы слов</string>
 </resources>

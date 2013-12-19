@@ -48,6 +48,7 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
         super.initialize();
 
         setTitle(getResources().getString(R.string.wordGroups_selectWordGroups));
+        generateEmptyView(groupsListView, getString(R.string.no_word_groups));
 
         try {
             wordGroupsDao = getHelper().getWordGroupDao();

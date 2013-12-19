@@ -44,6 +44,8 @@ public class WordGroupsActivity extends MemoRazorActivity {
     protected void initialize() {
         super.initialize();
 
+        generateEmptyView(groupsListView, getString(R.string.click_plus_to_add_group));
+
         setTitle(getResources().getString(R.string.wordGroups_wordGroups));
 
         try {

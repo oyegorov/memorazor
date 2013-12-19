@@ -47,6 +47,8 @@ public class WordListActivity extends MemoRazorActivity {
     protected void initialize() {
         super.initialize();
 
+        generateEmptyView(wordsListView, getString(R.string.click_plus_to_add_word));
+
         int selectedGroupId = getIntent().getIntExtra(WordGroupsActivity.EXTRA_GROUP_ID, 0);
         try {
             wordsDao = getHelper().getWordDao();

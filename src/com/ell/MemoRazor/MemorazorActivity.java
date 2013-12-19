@@ -43,7 +43,6 @@ public class MemoRazorActivity extends ActionBarActivity {
     }
 
     protected void initialize() {
-
     }
 
     protected void configureActionBar(ActionBar actionBar) {
