@@ -1,4 +1,4 @@
 memorazor
 =========
 
-Android tool to help memorize foreign words.
+Android tool that helps to memorize foreign words.
