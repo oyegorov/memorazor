@@ -79,7 +79,7 @@
     <string name="license">MemoRazor - программа с открытым исходным кодом (LGPL v3)</string>
     <string name="projectPage">Страница проекта: \r\n%s</string>
 
-    <string name="developedBy">Разработано О. Егоровым, 2013 </string>
+    <string name="developedBy">Разработано О. Егоровым</string>
     <string name="myemail">E-mail: yegorov.oleg@gmail.com</string>
     <string name="about">О программе</string>
     <string name="exportFileName">Имя файла:</string>

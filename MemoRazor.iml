@@ -38,7 +38,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/appcompat/libs/android-support-v4.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/android-support-v4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -47,7 +47,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/appcompat/libs/android-support-v7-appcompat.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/android-support-v7-appcompat.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
