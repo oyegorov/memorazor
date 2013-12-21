@@ -189,7 +189,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
                 getResources().getString(R.string.wordGroups_addWordGroupInputName), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(final String input) {
-                WordGroup wordGroup = new WordGroup(input);
+                WordGroup wordGroup = new WordGroup(input.trim());
                 wordGroup.setLanguage(lang);
                 wordGroupsAdapter.insert(wordGroup, 0);
                 try {

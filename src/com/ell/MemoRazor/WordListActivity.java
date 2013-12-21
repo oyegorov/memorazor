@@ -204,7 +204,7 @@ public class WordListActivity extends MemoRazorActivity {
         DialogHelper.requestInput(this, getResources().getString(R.string.words_addWord), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(String input) {
-                Word word = new Word(input);
+                Word word = new Word(input.trim());
 
                 wordsAdapter.insert(word, 0);
 
