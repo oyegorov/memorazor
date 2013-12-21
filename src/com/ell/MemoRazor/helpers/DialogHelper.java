@@ -66,7 +66,6 @@ public class DialogHelper {
         input.setText(initialData);
         input.setSingleLine();
 
-
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
@@ -102,7 +101,7 @@ public class DialogHelper {
 
         View checkBoxView = View.inflate(context, R.layout.alertdialog_checkbox, null);
         final CheckBox suppressTipsCheckbox = (CheckBox) checkBoxView.findViewById(R.id.suppress_tips_checkbox);
-        new AlertDialog.Builder(context)
+        AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(context.getResources().getString(R.string.app_name))
                 .setMessage(tipMessage)
                 .setView(checkBoxView)
@@ -113,8 +112,11 @@ public class DialogHelper {
                             AppSettings.suppressTips();
                         }
                     }
-                })
-                .show();
+                }).show();
+
+        TextView messageView = (TextView)dialog.findViewById(android.R.id.message);
+        suppressTipsCheckbox.setTextColor(messageView.getTextColors());
+
         AppSettings.setBooleanSetting(tipKey, false);
     }
 }
