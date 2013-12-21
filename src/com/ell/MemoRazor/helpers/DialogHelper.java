@@ -3,9 +3,13 @@ package com.ell.MemoRazor.helpers;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.ell.MemoRazor.AppSettings;
 import com.ell.MemoRazor.R;
 
@@ -60,7 +64,10 @@ public class DialogHelper {
     public static void requestInput(Context context, String title, String message, String initialData, final OnRequestInputListener onRequest) {
         final EditText input = new EditText(context);
         input.setText(initialData);
-        new AlertDialog.Builder(context)
+        input.setSingleLine();
+
+
+        final AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
                 .setView(input)
@@ -77,7 +84,16 @@ public class DialogHelper {
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }
-                }).show();
+                }).create();
+        input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+                return true;
+            }
+        });
+
+        dialog.show();
     }
 
     public static void showTip(Context context, final String tipKey, final String tipMessage) {
