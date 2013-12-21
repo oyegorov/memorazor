@@ -68,13 +68,15 @@ public class WordGroupsActivity extends MemoRazorActivity {
                 openGroup(wordGroups.get(i));
             }
         });
+
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_GROUPS, getString(R.string.worgGroupsTip));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
 
-        if (App.getShowOtherLanguages()) {
+        if (AppSettings.getShowOtherLanguages()) {
             inflater.inflate(R.menu.wordgroupsmenu, menu);
         } else {
             inflater.inflate(R.menu.wordgroupsmenu_singlelang, menu);
@@ -155,7 +157,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                addWordGroup(App.getDefaultLanguage());
+                addWordGroup(AppSettings.getDefaultLanguage());
                 break;
             case R.id.action_add_en:
                 addWordGroup("en");

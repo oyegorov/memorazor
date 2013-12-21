@@ -73,6 +73,8 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
         });
 
         action = getIntent().getStringExtra(MainActivity.EXTRA_SELECTEDWORDS_ACTION);
+
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_GROUPSSELECTION, getString(R.string.groupSelectionTip));
     }
 
     @Override
@@ -118,7 +120,7 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
             } else {
                 Intent quizIntent;
                 if (isQuizSelection()) {
-                    quizIntent = (App.getSimplifiedQuiz()) ? new Intent(this, SimpleQuizActivity.class) : new Intent(this, QuizActivity.class);
+                    quizIntent = (AppSettings.getSimplifiedQuiz()) ? new Intent(this, SimpleQuizActivity.class) : new Intent(this, QuizActivity.class);
                 } else if (isCardsSelection()) {
                     quizIntent = new Intent(this, CardsActivity.class);
                 } else {

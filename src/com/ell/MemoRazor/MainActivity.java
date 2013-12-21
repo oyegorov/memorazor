@@ -71,10 +71,11 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        if (App.getSettingsNotInitialized()) {
+        if (AppSettings.getSettingsNotInitialized()) {
             Intent intent = new Intent(context, SettingsActivity.class);
-            intent.putExtra(EXTRA_FIRSTTIME_SETTINGS, true);
             startActivity(intent);
+        } else {
+            DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_MAINMENU, getString(R.string.mainMenuTip));
         }
     }
 }

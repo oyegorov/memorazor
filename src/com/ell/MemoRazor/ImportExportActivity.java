@@ -69,6 +69,8 @@ public class ImportExportActivity extends MemoRazorActivity {
         });
 
         checkImportIntent();
+
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_EXPORT, getString(R.string.exportTip));
     }
 
     private void checkImportIntent() {

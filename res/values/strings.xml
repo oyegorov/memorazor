@@ -108,7 +108,7 @@
     </string>
     <string name="num_cards">Max number of cards</string>
     <string name="num_cards_summary">Maximum number of cards randomly selected from target groups</string>
-    <string name="settingsNotInitialized">Before starting to use the application, select your first language and
+    <string name="settingsTip">Before starting to use the application, select your first language and
         the language that you wish to study.
     </string>
     <string name="yandexcred">The application uses Yandex.Translate web services.</string>
@@ -116,4 +116,29 @@
     <string name="click_plus_to_add_group">Click the + button to add your first word group</string>
     <string name="click_plus_to_add_word">Click the + button to add your first word to this group</string>
     <string name="no_word_groups">There are no word groups</string>
+    <string name="suppress_tips">Don\'t show tips in the future</string>
+    <string name="mainMenuTip">Start with going to \'Words and groups\' menu to create groups and add words of interest
+        to them.
+    </string>
+    <string name="worgGroupsTip">Here you can create word groups. With every group, a specific language is associated.
+        You will be able to add words in this language to your group.
+    </string>
+    <string name="wordsTip">Now that you are inside a group, try adding new words to it. Click the + button and enter
+        your word in a foreign language that you study. It will be automatically translated.
+        To hear the word\'s pronunciation, click it.
+    </string>
+    <string name="quizTip">In the quiz, you will see the translation of words randomly picked from the groups you
+        selected. Type the original word or click Skip if you don\'t remember it.
+    </string>
+    <string name="exportTip">You can export words and settings from this screen. Later, you will be able to import them
+        by opening your *.mrz file and choosing MemoRazor as a target.
+    </string>
+    <string name="cardsTip">You can navigate through the cards and click them to see the original word or translation.
+    </string>
+    <string name="simpleQuizTip">In the quiz, you will see the translation of words randomly picked from the groups you
+        selected. Arrange the letters in the word in a correct order or click Skip if you don\'t remember it.
+    </string>
+    <string name="groupSelectionTip">Select groups of interest. Words will be randomly drawn from them. Those words that
+        don\'t have translation will be ignored.
+    </string>
 </resources>

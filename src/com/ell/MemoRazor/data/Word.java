@@ -1,6 +1,7 @@
 package com.ell.MemoRazor.data;
 
 import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.AppSettings;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -14,7 +15,7 @@ public class Word extends HistoryObject implements Serializable{
     public static final String CACHED_PLAYBACK_FIELD_NAME = "CachedPlayback";
 
     public Word() {
-        language = App.getDefaultLanguage();
+        language = AppSettings.getDefaultLanguage();
         isFetchingPlayback = false;
         isFetchingTranslation = false;
     }

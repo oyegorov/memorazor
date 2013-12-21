@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.ell.MemoRazor.data.QuizAnswer;
 import com.ell.MemoRazor.data.Word;
+import com.ell.MemoRazor.helpers.DialogHelper;
 import com.ell.MemoRazor.helpers.LanguageHelper;
 import com.ell.MemoRazor.helpers.WordPlaybackManager;
 
@@ -91,6 +92,8 @@ public class QuizActivity extends MemoRazorActivity {
         addQuizAnswerChanged();
 
         currentQuestionStartTime = System.currentTimeMillis();
+
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_QUIZ, getString(R.string.quizTip));
     }
 
     private void addQuizAnswerChanged() {
@@ -227,7 +230,7 @@ public class QuizActivity extends MemoRazorActivity {
     }
 
     private void refreshSteps() {
-        totalSteps = Math.min(App.getNumQuizQuestions(), availableIndices.size() + currentStep);
+        totalSteps = Math.min(AppSettings.getNumQuizQuestions(), availableIndices.size() + currentStep);
 
         String labelText = String.format(getResources().getString(R.string.quiz_word_number),
                 currentStep,

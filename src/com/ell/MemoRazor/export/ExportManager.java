@@ -2,6 +2,7 @@ package com.ell.MemoRazor.export;
 
 import android.content.SharedPreferences;
 import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.AppSettings;
 import com.ell.MemoRazor.data.DatabaseHelper;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.data.WordGroup;
@@ -38,7 +39,7 @@ public class ExportManager {
 
         Hashtable<String, Object> settings = new Hashtable<String, Object>();
 
-        Map<String, ?> sharedPreferencesList = App.getSharedPreferences().getAll();
+        Map<String, ?> sharedPreferencesList = AppSettings.getSharedPreferences().getAll();
         Iterator it = sharedPreferencesList.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();
@@ -59,7 +60,7 @@ public class ExportManager {
 
         try
         {
-            SharedPreferences sharedPreferences = App.getSharedPreferences();
+            SharedPreferences sharedPreferences = AppSettings.getSharedPreferences();
             SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
             while (it.hasNext()) {
                 Map.Entry pairs = (Map.Entry)it.next();

@@ -1,6 +1,7 @@
 package com.ell.MemoRazor.data;
 
 import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.AppSettings;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -16,7 +17,7 @@ public class WordGroup extends HistoryObject implements Serializable {
     }
 
     public WordGroup() {
-        language = App.getDefaultLanguage();
+        language = AppSettings.getDefaultLanguage();
     }
 
     public String getName() {

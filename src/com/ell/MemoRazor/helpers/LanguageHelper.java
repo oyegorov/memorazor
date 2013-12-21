@@ -1,6 +1,7 @@
 package com.ell.MemoRazor.helpers;
 
 import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.AppSettings;
 import com.ell.MemoRazor.R;
 
 import java.util.ArrayList;
@@ -58,8 +59,8 @@ public class LanguageHelper {
         ArrayList<String> alternativeLanguages = new ArrayList<String>();
 
         for (String lang : getSupportedLanguages()){
-            if (!App.getDefaultLanguage().equalsIgnoreCase(getLanguageCode(lang))
-                    && !App.getFirstLanguage().equalsIgnoreCase(getLanguageCode(lang))) {
+            if (!AppSettings.getDefaultLanguage().equalsIgnoreCase(getLanguageCode(lang))
+                    && !AppSettings.getFirstLanguage().equalsIgnoreCase(getLanguageCode(lang))) {
                 alternativeLanguages.add(lang);
             }
         }

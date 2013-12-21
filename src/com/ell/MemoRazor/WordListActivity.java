@@ -77,6 +77,8 @@ public class WordListActivity extends MemoRazorActivity {
                 playbackManager.playWord(selectedWord);
             }
         });
+
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_WORDS, getString(R.string.wordsTip));
     }
 
     @Override
@@ -129,7 +131,7 @@ public class WordListActivity extends MemoRazorActivity {
             case 3:
                 openUrl(String.format(GOOGLE_TRANSLATE_URL_TEMPLATE,
                         selectedWord.getLanguage(),
-                        App.getFirstLanguage(),
+                        AppSettings.getFirstLanguage(),
                         selectedWord.getName()));
                 break;
             case 4:
@@ -173,7 +175,7 @@ public class WordListActivity extends MemoRazorActivity {
             menu.add(Menu.NONE, 2, 2, getResources().getString(R.string.words_editTranslation));
             menu.add(Menu.NONE, 3, 3, getResources().getString(R.string.words_openGoogleTranslate));
 
-            if (App.getFirstLanguage().equalsIgnoreCase("ru")) {
+            if (AppSettings.getFirstLanguage().equalsIgnoreCase("ru")) {
                 menu.add(Menu.NONE, 4, 4, getResources().getString(R.string.words_openYandex));
                 menu.add(Menu.NONE, 5, 5, getResources().getString(R.string.words_openMultitran));
             }
@@ -227,7 +229,7 @@ public class WordListActivity extends MemoRazorActivity {
             return;
         }
 
-        final String nativeLanguage = App.getFirstLanguage();
+        final String nativeLanguage = AppSettings.getFirstLanguage();
         selectedWord.setTranscription(null);
         selectedWord.setFetchingTranslation(true);
         selectedWord.setFetchingPlayback(true);

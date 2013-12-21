@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ell.MemoRazor.data.Word;
+import com.ell.MemoRazor.helpers.DialogHelper;
 import com.ell.MemoRazor.helpers.LanguageHelper;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class CardsActivity extends MemoRazorActivity {
         }
 
         wordIndices = new ArrayList<Integer>();
-        for (int i=0; i < App.getNumCards() && i < allWords.size(); i++) {
+        for (int i=0; i < AppSettings.getNumCards() && i < allWords.size(); i++) {
             int index = random.nextInt(availableIndices.size());
             wordIndices.add(availableIndices.get(index));
             availableIndices.remove(index);
@@ -96,6 +97,8 @@ public class CardsActivity extends MemoRazorActivity {
 
         updateWordUi();
         updateStepsUi();
+
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_CARDS, getString(R.string.cardsTip));
     }
 
     @Override

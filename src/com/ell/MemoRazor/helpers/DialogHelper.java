@@ -3,7 +3,10 @@ package com.ell.MemoRazor.helpers;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import com.ell.MemoRazor.AppSettings;
 import com.ell.MemoRazor.R;
 
 public class DialogHelper {
@@ -75,5 +78,27 @@ public class DialogHelper {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }
                 }).show();
+    }
+
+    public static void showTip(Context context, final String tipKey, final String tipMessage) {
+        if (!AppSettings.getBooleanSetting(tipKey, true))
+            return;
+
+        View checkBoxView = View.inflate(context, R.layout.alertdialog_checkbox, null);
+        final CheckBox suppressTipsCheckbox = (CheckBox) checkBoxView.findViewById(R.id.suppress_tips_checkbox);
+        new AlertDialog.Builder(context)
+                .setTitle(context.getResources().getString(R.string.app_name))
+                .setMessage(tipMessage)
+                .setView(checkBoxView)
+                .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (suppressTipsCheckbox.isChecked()) {
+                            AppSettings.suppressTips();
+                        }
+                    }
+                })
+                .show();
+        AppSettings.setBooleanSetting(tipKey, false);
     }
 }

@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:paddingRight="15dip"
+             android:paddingLeft="15dip">
+
+    <CheckBox
+            android:id="@+id/suppress_tips_checkbox"
+            style="?android:attr/textAppearanceMediumInverse"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/suppress_tips"/>
+</FrameLayout>
