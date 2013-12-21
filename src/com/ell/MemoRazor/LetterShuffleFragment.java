@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,8 +93,13 @@ public class LetterShuffleFragment extends Fragment {
         });
         button.setText(Character.toString(currentCharUppercase));
         button.setTypeface(null, Typeface.BOLD);
-        button.setLayoutParams(new FlowLayout.LayoutParams(90, 90));
+        button.setLayoutParams(new FlowLayout.LayoutParams(dpToPx(50), dpToPx(50)));
         return button;
+    }
+
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = App.getContext().getResources().getDisplayMetrics();
+        return (int)((dp * displayMetrics.density) + 0.5);
     }
 
     static void playErrorSound() {
