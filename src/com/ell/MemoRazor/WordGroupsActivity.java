@@ -101,7 +101,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
     }
 
     private void renameGroup(final WordGroup selectedGroup) {
-        DialogHelper.RequestInput(this, getResources().getString(R.string.wordGroups_newName), new DialogHelper.OnRequestInputListener() {
+        DialogHelper.requestInput(this, getResources().getString(R.string.wordGroups_newName), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(String input) {
                 selectedGroup.setName(input);
@@ -119,7 +119,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
 
     private void deleteGroup(final WordGroup selectedGroup) {
         String messageText = String.format(getResources().getString(R.string.wordGroups_confirmDelete), selectedGroup.getName());
-        DialogHelper.Confirm(this, messageText, new DialogHelper.OnConfirmListener() {
+        DialogHelper.confirm(this, messageText, new DialogHelper.OnConfirmListener() {
             @Override
             public void onConfirm() {
                 wordGroupsAdapter.remove(selectedGroup);
@@ -183,7 +183,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
     }
 
     private void addWordGroup(final String lang) {
-        DialogHelper.RequestInput(this, getResources().getString(R.string.wordGroups_addWordGroup),
+        DialogHelper.requestInput(this, getResources().getString(R.string.wordGroups_addWordGroup),
                 getResources().getString(R.string.wordGroups_addWordGroupInputName), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(final String input) {

@@ -25,7 +25,7 @@ public class WordPlaybackManager {
         this.wordAdapter = wordAdapter;
     }
 
-    public static byte[] CacheWordPlayback (DatabaseHelper databaseHelper, Word word)
+    public static byte[] cacheWordPlayback(DatabaseHelper databaseHelper, Word word)
     {
         if (word == null)
             throw new IllegalArgumentException();
@@ -42,7 +42,7 @@ public class WordPlaybackManager {
         return mp3data;
     }
 
-    public void PlayWord (Word word, boolean cacheOnly) {
+    public void playWord(Word word, boolean cacheOnly) {
         byte[] cachedPlayback = null;
         try {
             cachedPlayback = databaseHelper.getWordPlaybackCache(word);
@@ -70,7 +70,7 @@ public class WordPlaybackManager {
             @Override
             protected Word doInBackground(Word... words) {
                 Word selectedWord = words[0];
-                CacheWordPlayback(databaseHelper, selectedWord);
+                cacheWordPlayback(databaseHelper, selectedWord);
                 return selectedWord;
             }
 
@@ -92,8 +92,8 @@ public class WordPlaybackManager {
         }.execute(word);
     }
 
-    public void PlayWord (Word word) {
-        PlayWord(word, false);
+    public void playWord(Word word) {
+        playWord(word, false);
     }
 
     private void playMp3(byte[] mp3SoundByteArray) {

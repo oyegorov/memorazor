@@ -24,7 +24,7 @@ public class ExportManager {
         this.databaseHelper = databaseHelper;
     }
 
-    public String Export(int version) throws SQLException {
+    public String exportToJson(int version) throws SQLException {
         ArrayList<ExportedWordGroup> exportedWordGroups = new ArrayList<ExportedWordGroup>();
 
         ArrayList<WordGroup> wordGroups = new ArrayList<WordGroup>();
@@ -51,7 +51,7 @@ public class ExportManager {
         return gson.toJson(exportedData);
     }
 
-    public Boolean Import(int version, String json) {
+    public Boolean importJson(int version, String json) {
         Gson gson = new Gson();
         ExportedData data = gson.fromJson(json, ExportedData.class);
 

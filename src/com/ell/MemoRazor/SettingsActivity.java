@@ -12,7 +12,7 @@ public class SettingsActivity extends MemoRazorActivity {
         getSupportActionBar().setIcon(R.drawable.preferences);
 
         if (getIntent().getBooleanExtra(MainActivity.EXTRA_FIRSTTIME_SETTINGS, false)) {
-            DialogHelper.MessageBox(this, getString(R.string.settingsNotInitialized));
+            DialogHelper.messageBox(this, getString(R.string.settingsNotInitialized));
         }
     }
 }

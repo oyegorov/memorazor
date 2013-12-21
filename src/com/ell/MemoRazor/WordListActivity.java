@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordAdapter;
@@ -75,7 +74,7 @@ public class WordListActivity extends MemoRazorActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word selectedWord = words.get(i);
-                playbackManager.PlayWord(selectedWord);
+                playbackManager.playWord(selectedWord);
             }
         });
     }
@@ -103,7 +102,7 @@ public class WordListActivity extends MemoRazorActivity {
                 if (NetworkHelper.isNetworkOnline(this)) {
                     scheduleWordTranslate(selectedWord, true);
                 } else {
-                    DialogHelper.MessageBox(this, getResources().getString(R.string.words_noNetwork));
+                    DialogHelper.messageBox(this, getResources().getString(R.string.words_noNetwork));
                 }
                 break;
             case 1:
@@ -111,7 +110,7 @@ public class WordListActivity extends MemoRazorActivity {
                 break;
             case 2:
                 final Context context = this;
-                DialogHelper.RequestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.words_editTranslation), selectedWord.getMeaning(), new DialogHelper.OnRequestInputListener() {
+                DialogHelper.requestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.words_editTranslation), selectedWord.getMeaning(), new DialogHelper.OnRequestInputListener() {
                     @Override
                     public void onRequestInput(String input) {
                         try {
@@ -128,19 +127,19 @@ public class WordListActivity extends MemoRazorActivity {
                 });
                 break;
             case 3:
-                OpenUrl(String.format(GOOGLE_TRANSLATE_URL_TEMPLATE,
+                openUrl(String.format(GOOGLE_TRANSLATE_URL_TEMPLATE,
                         selectedWord.getLanguage(),
                         App.getFirstLanguage(),
                         selectedWord.getName()));
                 break;
             case 4:
-                OpenUrl(String.format(YANDEX_URL_TEMPLATE, selectedWord.getName()));
+                openUrl(String.format(YANDEX_URL_TEMPLATE, selectedWord.getName()));
                 break;
             case 5:
-                OpenUrl(String.format(MULTITRAN_URL_TEMPLATE, selectedWord.getName()));
+                openUrl(String.format(MULTITRAN_URL_TEMPLATE, selectedWord.getName()));
                 break;
             case 6:
-                OpenUrl(String.format(DICTIONARY_COM_URL_TEMPLATE, selectedWord.getName()));
+                openUrl(String.format(DICTIONARY_COM_URL_TEMPLATE, selectedWord.getName()));
                 break;
         }
 
@@ -148,7 +147,7 @@ public class WordListActivity extends MemoRazorActivity {
     }
 
     private void deleteWord(final Word selectedWord) {
-        DialogHelper.Confirm(this, getResources().getString(R.string.words_confirmDelete), new DialogHelper.OnConfirmListener() {
+        DialogHelper.confirm(this, getResources().getString(R.string.words_confirmDelete), new DialogHelper.OnConfirmListener() {
             @Override
             public void onConfirm() {
                 wordsAdapter.remove(selectedWord);
@@ -196,11 +195,11 @@ public class WordListActivity extends MemoRazorActivity {
     private void addWord() {
         final Context context = this;
         if (!NetworkHelper.isNetworkOnline(context)) {
-            DialogHelper.MessageBox(context, getString(R.string.no_network_available));
+            DialogHelper.messageBox(context, getString(R.string.no_network_available));
             return;
         }
 
-        DialogHelper.RequestInput(this, getResources().getString(R.string.words_addWord), new DialogHelper.OnRequestInputListener() {
+        DialogHelper.requestInput(this, getResources().getString(R.string.words_addWord), new DialogHelper.OnRequestInputListener() {
             @Override
             public void onRequestInput(String input) {
                 Word word = new Word(input);
@@ -257,7 +256,7 @@ public class WordListActivity extends MemoRazorActivity {
             @Override
             protected Word doInBackground(Word... words) {
                 Word selectedWord = words[0];
-                WordPlaybackManager.CacheWordPlayback(databaseHelper, selectedWord);
+                WordPlaybackManager.cacheWordPlayback(databaseHelper, selectedWord);
                 return selectedWord;
             }
 
@@ -269,7 +268,7 @@ public class WordListActivity extends MemoRazorActivity {
         }.execute(selectedWord);
     }
 
-    protected void OpenUrl(String url) {
+    protected void openUrl(String url) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);

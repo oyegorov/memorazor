@@ -97,8 +97,8 @@ public class ImportExportActivity extends MemoRazorActivity {
                 }
                 String json = fileContent.toString();
 
-                exportManager.Import(App.getVersionCode(), json);
-                DialogHelper.MessageBox(this, getString(R.string.importSucceeded));
+                exportManager.importJson(App.getVersionCode(), json);
+                DialogHelper.messageBox(this, getString(R.string.importSucceeded));
             }
             finally {
                 bufferedReader.close();
@@ -107,7 +107,7 @@ public class ImportExportActivity extends MemoRazorActivity {
             }
         }
         catch (Exception e) {
-            DialogHelper.MessageBox(this, getString(R.string.importFailed));
+            DialogHelper.messageBox(this, getString(R.string.importFailed));
             e.printStackTrace();
         }
     }
@@ -115,7 +115,7 @@ public class ImportExportActivity extends MemoRazorActivity {
     private void exportAndShare() {
         ExportManager exportManager = new ExportManager(getHelper());
         try {
-            String json = exportManager.Export(App.getVersionCode());
+            String json = exportManager.exportToJson(App.getVersionCode());
 
             final String tempFileName = TEMP_EXPORT_FILE_NAME;
             File outputFile = new File(Environment.getExternalStorageDirectory(), tempFileName);
@@ -139,7 +139,7 @@ public class ImportExportActivity extends MemoRazorActivity {
             startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
             sendFile.deleteOnExit();
         } catch (Exception e) {
-            DialogHelper.MessageBox(this, getString(R.string.exportFailed));
+            DialogHelper.messageBox(this, getString(R.string.exportFailed));
             e.printStackTrace();
         }
     }
@@ -149,10 +149,10 @@ public class ImportExportActivity extends MemoRazorActivity {
 
         exportManager = new ExportManager(getHelper());
         try {
-            final String json = exportManager.Export(App.getVersionCode());
+            final String json = exportManager.exportToJson(App.getVersionCode());
 
             final Context context = this;
-            DialogHelper.RequestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.exportFileName), EXPORT_FILE_NAME, new DialogHelper.OnRequestInputListener() {
+            DialogHelper.requestInput(this, context.getResources().getString(R.string.app_name), getResources().getString(R.string.exportFileName), EXPORT_FILE_NAME, new DialogHelper.OnRequestInputListener() {
                 @Override
                 public void onRequestInput(String input) {
                     try {
@@ -162,19 +162,18 @@ public class ImportExportActivity extends MemoRazorActivity {
                         try {
                             out = new FileOutputStream(outputFile, false);
                             out.write(json.getBytes(UTF16));
-                        }
-                        finally {
+                        } finally {
                             if (out != null)
                                 out.close();
                         }
-                        DialogHelper.MessageBox(context, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
+                        DialogHelper.messageBox(context, String.format(getString(R.string.exportSuccessful), outputFile.getName()));
                     } catch (Exception e) {
-                        DialogHelper.MessageBox(context, context.getString(R.string.exportFailed));
+                        DialogHelper.messageBox(context, context.getString(R.string.exportFailed));
                     }
                 }
             });
         } catch (Exception e) {
-            DialogHelper.MessageBox(this, getString(R.string.exportFailed));
+            DialogHelper.messageBox(this, getString(R.string.exportFailed));
             e.printStackTrace();
         }
     }

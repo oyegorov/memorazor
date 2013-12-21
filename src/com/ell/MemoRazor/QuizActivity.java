@@ -8,8 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -133,7 +131,7 @@ public class QuizActivity extends MemoRazorActivity {
                     @Override
                     public void onClick(View view) {
                         if (quizHint.getVisibility() == View.INVISIBLE) {
-                            playbackManager.PlayWord(currentWord, true);
+                            playbackManager.playWord(currentWord, true);
                             quizHint.setTextColor(Color.RED);
                             quizHint.setText(currentWord.getName().toUpperCase());
                             quizAnswer.setEnabled(false);
@@ -156,7 +154,7 @@ public class QuizActivity extends MemoRazorActivity {
             String answer = quizAnswer.getText().toString().trim();
             boolean correctAnswer = answer.equalsIgnoreCase(currentWord.getName());
             quizHint.setText(currentWord.getName().toUpperCase());
-            playbackManager.PlayWord(currentWord, true);
+            playbackManager.playWord(currentWord, true);
             if (correctAnswer) {
                 quizHint.setTextColor(Color.GREEN);
             } else {

@@ -18,11 +18,11 @@ public class DialogHelper {
     private DialogHelper() {
     }
 
-    public static void MessageBox(Context context, String message) {
-        MessageBox(context, context.getResources().getString(R.string.app_name), message);
+    public static void messageBox(Context context, String message) {
+        messageBox(context, context.getResources().getString(R.string.app_name), message);
     }
 
-    public static void MessageBox(Context context, String title, String message) {
+    public static void messageBox(Context context, String title, String message) {
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
@@ -30,11 +30,11 @@ public class DialogHelper {
         dialog.show();
     }
 
-    public static void Confirm(Context context, String message, final OnConfirmListener onConfirm) {
-        Confirm(context, context.getResources().getString(R.string.app_name), message, onConfirm);
+    public static void confirm(Context context, String message, final OnConfirmListener onConfirm) {
+        confirm(context, context.getResources().getString(R.string.app_name), message, onConfirm);
     }
 
-    public static void Confirm(Context context, String title, String message, final OnConfirmListener onConfirm) {
+    public static void confirm(Context context, String title, String message, final OnConfirmListener onConfirm) {
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
@@ -46,15 +46,15 @@ public class DialogHelper {
         dialog.show();
     }
 
-    public static void RequestInput(Context context, String message, final OnRequestInputListener onRequest) {
-        RequestInput(context, context.getResources().getString(R.string.app_name), message, onRequest);
+    public static void requestInput(Context context, String message, final OnRequestInputListener onRequest) {
+        requestInput(context, context.getResources().getString(R.string.app_name), message, onRequest);
     }
 
-    public static void RequestInput(Context context, String title, String message, final OnRequestInputListener onRequest) {
-        RequestInput(context, title, message, "", onRequest);
+    public static void requestInput(Context context, String title, String message, final OnRequestInputListener onRequest) {
+        requestInput(context, title, message, "", onRequest);
     }
 
-    public static void RequestInput(Context context, String title, String message, String initialData, final OnRequestInputListener onRequest) {
+    public static void requestInput(Context context, String title, String message, String initialData, final OnRequestInputListener onRequest) {
         final EditText input = new EditText(context);
         input.setText(initialData);
         new AlertDialog.Builder(context)

@@ -101,7 +101,7 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
     private void startQuiz() {
         ArrayList<WordGroup> selectedWordGroups = wordGroupSelectionAdapter.getSelectedWordGroups();
         if (selectedWordGroups.size() == 0) {
-            DialogHelper.MessageBox(this, getResources().getString(R.string.select_atleast_one_group));
+            DialogHelper.messageBox(this, getResources().getString(R.string.select_atleast_one_group));
         } else {
             ArrayList<Word> allWords = new ArrayList<Word>();
             for (WordGroup wg : selectedWordGroups) {
@@ -114,7 +114,7 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
                 }
             }
             if (allWords.size() == 0) {
-                DialogHelper.MessageBox(this, getResources().getString(R.string.no_words_selected));
+                DialogHelper.messageBox(this, getResources().getString(R.string.no_words_selected));
             } else {
                 Intent quizIntent;
                 if (isQuizSelection()) {
