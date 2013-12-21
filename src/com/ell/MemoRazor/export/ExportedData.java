@@ -9,6 +9,7 @@ public class ExportedData {
     private int versionCode;
     private Hashtable<String, Object> settings;
     private ArrayList<ExportedWordGroup> wordGroups;
+    private boolean additiveImport;
 
     public ExportedData (int versionCode, ArrayList<ExportedWordGroup> wordGroups, Hashtable<String, Object> settings) {
         this.versionCode = versionCode;
@@ -38,5 +39,13 @@ public class ExportedData {
 
     public void setSettings(Hashtable<String, Object> settings) {
         this.settings = settings;
+    }
+
+    public boolean isAdditiveImport() {
+        return additiveImport;
+    }
+
+    public void setAdditiveImport(boolean additiveImport) {
+        this.additiveImport = additiveImport;
     }
 }

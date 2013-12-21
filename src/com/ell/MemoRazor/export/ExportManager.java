@@ -13,10 +13,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.sql.Savepoint;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class ExportManager {
     private DatabaseHelper databaseHelper;
@@ -56,24 +53,26 @@ public class ExportManager {
         Gson gson = new Gson();
         ExportedData data = gson.fromJson(json, ExportedData.class);
 
-        Iterator it = data.getSettings().entrySet().iterator();
+        if (data.getSettings() != null) {
+            Iterator it = data.getSettings().entrySet().iterator();
 
-        try
-        {
-            SharedPreferences sharedPreferences = AppSettings.getSharedPreferences();
-            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-            while (it.hasNext()) {
-                Map.Entry pairs = (Map.Entry)it.next();
-                if (pairs.getValue() instanceof String)
-                    preferencesEditor.putString(pairs.getKey().toString(), pairs.getValue().toString());
-                if (pairs.getValue() instanceof Boolean)
-                    preferencesEditor.putBoolean(pairs.getKey().toString(), (Boolean)pairs.getValue());
+            try
+            {
+                SharedPreferences sharedPreferences = AppSettings.getSharedPreferences();
+                SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+                while (it.hasNext()) {
+                    Map.Entry pairs = (Map.Entry)it.next();
+                    if (pairs.getValue() instanceof String)
+                        preferencesEditor.putString(pairs.getKey().toString(), pairs.getValue().toString());
+                    if (pairs.getValue() instanceof Boolean)
+                        preferencesEditor.putBoolean(pairs.getKey().toString(), (Boolean)pairs.getValue());
+                }
+                preferencesEditor.commit();
             }
-            preferencesEditor.commit();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
 
         try {
@@ -82,11 +81,25 @@ public class ExportManager {
             try {
                 savepoint = conn.setSavePoint(null);
 
-                TableUtils.clearTable(databaseHelper.getConnectionSource(), WordGroup.class);
+                if (!data.isAdditiveImport()) {
+                    TableUtils.clearTable(databaseHelper.getConnectionSource(), WordGroup.class);
+                }
                 for (ExportedWordGroup ewg: data.getWordGroups()) {
                     WordGroup wg = ewg.toWordGroup();
-                    databaseHelper.getWordGroupDao().create(wg);
-                    databaseHelper.getWordGroupDao().refresh(wg);
+
+                    boolean createNewWordGroup = true;
+                    if (data.isAdditiveImport()) {
+                        List<WordGroup> results = databaseHelper.getWordGroupDao().queryForEq("name", wg.getName());
+                        if (!results.isEmpty()) {
+                            createNewWordGroup = false;
+                            wg = results.get(0);
+                        }
+                    }
+
+                    if (createNewWordGroup) {
+                        databaseHelper.getWordGroupDao().create(wg);
+                        databaseHelper.getWordGroupDao().refresh(wg);
+                    }
 
                     for (ExportedWord ew : ewg.words) {
                         Word w = ew.toWord();
