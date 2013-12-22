@@ -140,4 +140,12 @@
         Слова будут случайным образом взяты из них.
         Слова без перевода игнорируются.
     </string>
+    <string name="initializing">Инициализация...</string>
+    <string name="bulk_translation_progress" formatted="false">Делается перевод [%s]</string>
+    <string name="bulk_playback_fetch_progress" formatted="false">Получение произношения [%s]</string>
+    <string name="finished">Завершено.</string>
+    <string name="wordGroups_bulkTranslate">Перевести все слова</string>
+    <string name="bulk_updating" formatted="false">Обновление слов в %s...</string>
+    <string name="bulk_checking_word" formatted="false">Проверка слова [%s]</string>
+    <string name="error_occurred">Произошла ошибка</string>
 </resources>

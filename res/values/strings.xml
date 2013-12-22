@@ -141,4 +141,12 @@
     <string name="groupSelectionTip">Select groups of interest. Words will be randomly drawn from them. Those words that
         don\'t have translation will be ignored.
     </string>
+    <string name="initializing">Initializing...</string>
+    <string name="bulk_translation_progress" formatted="false">Translating [%s]</string>
+    <string name="bulk_playback_fetch_progress" formatted="false">Fetching playback for [%s]</string>
+    <string name="finished">Finished.</string>
+    <string name="wordGroups_bulkTranslate">Translate all words</string>
+    <string name="bulk_updating" formatted="false">Updating words in %s...</string>
+    <string name="bulk_checking_word" formatted="false">Checking word [%s]</string>
+    <string name="error_occurred">An error has occurred.</string>
 </resources>

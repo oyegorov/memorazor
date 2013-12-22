@@ -7,6 +7,7 @@ import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.adapters.WordGroupAdapter;
 import com.ell.MemoRazor.data.WordGroup;
+import com.ell.MemoRazor.helpers.BulkTranslationDialogHelper;
 import com.ell.MemoRazor.helpers.DialogHelper;
 import com.j256.ormlite.dao.Dao;
 
@@ -97,6 +98,9 @@ public class WordGroupsActivity extends MemoRazorActivity {
             renameGroup(selectedGroup);
         }
         if (item.getItemId() == 2) {
+            BulkTranslationDialogHelper.bulkTranslateGroup(this, getHelper(), selectedGroup);
+        }
+        if (item.getItemId() == 3) {
             deleteGroup(selectedGroup);
         }
         return true;
@@ -149,7 +153,8 @@ public class WordGroupsActivity extends MemoRazorActivity {
 
             menu.add(Menu.NONE, 0, 0, getResources().getString(R.string.wordGroups_open));
             menu.add(Menu.NONE, 1, 1, getResources().getString(R.string.wordGroups_rename));
-            menu.add(Menu.NONE, 2, 2, getResources().getString(R.string.wordGroups_delete));
+            menu.add(Menu.NONE, 2, 2, getResources().getString(R.string.wordGroups_bulkTranslate));
+            menu.add(Menu.NONE, 3, 3, getResources().getString(R.string.wordGroups_delete));
         }
     }
 

@@ -72,6 +72,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return wordWithCachedPlayback.getCachedPlayback();
     }
 
+    public boolean isPlaybackCached(Word word) {
+        WordWithCachedPlayback wordWithCachedPlayback = null;
+        try {
+            wordWithCachedPlayback = getWordWithCachedPlaybackDao().queryForId(word.getId());
+            return wordWithCachedPlayback.getCachedPlayback() != null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private Dao<WordWithCachedPlayback, Integer> getWordWithCachedPlaybackDao() throws SQLException {
         if (wordWithCachedPlaybackDao == null) {
             wordWithCachedPlaybackDao = getDao(WordWithCachedPlayback.class);
