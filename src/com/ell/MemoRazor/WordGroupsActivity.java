@@ -70,7 +70,7 @@ public class WordGroupsActivity extends MemoRazorActivity {
             }
         });
 
-        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_GROUPS, getString(R.string.worgGroupsTip));
+        DialogHelper.showTip(this, AppSettings.KEY_SHOW_TIP_GROUPS, getString(R.string.wordGroupsTip));
     }
 
     @Override

@@ -120,12 +120,14 @@
     <string name="mainMenuTip">Start with going to \'Words and groups\' menu to create groups and add words of interest
         to them.
     </string>
-    <string name="worgGroupsTip">Here you can create word groups. With every group, a specific language is associated.
+    <string name="wordGroupsTip">Here you can create word groups. With every group, a specific language is associated.
         You will be able to add words in this language to your group.
+        Long tap a group for more options.
     </string>
     <string name="wordsTip">Now that you are inside a group, try adding new words to it. Click the + button and enter
         your word in a foreign language that you study. It will be automatically translated.
         To hear the word\'s pronunciation, click it.
+        Long tap a word for more options.
     </string>
     <string name="quizTip">In the quiz, you will see the translation of words randomly picked from the groups you
         selected. Type the original word or click Skip if you don\'t remember it.
