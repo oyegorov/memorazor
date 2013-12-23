@@ -151,4 +151,6 @@
     <string name="bulk_updating" formatted="false">Updating words in %s...</string>
     <string name="bulk_checking_word" formatted="false">Checking word [%s]</string>
     <string name="error_occurred">An error has occurred.</string>
+    <string name="language_settings">Language settings</string>
+    <string name="quiz_cards_settings">Quiz and cards settings</string>
 </resources>

@@ -31,6 +31,7 @@ public class BulkTranslationDialogHelper {
         progressDialog.setMessage(context.getResources().getString(R.string.initializing));
         progressDialog.setTitle(context.getResources().getString(R.string.app_name));
         progressDialog.setCancelable(true);
+        progressDialog.setMax(0);
         progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, context.getResources().getText(R.string.common_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -149,4 +149,6 @@
     <string name="bulk_updating" formatted="false">Обновление слов в %s...</string>
     <string name="bulk_checking_word" formatted="false">Проверка слова [%s]</string>
     <string name="error_occurred">Произошла ошибка</string>
+    <string name="language_settings">Языковые настройки</string>
+    <string name="quiz_cards_settings">Настройки викторины и карточек</string>
 </resources>
