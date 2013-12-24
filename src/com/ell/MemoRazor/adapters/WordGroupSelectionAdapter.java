@@ -1,6 +1,8 @@
 package com.ell.MemoRazor.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.*;
 import android.widget.*;
 import com.ell.MemoRazor.R;
@@ -24,7 +26,13 @@ public class WordGroupSelectionAdapter extends ArrayAdapter<WordGroup> {
             }
 
             if (menuItem != null) {
-                menuItem.setEnabled(selectedObjects.size() != 0);
+                if (selectedObjects.size() != 0) {
+                    menuItem.setEnabled(true);
+                    menuItem.getIcon().clearColorFilter();
+                } else {
+                    menuItem.setEnabled(false);
+                    menuItem.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                }
             }
         }
     };

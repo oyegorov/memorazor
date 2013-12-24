@@ -1,6 +1,8 @@
 package com.ell.MemoRazor;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.*;
@@ -83,6 +85,7 @@ public class WordGroupsSelectionActivity extends MemoRazorActivity {
         inflater.inflate(R.menu.wordgroupselectionmenu, menu);
         startItem = menu.getItem(0);
         startItem.setEnabled(false);
+        startItem.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         wordGroupSelectionAdapter.setMenuItem(startItem);
 
         return super.onCreateOptionsMenu(menu);
