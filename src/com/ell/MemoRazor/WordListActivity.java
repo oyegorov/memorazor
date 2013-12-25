@@ -149,20 +149,15 @@ public class WordListActivity extends MemoRazorActivity {
     }
 
     private void deleteWord(final Word selectedWord) {
-        DialogHelper.confirm(this, getResources().getString(R.string.words_confirmDelete), new DialogHelper.OnConfirmListener() {
-            @Override
-            public void onConfirm() {
-                wordsAdapter.remove(selectedWord);
-                selectedGroup.getWords().remove(selectedWord);
+        wordsAdapter.remove(selectedWord);
+        selectedGroup.getWords().remove(selectedWord);
 
-                try {
-                    if (wordsDao != null) {
-                        wordsDao.delete(selectedWord);
-                    }
-                } catch (SQLException e) {
-                }
+        try {
+            if (wordsDao != null) {
+                wordsDao.delete(selectedWord);
             }
-        });
+        } catch (SQLException e) {
+        }
     }
 
     @Override
