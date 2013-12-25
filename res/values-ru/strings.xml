@@ -97,15 +97,15 @@
     <string name="first_language_summary">Добавленные слова будут автоматически переведены на этот язык</string>
     <string name="language_to_study">Изучаемый язык</string>
     <string name="language_to_study_summary">Основной язык, который вы собираетесь изучать</string>
-    <string name="enable_other_languages">Поддержка других языков</string>
+    <string name="enable_other_languages">Другие языки</string>
     <string name="enable_other_languages_summary">Позволяет создавать группы слов на языке, отличном от основного</string>
     <string name="simplified_quiz">Упрощенная викторина</string>
     <string name="simplified_quiz_summary">Упрощенная версия викторины, в которой нужно расставить буквы в правильном порядке вместо того, чтобы вводить слово полностью
     </string>
-    <string name="num_quiz_questions">Количество вопросов викторины</string>
+    <string name="num_quiz_questions">Количество вопросов</string>
     <string name="num_quiz_questions_summary">Максимальное количество слов, которые будут случайно выбраны из указанных групп для викторины
     </string>
-    <string name="num_cards">Количество карточекs</string>
+    <string name="num_cards">Количество карточек</string>
     <string name="num_cards_summary">Максимальное количество карточек со словами, случайно выбранными из указанных групп</string>
     <string name="settingsTip">Перед началом работы с программой выберите ваш язык и язык, который вы планируете изучать.</string>
     <string name="yandexcred">Приложение использует веб-службы Яндекс.Перевод</string>
@@ -150,5 +150,5 @@
     <string name="bulk_checking_word" formatted="false">Проверка слова [%s]</string>
     <string name="error_occurred">Произошла ошибка</string>
     <string name="language_settings">Языковые настройки</string>
-    <string name="quiz_cards_settings">Настройки викторины и карточек</string>
+    <string name="quiz_cards_settings">Викторина и карточки</string>
 </resources>

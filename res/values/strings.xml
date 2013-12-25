@@ -99,7 +99,7 @@
     <string name="enable_other_languages_summary">Allows you to create groups containing words of other languages
     </string>
     <string name="simplified_quiz">Simplified quiz</string>
-    <string name="simplified_quiz_summary">Simplified version of quiz where you will need to pick letters in a correct
+    <string name="simplified_quiz_summary">Simplified version of quiz where you will need to arrange letters in a correct
         order instead of typing the word
     </string>
     <string name="num_quiz_questions">Number of quiz questions</string>
