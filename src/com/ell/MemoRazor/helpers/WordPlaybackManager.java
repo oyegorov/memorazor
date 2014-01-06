@@ -35,7 +35,7 @@ public class WordPlaybackManager {
 
         try {
             databaseHelper.cacheWordPlayback(word, mp3data);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
