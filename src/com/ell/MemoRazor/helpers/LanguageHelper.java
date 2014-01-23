@@ -18,6 +18,7 @@ public class LanguageHelper {
     private static final String langItalian = App.getContext().getResources().getString(R.string.lang_it);
     private static final String langPolish = App.getContext().getResources().getString(R.string.lang_pl);
     private static final String langFrench = App.getContext().getResources().getString(R.string.lang_fr);
+    private static final String langDutch = App.getContext().getResources().getString(R.string.lang_nl);
 
     private LanguageHelper() {
     }
@@ -31,6 +32,7 @@ public class LanguageHelper {
         languageNameMapping.put(langPolish, "pl");
         languageNameMapping.put(langItalian, "it");
         languageNameMapping.put(langFrench, "fr");
+        languageNameMapping.put(langDutch, "fr");
 
         languageResourceMapping = new HashMap<String, Integer>();
         languageResourceMapping.put("en", R.drawable.en);
@@ -40,6 +42,7 @@ public class LanguageHelper {
         languageResourceMapping.put("pl", R.drawable.pl);
         languageResourceMapping.put("it", R.drawable.it);
         languageResourceMapping.put("fr", R.drawable.fr);
+        languageResourceMapping.put("nl", R.drawable.nl);
 
         languageAudioCodeMapping = new HashMap<String, String>();
         languageAudioCodeMapping.put("en", "en_GB");
@@ -49,6 +52,7 @@ public class LanguageHelper {
         languageAudioCodeMapping.put("pl", "pl_PL");
         languageAudioCodeMapping.put("it", "it_IT");
         languageAudioCodeMapping.put("fr", "fr_FR");
+        languageAudioCodeMapping.put("nl", "nl_NL");
     }
 
     public static String[] getSupportedLanguages() {
