@@ -2,6 +2,7 @@ package com.ell.MemoRazor.translators;
 
 import android.content.res.Resources;
 import com.ell.MemoRazor.App;
+import com.ell.MemoRazor.AppSettings;
 import com.ell.MemoRazor.R;
 import com.ell.MemoRazor.data.Word;
 import com.ell.MemoRazor.helpers.JSONFetcher;
@@ -16,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class YandexOpenJSONTranslator implements Translator {
+    private static final String[] LIMITED_TRANSLATION_SUPPORT_LANGUAGES = {"nl"};
     private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=%s-%s&text=%s&flags=3";
     private static final String TRANSLATE_PHRASE_URL_TEMPLATE = "http://translate.yandex.net/api/v1/tr.json/translate?lang=%s-%s&text=%s&srv=tr-text";
     public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = App.getContext().getResources().getString(R.string.no_translation);
@@ -42,7 +44,7 @@ public final class YandexOpenJSONTranslator implements Translator {
 
         JSONObject json = null;
         try {
-            String url = String.format(TRANSLATE_URL_TEMPLATE,
+            String url = String.format(isDictionaryTranslationSupported(word) ? TRANSLATE_URL_TEMPLATE : TRANSLATE_PHRASE_URL_TEMPLATE,
                     sourceLang,
                     targetLang,
                     URLEncoder.encode(word.getName().toLowerCase(), "UTF-8"));
@@ -57,7 +59,7 @@ public final class YandexOpenJSONTranslator implements Translator {
 
         StringBuilder translation = new StringBuilder();
         try {
-            if (!json.has("defs")) {
+            if (!json.has("def")) {
                 // try to find text translation
                 JSONArray textTranslationArray = json.getJSONArray("text");
                 if (textTranslationArray == null) {
@@ -106,6 +108,16 @@ public final class YandexOpenJSONTranslator implements Translator {
             e.printStackTrace();
         }
         return word;
+    }
+
+    protected boolean isDictionaryTranslationSupported(Word word) {
+        for (String lang : LIMITED_TRANSLATION_SUPPORT_LANGUAGES) {
+            if (word.getLanguage().equalsIgnoreCase(lang) || AppSettings.getFirstLanguage().equalsIgnoreCase(lang)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     protected void setNoTranslation (Word word) {
