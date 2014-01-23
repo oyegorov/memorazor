@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 public final class YandexOpenJSONTranslator implements Translator {
     private static final String TRANSLATE_URL_TEMPLATE = "http://translate.yandex.net/dicservice.json/lookup?ui=&lang=%s-%s&text=%s&flags=3";
+    private static final String TRANSLATE_PHRASE_URL_TEMPLATE = "http://translate.yandex.net/api/v1/tr.json/translate?lang=%s-%s&text=%s&srv=tr-text";
     public static final String YANDEX_TRANSLATION_NOT_AVAILABLE = App.getContext().getResources().getString(R.string.no_translation);
 
     public static boolean isTranslatable(Word word, boolean force) {
@@ -44,7 +45,7 @@ public final class YandexOpenJSONTranslator implements Translator {
             String url = String.format(TRANSLATE_URL_TEMPLATE,
                     sourceLang,
                     targetLang,
-                    URLEncoder.encode(word.getName(), "UTF-8"));
+                    URLEncoder.encode(word.getName().toLowerCase(), "UTF-8"));
             json = (new JSONFetcher()).getJSONFromUrl(url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,12 +57,20 @@ public final class YandexOpenJSONTranslator implements Translator {
 
         StringBuilder translation = new StringBuilder();
         try {
-            JSONArray defs = json.getJSONArray("def");
-            if (defs.length() == 0) {
-                setNoTranslation(word);
+            if (!json.has("defs")) {
+                // try to find text translation
+                JSONArray textTranslationArray = json.getJSONArray("text");
+                if (textTranslationArray == null) {
+                    setNoTranslation(word);
+                } else {
+                    word.setMeaning(textTranslationArray.getString(0));
+                    word.setTranscription(null);
+                }
+
                 return word;
             }
 
+            JSONArray defs = json.getJSONArray("def");
             JSONObject def = defs.getJSONObject(0);
 
             try {
