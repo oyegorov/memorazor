@@ -185,6 +185,9 @@ public class WordGroupsActivity extends MemoRazorActivity {
             case R.id.action_add_fr:
                 addWordGroup("fr");
                 break;
+            case R.id.action_add_nl:
+                addWordGroup("nl");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
